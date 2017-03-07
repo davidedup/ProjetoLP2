@@ -1,16 +1,39 @@
-# US1: CRUD de pessoas
+#################
+# User Story 1  #
+#################
+#iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 
-# Testes de cadastro de pessoas
-cadastraPessoa nome="Maria Joaquina" cpf="123.456.789-00" email="maria-joaquina@cirilo.com"
-cadastraPessoa nome="Joao Jordao" cpf="456.789.123-00" email="vetores-livres@no.espaco.com"
-cadastraPessoa nome="Matheus Gaudencio" cpf="789.123.456-00" email="melhor@pessoa.com"
-cadastraPessoa nome="Maria Joaquina" cpf="000.000.000-00" email="nome@repetido.com"
-cadastraPessoa nome="Email Repetido" cpf="111.111.111-11" email="nome@repetido.com"
+iniciaSistema
 
-# Verificacao de pessoas cadastradas e testes de erro de cadastro
-expectError "Um erro ocorreu: o CPF ja esta cadastrado" cadastraPessoa nome="CPF Repetido" cpf="123.456.789-00" email="ma@hue.com"
-expectError "Um erro ocorreu: o CPF ja esta cadastrado" cadastraPessoa nome="CPF Repetido" cpf="456.789.123-00" email="ma@hue.com"
-expectError "Um erro ocorreu: o CPF ja esta cadastrado" cadastraPessoa nome="CPF Repetido" cpf="789.123.456-00" email="ma@hue.com"
-expectError "Um erro ocorreu: necessario informar um nome" cadastraPessoa nome="" cpf="222.222.222-00" email="ma@hue.com"
-expectError "Um erro ocorreu: necessario informar um CPF" cadastraPessoa nome="Sem CPF" cpf="" email="ma@hue.com"
-expectError "Um erro ocorreu: necessario informar um email" cadastraPessoa nome="Sem email" cpf="222.222.222-00" email=""
+###############################
+#    Cadastro de Pessoas      #
+###############################
+
+#cadastraPessoa deve retornar o cpf da pessoa cadastrada
+cpf1=cadastraPessoa cpf="024.685.014-52" nome="Matheus Aldeyncio" email="matheus.aldencio@computacao.ufcg.edu.br"
+cpf2=cadastraPessoa cpf="324.543.674-78" nome="Abdias Melo" email="abdias05@gmail.com"
+cpf3=cadastraPessoa cpf="234.765.067-64" nome="Arianny Farias" email="arizinha_cc@yahoo.com.br"
+cpf4=cadastraPessoa cpf="734.823.922-79" nome="Vitor Bordas" email="vit_bor@bol.com.br"
+
+expect "Matheus Aldeyncio" getInfoPessoa cpf=${cpf1} atributo="Nome"
+expect "abdias05@gmail.com" getInfoPessoa cpf=${cpf2} atributo="Email"
+
+###############################
+#      Atualiza Pessoa        #
+###############################
+
+editaPessoa cpf=${cpf1} atributo="Nome" valor="Matheus Aldencio"
+expect "Matheus Aldencio" getInfoPessoa cpf=${cpf1} atributo="Nome"
+
+###############################
+#      Remove Pessoa          #
+###############################
+
+removePessoa cpf=${cpf3}
+expectError "Erro na consulta de pessoa: Pessoa nao encontrada" getInfoPessoa cpf=${cpf3} atributo="Nome"
+expectError "Erro na consulta de pessoa: Pessoa nao encontrada" getInfoPessoa cpf=${cpf3} atributo="Email"
+expectError "Erro na consulta de pessoa: Pessoa nao encontrada" getInfoPessoa cpf=${cpf3} atributo="Categoria"
+
+cadastraPessoa cpf=${cpf3} nome="Arianny Farias" email="arizinha_cc@yahoo.com.br"
+
+fechaSistema

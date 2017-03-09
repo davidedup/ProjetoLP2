@@ -1,0 +1,46 @@
+#################
+# User Story 2  #
+#################
+#iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
+iniciaSistema
+
+###############################
+#    Cadastro de Projetos     #
+###############################
+
+# adicionaProjeto deve retornar o codigo do projeto cadastrado 
+
+cod1=adicionaMonitoria nome="Monitoria de P2" disciplina="Programacao 2" rendimento=100 objetivo="Auxiliar no ensino da disciplina de Programacao 2" periodo="2016.2" dataInicio=01/01/2017 duracao=6
+cod2=adicionaPET nome="PET Computacao" objetivo="Objetivo generico" impacto=1 rendimento=80 prodTecnica=1 prodAcademica=2 patentes=0 dataInicio=03/02/2017 duracao=12 
+cod3=adicionaExtensao nome="Projeto olimpico" objetivo="Ganhar medalhas de ouro" impacto=4 dataInicio="02/03/2017" duracao=16
+cod4=adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIT" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnologico e inovacao" dataInicio=01/01/2017 duracao=24
+cod5=adicionaPED nome="Kubernetes" categoria="COOP" prodTecnica=2 prodAcademica=2 patentes=5 objetivo="Melhorar plataformas open-source de gerencia de conteineres" dataInicio=01/01/2017 duracao=24
+
+expect "Monitoria de P2" getInfoProjeto codigo=${cod1} atributo="Nome"
+expect "01/01/2017" getInfoProjeto codigo=${cod1} atributo="Data de inicio"
+expect "12" getInfoProjeto codigo=${cod2} atributo="Duracao"
+expect "Auxiliar no ensino da disciplina de Programacao 2" getInfoProjeto codigo=${cod1} atributo="Objetivo"
+expect "16" getInfoProjeto codigo=${cod3} atributo="Duracao"
+expect "2" getInfoProjeto codigo=${cod4} atributo="Producao tecnica"
+expect "4" getInfoProjeto codigo=${cod4} atributo="Producao academica"
+
+
+###############################
+#      Atualiza Projetos      #
+###############################
+
+editaProjeto codigo=${cod1} atributo="Duracao" valor=12
+editaProjeto codigo=${cod2} atributo="Objetivo" valor="Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao"
+expect "12" getInfoProjeto codigo=${cod1} atributo="Duracao"
+expect "Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao" getInfoProjeto codigo=cod2 atributo="Objetivo"
+
+###############################
+#      Remove Projeto         #
+###############################
+
+removeProjeto codigo=${cod2}
+expectError "Erro na consulta de projeto: Projeto nao encontrado" getInfoProjeto codigo=${cod2} atributo="Nome"
+expectError "Erro na consulta de projeto: Projeto nao encontrado" getInfoProjeto codigo=${cod2} atributo="Duracao"
+expectError "Erro na consulta de projeto: Projeto nao encontrado" getInfoProjeto codigo=${cod2} atributo="Objetivo"
+
+fechaSistema

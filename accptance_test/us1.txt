@@ -1,0 +1,39 @@
+#################
+# User Story 1  #
+#################
+#iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
+
+iniciaSistema
+
+###############################
+#    Cadastro de Pessoas      #
+###############################
+
+#cadastraPessoa deve retornar o cpf da pessoa cadastrada
+cpf1=cadastraPessoa cpf="024.685.014-52" nome="Matheus Aldeyncio" email="matheus.aldencio@computacao.ufcg.edu.br"
+cpf2=cadastraPessoa cpf="324.543.674-78" nome="Abdias Melo" email="abdias05@gmail.com"
+cpf3=cadastraPessoa cpf="234.765.067-64" nome="Arianny Farias" email="arizinha_cc@yahoo.com.br"
+cpf4=cadastraPessoa cpf="734.823.922-79" nome="Vitor Bordas" email="vit_bor@bol.com.br"
+
+expect "Matheus Aldeyncio" getInfoPessoa cpf=${cpf1} atributo="Nome"
+expect "abdias05@gmail.com" getInfoPessoa cpf=${cpf2} atributo="Email"
+
+###############################
+#      Atualiza Pessoa        #
+###############################
+
+editaPessoa cpf=${cpf1} atributo="Nome" valor="Matheus Aldencio"
+expect "Matheus Aldencio" getInfoPessoa cpf=${cpf1} atributo="Nome"
+
+###############################
+#      Remove Pessoa          #
+###############################
+
+removePessoa cpf=${cpf3}
+expectError "Erro na consulta de pessoa: Pessoa nao encontrada" getInfoPessoa cpf=${cpf3} atributo="Nome"
+expectError "Erro na consulta de pessoa: Pessoa nao encontrada" getInfoPessoa cpf=${cpf3} atributo="Email"
+expectError "Erro na consulta de pessoa: Pessoa nao encontrada" getInfoPessoa cpf=${cpf3} atributo="Categoria"
+
+cadastraPessoa cpf=${cpf3} nome="Arianny Farias" email="arizinha_cc@yahoo.com.br"
+
+fechaSistema

@@ -1,0 +1,60 @@
+#################
+# User Story 3  #
+#################
+
+iniciaSistema
+
+##########################################
+#    Associacao de Pessoas e Projetos    #
+##########################################
+
+##############################
+#  Criacao de participacoes  #
+##############################
+
+associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod1} coordenador=true valorHora=120.0 qntHoras=20
+associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod1} valorHora=20.0 qntHoras=12
+
+associaProfessor cpfPessoa=${cpf4} codigoProjeto=${cod4} coordenador=true valorHora=200.0 qntHoras=20
+associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
+
+associaProfissional cpfPessoa=${cpf2} codigoProjeto=${cod5} cargo="Desenvolvedor" valorHora=250.0 qntHoras=20
+associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
+associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod5} coordenador=true valorHora=260.0 qntHoras=20
+
+############################
+#  Pesquisa participacoes  #
+############################
+
+expect "Monitoria de P2, APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS, Kubernetes" getInfoPessoa cpf=${cpf3} atributo="Participacoes"
+expect "Monitoria de P2, Kubernetes" getInfoPessoa cpf=${cpf1} atributo="Participacoes"
+expect "APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" getInfoPessoa cpf=${cpf4} atributo="Participacoes"
+expect "Abdias Melo, Arianny Farias, Matheus Aldencio" getInfoProjeto codigoProjeto=${cod5} atributo="Participacoes"
+expect "Arianny Farias, Vitor Bordas" getInfoProjeto codigoProjeto=${cod4} atributo="Participacoes"
+expect "Arianny Farias, Matheus Aldencio" getInfoProjeto codigoProjeto=${cod1} atributo="Participacoes"
+
+
+cpf5=cadastraPessoa cpf="700.832.942-61" nome="Alguem" email="alguem.ninguem@gmail.com"
+
+expect "" getInfoPessoa cpf=${cpf5} atributo="Participacoes"
+
+#####################################################
+# remocao de participacoes de pessoas em projetos   #
+#####################################################
+
+removeParticipacao cpfPessoa=${cpf3} codigoProjeto=${cod1}
+removeParticipacao cpfPessoa=${cpf3} codigoProjeto=${cod4}
+
+expect "Kubernetes" getInfoPessoa cpf=${cpf3} atributo="Participacoes"
+
+removeParticipacao cpfPessoa=${cpf3} codigoProjeto=${cod5}
+
+expect "" getInfoPessoa cpf=${cpf3} atributo="Participacoes"
+
+associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
+associaGraduando cpfPesspa=${cpf3} codigoProjeto=${cod1} valorHora=20.0 qntHoras=12
+associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
+
+removePessoa cpf=${cpf5}
+
+fechaSistema

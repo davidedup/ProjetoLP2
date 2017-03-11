@@ -1,6 +1,13 @@
 #################
 # User Story 1  #
 #################
+
+# "024.685.014-52" - Matheus Aldencio
+# "324.543.674-78" - Abdias Melo
+# "234.765.067-64" - Arianny Farias
+# "734.823.922-79" - Vitor Bordas
+
+
 #iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 iniciaSistema
 
@@ -8,26 +15,26 @@ iniciaSistema
 #    Cadastro de Pessoas      #
 ###############################
 
-expectError "Erro no cadastro de pessoa: Pessoa com mesmo CPF ja cadastrada" cadastraPessoa nome="Juleo Barroso" cpf=${cpf1} email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: Nome nulo ou vazio" cadastraPessoa nome="" cpf="058.014.574-54" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: Nome nulo ou vazio" cadastraPessoa nome="  " cpf="058.014.574-54" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: Email nulo ou vazio" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email=""
-expectError "Erro no cadastro de pessoa: Email nulo ou vazio" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email="        "
-expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email="juleobar@gmail..com"
-expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email="juleobar@@gmail.com"
-expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email="juleobar.gmail.com"
-expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email="juleobar@@gmailcom"
-expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email="@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF nulo ou vazio" cadastraPessoa nome="Juleo Barroso" cpf="" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF nulo ou vazio" cadastraPessoa nome="Juleo Barroso" cpf="  " email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa nome="Juleo Barroso" cpf="058014.574-54" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa nome="Juleo Barroso" cpf="058..014.574-54" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574.54" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.0014.574-54" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-564" email="juleobar@gmail.com"
-expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa nome="Juleo Barroso" cpf="058.014.574564" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: Pessoa com mesmo CPF ja cadastrada" cadastraPessoa cpf="024.685.014-52" nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: Nome nulo ou vazio" cadastraPessoa cpf="058.014.574-54" nome="" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: Nome nulo ou vazio" cadastraPessoa cpf="058.014.574-54" nome="  " email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: Email nulo ou vazio" cadastraPessoa cpf="058.014.574-54" nome="Juleo Barroso" email=""
+expectError "Erro no cadastro de pessoa: Email nulo ou vazio" cadastraPessoa cpf="058.014.574-54" nome="Juleo Barroso" email="        "
+expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa cpf="058.014.574-54" nome="Juleo Barroso" email="juleobar@gmail..com"
+expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa cpf="058.014.574-54" nome="Juleo Barroso" email="juleobar@@gmail.com"
+expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa cpf="058.014.574-54" nome="Juleo Barroso" email="juleobar.gmail.com"
+expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa cpf="058.014.574-54" nome="Juleo Barroso" email="juleobar@@gmailcom"
+expectError "Erro no cadastro de pessoa: Email invalido" cadastraPessoa  cpf="058.014.574-54" nome="Juleo Barroso" email="@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF nulo ou vazio" cadastraPessoa cpf="" nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF nulo ou vazio" cadastraPessoa cpf="  " nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa cpf="058014.574-54" nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa cpf="058..014.574-54" nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa cpf="058.014.574.54" nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa cpf="058.0014.574-54" nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa cpf="058.014.574-564" nome="Juleo Barroso" email="juleobar@gmail.com"
+expectError "Erro no cadastro de pessoa: CPF invalido" cadastraPessoa cpf="058.014.574564" nome="Juleo Barroso" email="juleobar@gmail.com"
 
-cadastraPessoa nome="Juleo Barroso" cpf="058.014.574-54" email="juleobar@gmail.com"
+cadastraPessoa cpf="058.014.574-54" nome="Juleo Barroso" email="juleobar@gmail.com"
 
 ###############################
 #      Atualiza Pessoa        #
@@ -40,15 +47,15 @@ expectError "Erro na atualizacao de pessoa: Email invalido" editaPessoa cpf="058
 expectError "Erro na atualizacao de pessoa: Email invalido" editaPessoa cpf="058.014.574-54" atributo="Email" valor="juleobar@@gmailcom"
 expectError "Erro na atualizacao de pessoa: Email invalido" editaPessoa cpf="058.014.574-54" atributo="Email" valor="juleobar.gmail.com"
 expectError "Erro na atualizacao de pessoa: Email invalido" editaPessoa cpf="058.014.574-54" atributo="Email" valor="juleobar@gmail..com"
-expectError "Erro na atualizacao de pessoa: CPF nulo ou vazio" editaPessoa cpf="058.014.574-564" atributo="Email" valor=""
-expectError "Erro na atualizacao de pessoa: CPF nulo ou vazio" editaPessoa cpf="058.014.574-564" atributo="Email" valor="    "
+expectError "Erro na atualizacao de pessoa: CPF nulo ou vazio" editaPessoa cpf="" atributo="Email" valor="juleobar1@gmail.com"
+expectError "Erro na atualizacao de pessoa: CPF nulo ou vazio" editaPessoa cpf="   " atributo="Email" valor="juleobar1@gmail.com"
 expectError "Erro na atualizacao de pessoa: CPF invalido" editaPessoa cpf="058014.574-54" atributo="Email" valor="juleobar1@gmail.com"
 expectError "Erro na atualizacao de pessoa: CPF invalido" editaPessoa cpf="058.014.574564" atributo="Email" valor="juleobar1@gmail.com"
 expectError "Erro na atualizacao de pessoa: CPF invalido" editaPessoa cpf="058.014.574.54" atributo="Email" valor="juleobar1@gmail.com"
 expectError "Erro na atualizacao de pessoa: CPF invalido" editaPessoa cpf="058..014.574-54" atributo="Email" valor="juleobar1@gmail.com"
 expectError "Erro na atualizacao de pessoa: CPF invalido" editaPessoa cpf="058.0014.574-54" atributo="Email" valor="juleobar1@gmail.com"
 expectError "Erro na atualizacao de pessoa: CPF invalido" editaPessoa cpf="058.014.574-564" atributo="Email" valor="juleobar1@gmail.com"
-expectError "Erro na atualizacao de pessoa: CPF nao pode ser alterado" editaPessoa cpf="058.014.574-564" atributo="CPF" valor="054.546.645-41"
+expectError "Erro na atualizacao de pessoa: CPF nao pode ser alterado" editaPessoa cpf="058.014.574-54" atributo="CPF" valor="054.546.645-41"
 
 removePessoa cpf="058.014.574-54"
 

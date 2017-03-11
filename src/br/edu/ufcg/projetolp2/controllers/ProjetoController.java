@@ -1,14 +1,19 @@
 package br.edu.ufcg.projetolp2.controllers;
 
 import java.util.Date;
+import java.util.Map;
 
 import br.edu.ufcg.projetolp2.model.projeto.PedFactory;
+import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class ProjetoController {
 
-	private Map<int,Projeto> projetos;
-
+	private Map<Integer, Projeto> projetos;
 	private PedFactory pedFactory;
+	
+	public ProjetoController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
 		return 0;

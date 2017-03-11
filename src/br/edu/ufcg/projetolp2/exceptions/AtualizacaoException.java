@@ -1,5 +1,8 @@
 package br.edu.ufcg.projetolp2.exceptions;
-public class AtualizacaoException {
+
+public class AtualizacaoException extends Exception{
+
+	private static final long serialVersionUID = 2650519756225893141L;
 
 	public AtualizacaoException() {
 

@@ -9,16 +9,12 @@ import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 public class Monitoria extends Projeto {
 
 	private String disciplina;
-
 	private String periodo;
-
 	private int expectativaDeAprovacao;
-
 	private Pessoa orientador;
-
 	private Projeto projeto;
 
-	public void Monitoria(String nome, String objetivo, Date dataInicio, int duracao, String disciplina, String periodo, int expectativa) {
+	public Monitoria(String nome, String objetivo, Date dataInicio, int duracao, String disciplina, String periodo, int expectativa) {
 		super(nome, objetivo, dataInicio, duracao);
 	}
 

@@ -3,7 +3,6 @@ package br.edu.ufcg.projetolp2.model.projeto;
 public class Custo {
 
 	private double valor;
-
 	private TipoCusto tipoCusto;
 
 	public Custo(int valor, TipoCusto tipoCusto) {
@@ -17,5 +16,5 @@ public class Custo {
 	public TipoCusto getTipoCusto() {
 		return null;
 	}
-
+	
 }

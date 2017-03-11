@@ -6,15 +6,10 @@ import java.util.Date;
 public abstract class Projeto implements Participavel {
 
 	private String nome;
-
 	private String objetivo;
-
 	private Date dataInicio;
-
 	private int duracaoMeses;
-
 	private int codigo;
-
 	private ArrayList<Custo> custos;
 
 	public Projeto(String nome, String objetivo, Date dataInicio, int duracao) {
@@ -58,15 +53,30 @@ public abstract class Projeto implements Participavel {
 	}
 
 	public String toString() {
+		//TODO
 		return null;
 	}
 
+	@Override
 	public int hashCode() {
-		return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigo;
+		return result;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Projeto other = (Projeto) obj;
+		if (codigo != other.codigo)
+			return false;
+		return true;
 	}
-
+	
 }

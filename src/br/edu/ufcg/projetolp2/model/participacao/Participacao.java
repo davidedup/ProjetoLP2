@@ -20,22 +20,42 @@ public class Participacao {
 		this.valorHora = valorHora;
 	}
 
+	/**
+	 * Método que retorna a quantidade de horas semanais trabalhadas pela pessoa no projeto
+	 * @return int representando a quantidade de horas semanains
+	 */
 	public int getQuantHorasSemanais() {
 		return this.quantHorasSemanais;
 	}
 
+	/**
+	 * Método que retorna o valor da hora de trabalho da pessoa no projeto
+	 * @return double representando o valor em reais da hora de trabalho
+	 */
 	public double getValorHora() {
 		return this.valorHora;
 	}
 
+	/**
+	 * Método que retorna a pessoa que está associada ao projeto
+	 * @return objeto {@link Pessoa} cuja está associada ao projeto
+	 */
 	public Pessoa getPessoa() {
 		return this.pessoa;
 	}
 
+	/**
+	 * Método que retorna o projeto ao qual a pessoa está associada
+	 * @return objeto {@link Projeto}
+	 */
 	public Projeto getProjeto() {
 		return this.projeto;
 	}
 	
+	/**
+	 * Método que retorna o tipo de participação da pessoa no projeto
+	 * @return objeto que implementa {@link TipoParticipacao}
+	 */
 	public TipoParticipacao getTipoParticipacao() {
 		return this.tipoParticipacao;
 	}

@@ -78,6 +78,30 @@ public class ParticipacaoController {
 	}
 	
 	/**
+	 * Método responsável por remover todas as associações que uma pessoa tem com qualquer projeto
+	 * @param pessoa - pessoa cujas participações devem ser removidas
+	 */
+	public void removeParticipacao(Pessoa pessoa) {
+		for (Participacao participacao : participacoes) {
+			if (participacao.getPessoa().equals(pessoa)) {
+				participacoes.remove(participacao);
+			}
+		}
+	}
+	
+	/**
+	 * Método responsável por remover todas as associações que uma projeto possui
+	 * @param projeto - projeto cujas participações devem ser removidas
+	 */
+	public void removeParticipacao(Projeto projeto) {
+		for (Participacao participacao : participacoes) {
+			if (participacao.getProjeto().equals(projeto)) {
+				participacoes.remove(participacao);
+			}
+		}
+	}
+	
+	/**
 	 * Método que retorna todas as participações de uma pessoa com qualquer projeto.
 	 * @param pessoa
 	 * @return Lista de todas as participações desta pessoa

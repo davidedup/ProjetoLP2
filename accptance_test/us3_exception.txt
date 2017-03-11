@@ -1,8 +1,18 @@
-#################
-# User Story 3  #
+cod# User Story 3  #
 #################
 
+# "024.685.014-52" - Matheus Aldencio
+#"324.543.674-78" - Abdias Melo
+# "234.765.067-64" - Arianny Farias
+# "734.823.922-79" - Vitor Bordas
+
+#iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 iniciaSistema
+
+cod1=getCodigoProjeto nome="Monitoria de P2"
+cod3=getCodigoProjeto nome="Projeto olimpico"
+cod4=getCodigoProjeto nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS"
+cod5=getCodigoProjeto nome="Kubernetes"
 
 ##########################################
 #    Associacao de Pessoas e Projetos    #
@@ -12,29 +22,30 @@ iniciaSistema
 #  Criacao de associacao  #
 ######################
 
+expectError "Erro na obtencao de codigo de projeto: Projeto nao encontrado" getCodigoProjeto nome="Monitoria de P1"
 expectError "Erro na associacao de pessoa a projeto: Pessoa nao encontrada" associaProfessor cpfPessoa="654.987.321-65" codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Quantidade de horas invalida" associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=-20
-expectError "Erro na associacao de pessoa a projeto: Quantidade de horas invalida" associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=0
-expectError "Erro na associacao de pessoa a projeto: Valor da hora invalido" associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod1} coordenador=false valorHora=-120.0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Valor da hora invalido" associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod1} coordenador=false valorHora=0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Monitoria nao pode ter mais de um professor" associaProfessor cpfPessoa=${cpf2} codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um professor" associaProfessor cpfPessoa=${cpf2} codigoProjeto=${cod4} coordenador=false valorHora=120.0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um graduando" associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
-expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um coordenador" associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod5} coordenador=true valorHora=260.0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Valor da hora de um professor da monitoria deve ser zero" associaProfessor cpfPessoa=${cpf2} codigoProjeto=${cod1} coordenador=false valorHora=80.0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Quantidade de horas invalida" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=-20
+expectError "Erro na associacao de pessoa a projeto: Quantidade de horas invalida" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=0
+expectError "Erro na associacao de pessoa a projeto: Valor da hora invalido" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=-120.0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Valor da hora invalido" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Monitoria nao pode ter mais de um professor" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um professor" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=${cod4} coordenador=false valorHora=120.0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um graduando" associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
+expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um coordenador" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod5} coordenador=true valorHora=260.0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Valor da hora de um professor da monitoria deve ser zero" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=${cod1} coordenador=false valorHora=80.0 qntHoras=20
 
-expectError "Erro na associacao de pessoa a projeto: Projeto nao encontrado" associaProfessor cpfPessoa=${cpf2} codigoProjeto=99999999 coordenador=false valorHora=80.0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Projeto nao encontrado" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=99999999 coordenador=false valorHora=80.0 qntHoras=20
 
-expectError "Erro na associacao de pessoa a projeto: Aluno ja esta cadastado nesse projeto" associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
+expectError "Erro na associacao de pessoa a projeto: Aluno ja esta cadastado nesse projeto" associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
 
 #########################
 #   Remove associacao   #
 #########################
 
 
-expectError "Erro na remocao de participacao: Pessoa nao possui participacao no projeto indicado" removeParticipacao cpf=${cpf2} codigoProjeto=${cod4}
+expectError "Erro na remocao de participacao: Pessoa nao possui participacao no projeto indicado" removeParticipacao cpf="324.543.674-78" codigoProjeto=${cod4}
 expectError "Erro na remocao de participacao: Pessoa nao encontrada" removeParticipacao cpf="005.666.222-88" codigoProjeto=${cod4}
-expectError "Erro na remocao de participacao: Projeto nao encontrado" removeParticipacao cpf=${cpf1} codigoProjeto=99999999
+expectError "Erro na remocao de participacao: Projeto nao encontrado" removeParticipacao cpf="024.685.014-52" codigoProjeto=99999999
 
 
 fechaSistema

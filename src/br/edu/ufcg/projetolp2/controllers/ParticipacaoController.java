@@ -8,6 +8,10 @@ import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 public class ParticipacaoController {
 
 	private Set<Participacao> participacoes;
+	
+	public ParticipacaoController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public void associaProfessor(Pessoa pessoa, Projeto projeto, boolean coordenador, double valorHora, int qntHoras) {
 

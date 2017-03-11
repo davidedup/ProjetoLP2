@@ -6,6 +6,10 @@ import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 public class PessoaController {
 
 	private Map<String,Pessoa> pessoas;
+	
+	public PessoaController() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String cadastraPessoa(String cpf, String nome, String email) {
 		return null;

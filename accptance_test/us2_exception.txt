@@ -1,21 +1,34 @@
 #################
 # User Story 2  #
 #################
+
+# "024.685.014-52" - Matheus Aldencio
+# "324.543.674-78" - Abdias Melo
+# "234.765.067-64" - Arianny Farias
+# "734.823.922-79" - Vitor Bordas
+
+
 #iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 iniciaSistema
+
+cod1=getCodigoProjeto nome="Monitoria de P2"
+cod2=getCodigoProjeto nome="PET Computacao"
+cod3=getCodigoProjeto nome="Projeto olimpico"
+cod4=getCodigoProjeto nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS"
+cod5=getCodigoProjeto nome="Kubernetes"
 
 ###############################
 #    Cadastro de Projetos     #
 ###############################
 
-expectError "Erro no cadastro de projeto: Nome nulo ou vazio" adicionaPED nome="" categoria="PIBIT" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovaçAo" dataInicio=01/01/2017 duracao=24
-expectError "Erro no cadastro de projeto: Nome nulo ou vazio" adicionaPED nome="   " categoria="PIBIT" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovaçAo" dataInicio=01/01/2017 duracao=24
-expectError "Erro no cadastro de projeto: Objetivo nulo ou vazio" adicionaPED nome="APLICAÇAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIT" prodTecnica=2 prodAcademica=4 patentes=1 objetivo=" " dataInicio=01/01/2017 duracao=24
-expectError "Erro no cadastro de projeto: Categoria invalida" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIB" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovacao" dataInicio=01/01/2017 duracao=24
-expectError "Erro no cadastro de projeto: Duracao invalida" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIT" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovacao" dataInicio=01/01/2017 duracao=0
-expectError "Erro no cadastro de projeto: Numero de patentes invalido" adicionaPED nome="APLICACAO DA MINERAÇAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIT" prodTecnica=2 prodAcademica=4 patentes=-2 objetivo="Desenvolvimento tecnológico e inovacao" dataInicio=01/01/2017 duracao=24
-expectError "Erro no cadastro de projeto: Numero de producoes academicas invalido" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIT" prodTecnica=2 prodAcademica=-3 patentes=1 objetivo="Desenvolvimento tecnologico e inovacao" dataInicio=01/01/2017 duracao=24
-expectError "Erro no cadastro de projeto: Numero de producoes tecnicas invalido" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIT" prodTecnica=-2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnologico e inovacao" dataInicio=01/01/2017 duracao=24
+expectError "Erro no cadastro de projeto: Nome nulo ou vazio" adicionaPED nome="" categoria="PIBITI" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovaçAo" dataInicio="01/01/2017" duracao=24
+expectError "Erro no cadastro de projeto: Nome nulo ou vazio" adicionaPED nome="   " categoria="PIBITI" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovaçAo" dataInicio="01/01/2017" duracao=24
+expectError "Erro no cadastro de projeto: Objetivo nulo ou vazio" adicionaPED nome="APLICAÇAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBITI" prodTecnica=2 prodAcademica=4 patentes=1 objetivo=" " dataInicio="01/01/2017" duracao=24
+expectError "Erro no cadastro de projeto: Categoria invalida" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBIB" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovacao" dataInicio="01/01/2017" duracao=24
+expectError "Erro no cadastro de projeto: Duracao invalida" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBITI" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnológico e inovacao" dataInicio="01/01/2017" duracao=0
+expectError "Erro no cadastro de projeto: Numero de patentes invalido" adicionaPED nome="APLICACAO DA MINERAÇAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBITI" prodTecnica=2 prodAcademica=4 patentes=-2 objetivo="Desenvolvimento tecnológico e inovacao" dataInicio="01/01/2017" duracao=24
+expectError "Erro no cadastro de projeto: Numero de producoes academicas invalido" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBITI" prodTecnica=2 prodAcademica=-3 patentes=1 objetivo="Desenvolvimento tecnologico e inovacao" dataInicio="01/01/2017" duracao=24
+expectError "Erro no cadastro de projeto: Numero de producoes tecnicas invalido" adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" categoria="PIBITI" prodTecnica=-2 prodAcademica=4 patentes=1 objetivo="Desenvolvimento tecnologico e inovacao" dataInicio="01/01/2017" duracao=24
 
 ###############################
 #      Consulta Projetos      #
@@ -23,18 +36,18 @@ expectError "Erro no cadastro de projeto: Numero de producoes tecnicas invalido"
 
 expectError "Erro na consulta de projeto: Atributo nulo ou invalido" getInfoProjeto codigo=${cod3} atributo=""
 expectError "Erro na consulta de projeto: Atributo nulo ou invalido" getInfoProjeto codigo=${cod3} atributo="Nomee"
-expectError "Erro na consulta de projeto: Monitoria nao possui Producao academica" getInfoProjeto codigo=${cod3} atributo="Producao academica"
+expectError "Erro na consulta de projeto: Monitoria nao possui Producao academica" getInfoProjeto codigo=${cod1} atributo="Producao academica"
 
 ###############################
 #      Atualiza Projetos      #
 ###############################
 
-expectError "Erro na atualizacao de projeto: Objetivo nao pode ser vazio ou nulo" editarProjeto codigo=${cod2} atributo="Objetivo" valor=" "
-expectError "Erro na atualizacao de projeto: Formato de data invalido" editarProjeto codigo=${cod2} atributo="Data de Inicio" valor="01.02.2017"
-expectError "Erro na atualizacao de projeto: Formato de data invalido" editarProjeto codigo=${cod2} atributo="Data de Inicio" valor="32/02/1920"
-expectError "Erro na atualizacao de projeto: Formato de data invalido" editarProjeto codigo=${cod2} atributo="Data de Inicio" valor="10/13/1920"
-expectError "Erro na atualizacao de projeto: Formato de data invalido" editarProjeto codigo=${cod2} atributo="Data de Inicio" valor="10/0200/1978"
-expectError "Erro na atualizacao de projeto: Formato de data invalido" editarProjeto codigo=${cod2} atributo="Data de Inicio" valor="1010/02/1978"
-expectError "Erro na atualizacao de projeto: Formato de data invalido" editarProjeto codigo=${cod2} atributo="Data de Inicio" valor="10/02/19"
+expectError "Erro na atualizacao de projeto: Objetivo nulo ou vazio" editaProjeto codigo=${cod2} atributo="Objetivo" valor=" "
+expectError "Erro na atualizacao de projeto: Formato de data invalido" editaProjeto codigo=${cod2} atributo="Data de Inicio" valor="01.02.2017"
+expectError "Erro na atualizacao de projeto: Formato de data invalido" editaProjeto codigo=${cod2} atributo="Data de Inicio" valor="32/02/1920"
+expectError "Erro na atualizacao de projeto: Formato de data invalido" editaProjeto codigo=${cod2} atributo="Data de Inicio" valor="10/13/1920"
+expectError "Erro na atualizacao de projeto: Formato de data invalido" editaProjeto codigo=${cod2} atributo="Data de Inicio" valor="10/0200/1978"
+expectError "Erro na atualizacao de projeto: Formato de data invalido" editaProjeto codigo=${cod2} atributo="Data de Inicio" valor="1010/02/1978"
+expectError "Erro na atualizacao de projeto: Formato de data invalido" editaProjeto codigo=${cod2} atributo="Data de Inicio" valor="10/02/19"
 
 fechaSistema

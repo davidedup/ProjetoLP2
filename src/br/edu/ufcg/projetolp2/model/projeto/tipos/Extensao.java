@@ -8,7 +8,6 @@ import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 public class Extensao extends Projeto {
 
 	private int impacto;
-
 	private Projeto projeto;
 
 	public Extensao(String nome, String objetivo, Date dataInicio, int duracao, int impacto) {

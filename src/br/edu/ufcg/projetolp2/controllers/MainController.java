@@ -5,10 +5,12 @@ import java.util.Date;
 public class MainController {
 
 	private PessoaController pessoaController;
-
 	private ProjetoController projetoController;
-
 	private ParticipacaoController participacaoController;
+	
+	public MainController () {
+		// TODO Auto-generated constructor stub
+	}
 
 	public void iniciaSistema() {
 

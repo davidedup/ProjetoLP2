@@ -1,6 +1,12 @@
 #################
 # User Story 1  #
 #################
+
+# "024.685.014-52" - Matheus Aldencio
+# "324.543.674-78" - Abdias Melo
+# "234.765.067-64" - Arianny Farias
+# "734.823.922-79" - Vitor Bordas
+
 #iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 
 iniciaSistema
@@ -17,6 +23,7 @@ cpf4=cadastraPessoa cpf="734.823.922-79" nome="Vitor Bordas" email="vit_bor@bol.
 
 expect "Matheus Aldeyncio" getInfoPessoa cpf=${cpf1} atributo="Nome"
 expect "abdias05@gmail.com" getInfoPessoa cpf=${cpf2} atributo="Email"
+
 
 ###############################
 #      Atualiza Pessoa        #

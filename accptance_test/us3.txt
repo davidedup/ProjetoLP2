@@ -2,7 +2,19 @@
 # User Story 3  #
 #################
 
+# "024.685.014-52" - Matheus Aldencio
+# "324.543.674-78" - Abdias Melo
+# "234.765.067-64" - Arianny Farias
+# "734.823.922-79" - Vitor Bordas
+
+#iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 iniciaSistema
+
+# Em caso de 'empate', retornar qualquer um dos projetos com mesmo nome.
+cod1=getCodigoProjeto nome="Monitoria de P2"
+cod3=getCodigoProjeto nome="Projeto olimpico"
+cod4=getCodigoProjeto nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS"
+cod5=getCodigoProjeto nome="Kubernetes"
 
 ##########################################
 #    Associacao de Pessoas e Projetos    #
@@ -12,23 +24,23 @@ iniciaSistema
 #  Criacao de participacoes  #
 ##############################
 
-associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod1} coordenador=true valorHora=120.0 qntHoras=20
-associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod1} valorHora=20.0 qntHoras=12
+associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=true valorHora=120.0 qntHoras=20
+associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod1} valorHora=20.0 qntHoras=12
 
-associaProfessor cpfPessoa=${cpf4} codigoProjeto=${cod4} coordenador=true valorHora=200.0 qntHoras=20
-associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
+associaProfessor cpfPessoa="734.823.922-79" codigoProjeto=${cod4} coordenador=true valorHora=200.0 qntHoras=20
+associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
 
-associaProfissional cpfPessoa=${cpf2} codigoProjeto=${cod5} cargo="Desenvolvedor" valorHora=250.0 qntHoras=20
-associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
-associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod5} coordenador=true valorHora=260.0 qntHoras=20
+associaProfissional cpfPessoa="324.543.674-78" codigoProjeto=${cod5} cargo="Desenvolvedor" valorHora=250.0 qntHoras=20
+associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
+associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod5} coordenador=true valorHora=260.0 qntHoras=20
 
 ############################
 #  Pesquisa participacoes  #
 ############################
 
-expect "Monitoria de P2, APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS, Kubernetes" getInfoPessoa cpf=${cpf3} atributo="Participacoes"
-expect "Monitoria de P2, Kubernetes" getInfoPessoa cpf=${cpf1} atributo="Participacoes"
-expect "APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" getInfoPessoa cpf=${cpf4} atributo="Participacoes"
+expect "Monitoria de P2, APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS, Kubernetes" getInfoPessoa cpf="234.765.067-64" atributo="Participacoes"
+expect "Monitoria de P2, Kubernetes" getInfoPessoa cpf="024.685.014-52" atributo="Participacoes"
+expect "APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS" getInfoPessoa cpf="734.823.922-79" atributo="Participacoes"
 expect "Abdias Melo, Arianny Farias, Matheus Aldencio" getInfoProjeto codigoProjeto=${cod5} atributo="Participacoes"
 expect "Arianny Farias, Vitor Bordas" getInfoProjeto codigoProjeto=${cod4} atributo="Participacoes"
 expect "Arianny Farias, Matheus Aldencio" getInfoProjeto codigoProjeto=${cod1} atributo="Participacoes"
@@ -39,21 +51,21 @@ cpf5=cadastraPessoa cpf="700.832.942-61" nome="Alguem" email="alguem.ninguem@gma
 expect "" getInfoPessoa cpf=${cpf5} atributo="Participacoes"
 
 #####################################################
-# remocao de participacoes de pessoas em projetos   #
+# Remocao de participacoes de pessoas em projetos   #
 #####################################################
 
-removeParticipacao cpfPessoa=${cpf3} codigoProjeto=${cod1}
-removeParticipacao cpfPessoa=${cpf3} codigoProjeto=${cod4}
+removeParticipacao cpfPessoa="234.765.067-64" codigoProjeto=${cod1}
+removeParticipacao cpfPessoa="234.765.067-64" codigoProjeto=${cod4}
 
-expect "Kubernetes" getInfoPessoa cpf=${cpf3} atributo="Participacoes"
+expect "Kubernetes" getInfoPessoa cpf="234.765.067-64" atributo="Participacoes"
 
-removeParticipacao cpfPessoa=${cpf3} codigoProjeto=${cod5}
+removeParticipacao cpfPessoa="234.765.067-64" codigoProjeto=${cod5}
 
-expect "" getInfoPessoa cpf=${cpf3} atributo="Participacoes"
+expect "" getInfoPessoa cpf="234.765.067-64" atributo="Participacoes"
 
-associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
-associaGraduando cpfPesspa=${cpf3} codigoProjeto=${cod1} valorHora=20.0 qntHoras=12
-associaGraduando cpfPessoa=${cpf3} codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
+associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
+associaGraduando cpfPesspa="234.765.067-64" codigoProjeto=${cod1} valorHora=20.0 qntHoras=12
+associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
 
 removePessoa cpf=${cpf5}
 

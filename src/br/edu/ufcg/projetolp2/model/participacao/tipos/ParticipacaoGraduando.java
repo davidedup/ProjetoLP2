@@ -4,8 +4,7 @@ public class ParticipacaoGraduando implements TipoParticipacao {
 
 	@Override
 	public String getTipoParticipacao() {
-		// TODO Auto-generated method stub
-		return null;
+		return TipoParticipacao.GRADUANDO;
 	}
 
 }

@@ -1,7 +1,7 @@
 package br.edu.ufcg.projetolp2.controllers;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.ufcg.projetolp2.exceptions.AssociacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
@@ -13,10 +13,10 @@ import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class ParticipacaoController {
 
-	private Set<Participacao> participacoes;
+	private List<Participacao> participacoes;
 	
 	public ParticipacaoController() {
-		participacoes = new HashSet<>();
+		participacoes = new ArrayList<>();
 	}
 
 	/**
@@ -68,16 +68,43 @@ public class ParticipacaoController {
 	 * @throws AssociacaoException caso a pessoa não esteja associada ao determinado projeto
 	 */
 	public void removeParticipacao(Pessoa pessoa, Projeto projeto) throws AssociacaoException {
-		
-		for (Iterator<Participacao> iterator = participacoes.iterator(); iterator.hasNext();) {
-			Participacao participacao = iterator.next();	
+		for (Participacao participacao : participacoes) {
 			if (participacao.getProjeto().equals(projeto) && participacao.getPessoa().equals(pessoa)) {
 				participacoes.remove(participacao);
 				return;
 			}
 		}
-		
 		throw new AssociacaoException("Erro na remocao de participacao: Pessoa nao possui participacao no projeto indicado");		
+	}
+	
+	/**
+	 * Método que retorna todas as participações de uma pessoa com qualquer projeto.
+	 * @param pessoa
+	 * @return Lista de todas as participações desta pessoa
+	 */
+	public List<Participacao> getParticipacoes (Pessoa pessoa) {
+		List<Participacao> todasParticipacoesPessoa = new ArrayList<>();
+		for (Participacao participacao : participacoes) {
+			if (participacao.getPessoa().equals(pessoa)) {
+				todasParticipacoesPessoa.add(participacao);
+			}
+		}
+		return todasParticipacoesPessoa;
+	}
+	
+	/**
+	 * Método que retorna todas as participações que relacionam qualquer pessoa com um determinado projeto
+	 * @param projeto
+	 * @return Lista de todas as participações desde projeto
+	 */
+	public List<Participacao> getParticipacoes (Projeto projeto) {
+		List<Participacao> todasParticipacoesProjeto = new ArrayList<>();
+		for (Participacao participacao : participacoes) {
+			if (participacao.getProjeto().equals(projeto)) {
+				todasParticipacoesProjeto.add(participacao);
+			}
+		}
+		return todasParticipacoesProjeto;
 	}
 
 }

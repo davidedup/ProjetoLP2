@@ -7,7 +7,7 @@ public class Pessoa {
 
 	private String cpf;
 
-	public void Pessoa(String nome, String email, String cpf) {
+	public Pessoa(String nome, String email, String cpf) {
 
 	}
 

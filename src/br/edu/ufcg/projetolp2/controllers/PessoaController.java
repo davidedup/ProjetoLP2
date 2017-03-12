@@ -3,6 +3,7 @@ package br.edu.ufcg.projetolp2.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.edu.ufcg.projetolp2.exceptions.AtualizacaoException;
 import br.edu.ufcg.projetolp2.exceptions.PessoaException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
@@ -74,8 +75,9 @@ public class PessoaController {
 	 * ser efetuada, por essa razão, sempre é lançado um erro.
 	 * @param cpfAtual
 	 * @param cpfNovo
+	 * @throws AtualizacaoException 
 	 */
-	public void editaCpf(String cpfAtual, String cpfNovo) {
+	public void editaCpf(String cpfAtual, String cpfNovo) throws PessoaException {
 		throw new PessoaException("Erro na atualizacao de pessoa: CPF nao pode ser alterado");
 	}
 
@@ -96,10 +98,6 @@ public class PessoaController {
 			throw new PessoaException(e, "Erro na atualizacao de pessoa: " + e.getMessage());
 		}
 	}
-	
-	public void editaCpf(String cpfOld, String cpfNew){
-		
-	}
 
 	/**
 	 * Recebe um cpf, pesguisa a pessoa com esse CPF e 
@@ -113,7 +111,7 @@ public class PessoaController {
 			Pessoa pessoa = getPessoa(cpf);
 			return pessoa.getNome();
 		} catch (PessoaException e) {
-			throw new PessoaException(e, "Erro na consulta de pessoa: " + e.getMessage());
+			throw new PessoaException(e,"Erro na atualizacao de pessoa: " + e.getMessage());
 		}
 	}
 
@@ -129,7 +127,7 @@ public class PessoaController {
 			Pessoa pessoa = getPessoa(cpf);
 			return pessoa.getEmail();
 		} catch (PessoaException e) {
-			throw new PessoaException(e, "Erro na consulta de pessoa: " + e.getMessage());
+			throw new PessoaException(e,"Erro na atualizacao de pessoa: " + e.getMessage());
 		}
 	}
 
@@ -156,7 +154,7 @@ public class PessoaController {
 	 * @return
 	 * @throws PessoaException
 	 */
-	private Pessoa getPessoa(String cpf) throws PessoaException {
+	public Pessoa getPessoa(String cpf) throws PessoaException {
 		if (cpf != null && pessoas.containsKey(cpf)) {
 			return pessoas.get(cpf);
 		} else {
@@ -191,14 +189,17 @@ public class PessoaController {
 	 *             Se validação não passar, é gerada uma
 	 *             {@link ValidacaoException}
 	 */
-	private void validaEmail(String email) {
+	private void validaEmail(String email) throws ValidacaoException{
+		if (email == null || email.trim().equals("")){
+			throw new ValidacaoException("Email nulo ou vazio");
+		}
 		String regex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
 				+ "*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\"
 				+ "x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9]"
 				+ "(?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25"
 				+ "[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\"
 				+ "x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-		if (email == null || email.matches(regex)) {
+		if (!email.matches(regex)) {
 			throw new ValidacaoException("Email invalido");
 		}
 	}
@@ -220,7 +221,7 @@ public class PessoaController {
 			throw new ValidacaoException("CPF nulo ou vazio");
 
 		}
-		if (cpf.matches("(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)")) {
+		if (!cpf.matches("(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)")) {
 			throw new ValidacaoException("CPF invalido");
 		}
 	}

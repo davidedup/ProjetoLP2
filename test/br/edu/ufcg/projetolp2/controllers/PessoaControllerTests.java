@@ -7,6 +7,7 @@ import org.junit.Test;
 import br.edu.ufcg.projetolp2.controllers.PessoaController;
 import br.edu.ufcg.projetolp2.exceptions.AtualizacaoException;
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
+import br.edu.ufcg.projetolp2.exceptions.PessoaException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 
 
@@ -21,7 +22,7 @@ public class PessoaControllerTests {
 	String ABDIAS_NOME = "Abdias Melo";
 	String ABDIAS_EMAIL = "abdias05@gmail.com";
 	
-	String ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA = "Erro na consulta de pessoa: Pessoa nao encontrada";
+	String ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA = "Pessoa nao encontrada";
 	
 	String ERRORCADASTROPESSOA_CPFDUPLICADO = "Erro no cadastro de pessoa: Pessoa com mesmo CPF ja cadastrada";
 	String ERRORCADASTROPESSOA_NOMENULOVAZIO = "Erro no cadastro de pessoa: Nome nulo ou vazio";
@@ -33,8 +34,6 @@ public class PessoaControllerTests {
 	String ERRORATUALIZACAOPESSOA_NOMENULOVAZIO = "Erro na atualizacao de pessoa: Nome nulo ou vazio";
 	String ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO = "Erro na atualizacao de pessoa: Email nulo ou vazio";
 	String ERRORATUALIZACAOPESSOA_EMAILINVALIDO = "Erro na atualizacao de pessoa: Email invalido";
-	String ERRORATUALIZACAOPESSOA_CPFNULOVAZIO = "Erro na atualizacao de pessoa: CPF nulo ou vazio";
-	String ERRORATUALIZACAOPESSOA_CPFINVALIDO = "Erro na atualizacao de pessoa: CPF invalido";
 	String ERRORATUALIZACAOPESSOA_CPFALTERAR = "Erro na atualizacao de pessoa: CPF nao pode ser alterado"; 
 	
 	@Before
@@ -47,7 +46,7 @@ public class PessoaControllerTests {
 		try {
 			pessoas.getPessoa(ABDIAS_CPF);
 			fail();
-		} catch (CpcException e){
+		} catch (PessoaException e){
 			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 		assertEquals(ABDIAS_CPF, pessoas.cadastraPessoa(ABDIAS_CPF, ABDIAS_NOME, ABDIAS_EMAIL));
@@ -56,63 +55,63 @@ public class PessoaControllerTests {
 		try {
 			pessoas.cadastraPessoa(ABDIAS_CPF, ABDIAS_NOME, ABDIAS_EMAIL);
 			fail();
-		} catch (CpcException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFDUPLICADO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa(null, MATHEUS_NOME, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa("   ", MATHEUS_NOME, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa("123.4566..-", MATHEUS_NOME, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFINVALIDO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa(MATHEUS_CPF, null, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa(MATHEUS_CPF, "     ", MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, null);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, "    ");
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, "mestre.dos.magos");
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_EMAILINVALIDO, e.getMessage());
 		}		
 	}
@@ -127,68 +126,46 @@ public class PessoaControllerTests {
 		
 		assertEquals(MATHEUS_NOME, pessoas.getNome(MATHEUS_CPF));
 		pessoas.editaNome(MATHEUS_CPF, "Mestre dos Magos");
-		assertEquals("Mestre dos Magos", MATHEUS_NOME);
+		assertEquals("Mestre dos Magos", pessoas.getNome(MATHEUS_CPF));
 		
 		try {
 			pessoas.editaEmail(MATHEUS_CPF, null);
 			fail();
-		} catch (ValidacaoException e){
+		} catch (PessoaException e){
 			assertEquals(ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.editaEmail(MATHEUS_CPF, "   ");
 			fail();
-		} catch (ValidacaoException e){
+		} catch (PessoaException e){
 			assertEquals(ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.editaEmail(MATHEUS_CPF, "novoemail.com");
 			fail();
-		} catch (ValidacaoException e){
+		} catch (PessoaException e){
 			assertEquals(ERRORATUALIZACAOPESSOA_EMAILINVALIDO, e.getMessage());
 		}
 		
 		try {
 			pessoas.editaNome(MATHEUS_CPF, null);
 			fail();
-		} catch (ValidacaoException e){
-			assertEquals(ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO, e.getMessage());
+		} catch (PessoaException e){
+			assertEquals(ERRORATUALIZACAOPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			pessoas.editaNome(MATHEUS_CPF, "   ");
 			fail();
-		} catch (ValidacaoException e){
+		} catch (PessoaException e){
 			assertEquals(ERRORATUALIZACAOPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
-		
-		try {
-			pessoas.editaCpf(MATHEUS_CPF, null);
-			fail();
-		} catch (ValidacaoException e){
-			assertEquals(ERRORATUALIZACAOPESSOA_CPFNULOVAZIO, e.getMessage());
-		}
-		
-		try {
-			pessoas.editaCpf(MATHEUS_CPF, "      ");
-			fail();
-		} catch (ValidacaoException e){
-			assertEquals(ERRORATUALIZACAOPESSOA_CPFNULOVAZIO, e.getMessage());
-		}
-		
-		try {
-			pessoas.editaCpf(MATHEUS_CPF, "123.321.3-4");
-			fail();
-		} catch (ValidacaoException e){
-			assertEquals(ERRORATUALIZACAOPESSOA_CPFINVALIDO, e.getMessage());
-		}
-		
 		try {
 			pessoas.editaCpf(MATHEUS_CPF, ABDIAS_CPF);
 			fail();
-		} catch (AtualizacaoException e){
+		} catch (PessoaException e){
 			assertEquals(ERRORATUALIZACAOPESSOA_CPFALTERAR, e.getMessage());
 		}
 	}
@@ -203,11 +180,9 @@ public class PessoaControllerTests {
 		try {
 			pessoas.getPessoa(MATHEUS_CPF);
 			fail();
-		} catch (CpcException e){
+		} catch (PessoaException e){
 			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
-		
-		
 		
 		
 	}

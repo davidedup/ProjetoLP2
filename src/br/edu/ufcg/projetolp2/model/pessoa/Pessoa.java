@@ -43,6 +43,11 @@ public class Pessoa {
 	}
 
 	@Override
+	public String toString() {
+		return "Pessoa [nome=" + nome + ", email=" + email + ", cpf=" + cpf + "]";
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

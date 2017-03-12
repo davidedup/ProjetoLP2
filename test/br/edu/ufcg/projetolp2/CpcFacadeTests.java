@@ -26,7 +26,7 @@ public class CpcFacadeTests {
 	String VITOR_NOME = "Vitor Bordas";
 	String VITOR_EMAIL = "vit_bor@bol.com.br";
 	
-	String ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA = "Erro na consulta de pessoa: Pessoa nao encontrada";
+	String ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA = "Erro na atualizacao de pessoa: Pessoa nao encontrada";
 	
 	String ERRORCADASTROPESSOA_CPFDUPLICADO = "Erro no cadastro de pessoa: Pessoa com mesmo CPF ja cadastrada";
 	String ERRORCADASTROPESSOA_NOMENULOVAZIO = "Erro no cadastro de pessoa: Nome nulo ou vazio";
@@ -38,9 +38,9 @@ public class CpcFacadeTests {
 	String ERRORATUALIZACAOPESSOA_NOMENULOVAZIO = "Erro na atualizacao de pessoa: Nome nulo ou vazio";
 	String ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO = "Erro na atualizacao de pessoa: Email nulo ou vazio";
 	String ERRORATUALIZACAOPESSOA_EMAILINVALIDO = "Erro na atualizacao de pessoa: Email invalido";
-	String ERRORATUALIZACAOPESSOA_CPFNULOVAZIO = "Erro na atualizacao de pessoa: CPF nulo ou vazio";
-	String ERRORATUALIZACAOPESSOA_CPFINVALIDO = "Erro na atualizacao de pessoa: CPF invalido";
 	String ERRORATUALIZACAOPESSOA_CPFALTERAR = "Erro na atualizacao de pessoa: CPF nao pode ser alterado"; 
+	
+	String ERRORREMOVEPESSOA_PESSOANAOENCONTRADA = "Erro na remocao de pessoa: Pessoa nao encontrada";
 	
 	@Before
 	public void prepara(){
@@ -62,63 +62,63 @@ public class CpcFacadeTests {
 		try {
 			facade.cadastraPessoa(ABDIAS_CPF, ARIANNY_NOME, ARIANNY_EMAIL);
 			fail();
-		} catch (CpcException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFDUPLICADO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa(null, MATHEUS_NOME, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa("   ", MATHEUS_NOME, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa("123.4566..-", MATHEUS_NOME, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFINVALIDO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa(MATHEUS_CPF, null, MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa(MATHEUS_CPF, "     ", MATHEUS_EMAIL);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, null);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, "    ");
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, "mestre.dos.magos");
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCADASTROPESSOA_EMAILINVALIDO, e.getMessage());
 		}
 	}
@@ -136,14 +136,14 @@ public class CpcFacadeTests {
 		try {
 			facade.getInfoPessoa(VITOR_CPF, "nome");
 			fail();
-		} catch (CpcException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 		
 		try {
 			facade.getInfoPessoa(VITOR_CPF, "email");
 			fail();
-		} catch (CpcException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 	}
@@ -163,70 +163,48 @@ public class CpcFacadeTests {
 		try {
 			facade.editaPessoa(VITOR_CPF, "nome", "Vitor Krum");
 			fail();
-		} catch (CpcException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 		
 		try {
 			facade.editaPessoa(MATHEUS_CPF, "nome", null);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORATUALIZACAOPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.editaPessoa(MATHEUS_CPF, "nome", "    ");
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORATUALIZACAOPESSOA_NOMENULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.editaPessoa(MATHEUS_CPF, "email", null);
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.editaPessoa(MATHEUS_CPF, "email", "    ");
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO, e.getMessage());
 		}
 		
 		try {
 			facade.editaPessoa(MATHEUS_CPF, "email", "@mestre.magos");
 			fail();
-		} catch (ValidacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORATUALIZACAOPESSOA_EMAILINVALIDO, e.getMessage());
-		}
-		
-		try {
-			facade.editaPessoa(MATHEUS_CPF, "cpf", null);
-			fail();
-		} catch (ValidacaoException e) {
-			assertEquals(ERRORATUALIZACAOPESSOA_CPFNULOVAZIO, e.getMessage());
-		}
-		
-		try {
-			facade.editaPessoa(MATHEUS_CPF, "cpf", "   ");
-			fail();
-		} catch (ValidacaoException e) {
-			assertEquals(ERRORATUALIZACAOPESSOA_CPFNULOVAZIO, e.getMessage());
-		}
-		
-		try {
-			facade.editaPessoa(MATHEUS_CPF, "cpf", "123.321.43-96");
-			fail();
-		} catch (ValidacaoException e) {
-			assertEquals(ERRORATUALIZACAOPESSOA_CPFINVALIDO, e.getMessage());
-		}
-		
+		}		
 		try {
 			facade.editaPessoa(MATHEUS_CPF, "cpf", "058.014.574-54");
 			fail();
-		} catch (AtualizacaoException e) {
+		} catch (PessoaException e) {
 			assertEquals(ERRORATUALIZACAOPESSOA_CPFALTERAR, e.getMessage());
 		}
 	}
@@ -238,8 +216,8 @@ public class CpcFacadeTests {
 		try {
 			facade.removePessoa(VITOR_CPF);
 			fail();
-		} catch (CpcException e){
-			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
+		} catch (PessoaException e){
+			assertEquals(ERRORREMOVEPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 		
 		facade.removePessoa(MATHEUS_CPF);
@@ -247,8 +225,8 @@ public class CpcFacadeTests {
 		try {
 			facade.removePessoa(MATHEUS_CPF);
 			fail();
-		} catch (CpcException e){
-			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
+		} catch (PessoaException e){
+			assertEquals(ERRORREMOVEPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 		
 		

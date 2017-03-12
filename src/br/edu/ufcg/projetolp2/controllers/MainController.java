@@ -13,7 +13,7 @@ public class MainController {
 	private ParticipacaoController participacaoController;
 	
 	public MainController () {
-		// TODO Auto-generated constructor stub
+		projetoController = new ProjetoController();
 	}
 
 	public void iniciaSistema() {
@@ -62,13 +62,13 @@ public class MainController {
 	/**
 	 *  Cria um projeto do tipo PET e retorna seu codigo
 	 * @param nome - nome do projeto PET
-	 * @param objetivo - descrição do objetivo do projeto PET
-	 * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade acadêmica, 2 - cidade, 3 - região (dentro do estado), 4 - estado, 5 - região (dentro da federação/Brasil), 6 - federação (Brasil)
+	 * @param objetivo - descriï¿½ï¿½o do objetivo do projeto PET
+	 * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade acadï¿½mica, 2 - cidade, 3 - regiï¿½o (dentro do estado), 4 - estado, 5 - regiï¿½o (dentro da federaï¿½ï¿½o/Brasil), 6 - federaï¿½ï¿½o (Brasil)
 	 * @param rendimento - rendimento que varia de 0-100%
-	 * @param prodTecnica - quatidade de produções tecnicas
-	 * @param prodAcademica - quantidade de procuções acadêmicas
+	 * @param prodTecnica - quatidade de produï¿½ï¿½es tecnicas
+	 * @param prodAcademica - quantidade de procuï¿½ï¿½es acadï¿½micas
 	 * @param patentes - quantidades de patentes
-	 * @param dataInicio - data em que o projeto começou
+	 * @param dataInicio - data em que o projeto comeï¿½ou
 	 * @param duracao - duracoa em meses do projeto
 	 * @return - o codigo do projeto adicionado
 	 */
@@ -79,12 +79,12 @@ public class MainController {
 	/**
 	 * Cria um projeto do tipo P&D e retorna seu codigo
 	 * @param nome do projeto do tipo P&D
-	 * @param categoria - Determina a categoria do projeto Cooperação, PIBIC,PIBITI ou PIVIC
-	 * @param prodTecnica - quatidade de produções tecnicas
-	 * @param prodAcademica - quantidade de procuções acadêmicas
+	 * @param categoria - Determina a categoria do projeto Cooperaï¿½ï¿½o, PIBIC,PIBITI ou PIVIC
+	 * @param prodTecnica - quatidade de produï¿½ï¿½es tecnicas
+	 * @param prodAcademica - quantidade de procuï¿½ï¿½es acadï¿½micas
 	 * @param patentes - quantidades de patentes
 	 * @param objetivo -  descreve o objetivo do projeto
-	 * @param dataInicio - data em que o projeto começou
+	 * @param dataInicio - data em que o projeto comeï¿½ou
 	 * @param duracao - duracao em meses do projeto
 	 * @return - o codigo do projeto adicionado
 	 */
@@ -93,11 +93,11 @@ public class MainController {
 	}
 
 	/**
-	 * Cria um projeto do tipo extensão e retorna seu codigo
-	 * @param nome - nome do projeto de exensão
+	 * Cria um projeto do tipo extensï¿½o e retorna seu codigo
+	 * @param nome - nome do projeto de exensï¿½o
 	 * @param objetivo - descricao do obejtivo do projeto
-	 * @param impacto -  * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade acadêmica, 2 - cidade, 3 - região (dentro do estado), 4 - estado, 5 - região (dentro da federação/Brasil), 6 - federação (Brasil)
-	 * @param dataInicio - data em que o projeto começou
+	 * @param impacto -  * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade acadï¿½mica, 2 - cidade, 3 - regiï¿½o (dentro do estado), 4 - estado, 5 - regiï¿½o (dentro da federaï¿½ï¿½o/Brasil), 6 - federaï¿½ï¿½o (Brasil)
+	 * @param dataInicio - data em que o projeto comeï¿½ou
 	 * @param duracao -duracao em meses do projeto
 	 * @return - codigo do projeto adicionado
 	 */
@@ -128,10 +128,10 @@ public class MainController {
 	}
 
 	/**
-	 * Recebe o codigo e um atributo do projeto e edita uma informação do projeto com base no atributo requerido com um novo valor que foi recebido
+	 * Recebe o codigo e um atributo do projeto e edita uma informaï¿½ï¿½o do projeto com base no atributo requerido com um novo valor que foi recebido
 	 * @param codigo - codigo do projeto a ser editado
 	 * @param atributo - atributo do projeto que se deseja editar
-	 * @param valor -  novo valor que o atributo requerido será atulizado
+	 * @param valor -  novo valor que o atributo requerido serï¿½ atulizado
 	 */
 	public void editaProjeto(int codigo, String atributo, String valor) {
 		if (atributo.equalsIgnoreCase("nome")){

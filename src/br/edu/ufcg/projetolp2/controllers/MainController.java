@@ -9,31 +9,64 @@ public class MainController {
 	private ParticipacaoController participacaoController;
 	
 	public MainController () {
-		// TODO Auto-generated constructor stub
+		pessoaController = new PessoaController();
 	}
 
 	public void iniciaSistema() {
-
+		
 	}
 
 	public void fechaSistema() {
-
+	
 	}
 
+	/**
+	 * Este método faz o cadastro da pessoa no sistema
+	 * @param cpf - CPF é uma String unica da pessoa a ser cadastrada
+	 * @param nome - Nome da Pessoa a ser cadastrada
+	 * @param email - Email da pessoa a ser cadastrada 
+	 * @return cpf da pessoa cadastrada
+	 */
 	public String cadastraPessoa(String cpf, String nome, String email) {
-		return null;
+		return pessoaController.cadastraPessoa(cpf, nome, email);
 	}
 
+	/**
+	 * Este método edita os dados da pessoa com base no atributo passado que se deseja editar, não pode editar o CPF
+	 * @param cpf - CPF da pessoa a ser editada
+	 * @param atributo - atributo de Pessoa que se deseja editar
+	 * @param valor - Novo valor que o atributo escolhido editado irá ter
+	 */
 	public void editaPessoa(String cpf, String atributo, String valor) {
-
+		if (atributo.equalsIgnoreCase("nome")){
+			pessoaController.editaNome(cpf, valor);
+		} else if (atributo.equalsIgnoreCase("email")){
+			pessoaController.editaEmail(cpf, valor);
+		} else if (atributo.equalsIgnoreCase("cpf")){
+			pessoaController.editaCpf(cpf, valor);
+		}
 	}
 
+	/**
+	 * Este método retorna o atributo de pessoa desejado com base no valor atributo.
+	 * @param cpf - CPF da pessoa que se quer a informação
+	 * @param atributo - Qual o atributo de pessoa que irá ser retornardo
+	 * @return pode retornar o nome ou email, ambos String
+	 */
 	public String getInfoPessoa(String cpf, String atributo) {
-		return null;
+		if (atributo.equalsIgnoreCase("nome")){
+			return pessoaController.getNome(cpf);
+		}else{
+			return pessoaController.getEmail(cpf);		
+		}
 	}
 
+	/**
+	 * Este método remove a pessoa portadora do CPF passado
+	 * @param cpf - CPF da pessoa que se deseja remover
+	 */
 	public void removePessoa(String cpf) {
-
+		pessoaController.removePessoa(cpf);
 	}
 
 	public void adicionaParticipacao(int codigoProjeto, String cpf, Date dataInicio, int duracao, int horasSemanais, double valorHora) {

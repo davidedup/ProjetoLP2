@@ -2,6 +2,7 @@ package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
 import java.util.Date;
 
+import br.edu.ufcg.projetolp2.exceptions.AssociacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
@@ -12,46 +13,53 @@ public class Monitoria extends Projeto {
 	private String periodo;
 	private int expectativaDeAprovacao;
 	private Pessoa orientador;
-	private Projeto projeto;
 
-	public Monitoria(String nome, String objetivo, Date dataInicio, int duracao, String disciplina, String periodo, int expectativa) {
-		super(nome, objetivo, dataInicio, duracao);
+	public Monitoria(int codigo, String nome, String objetivo, Date dataInicio, int duracao, String disciplina, String periodo, int expectativa) {
+		super(codigo, nome, objetivo, dataInicio, duracao);
+		this.disciplina = disciplina;
+		this.periodo = periodo;
+		this.expectativaDeAprovacao = expectativa;
 	}
 
 	public String getDisciplina() {
-		return null;
+		return this.disciplina;
 	}
 
 	public String getPeriodo() {
-		return null;
+		return this.periodo;
 	}
 
 	public int getExpectativaDeAprovacao() {
-		return 0;
+		return this.expectativaDeAprovacao;
 	}
 
 	public void setDisciplina(String disciplina) {
-
+		this.disciplina = disciplina;
 	}
 
 	public void setPeriodo(String periodo) {
-
+		this.periodo = periodo;
 	}
 
 	public void setExpectativaDeAprovacao(int expecttiva) {
-
+		this.expectativaDeAprovacao = expecttiva;
 	}
 
 	@Override
-	public void adiciona(Participacao participacao) {
-		// TODO Auto-generated method stub
-		
+	public void adiciona(Participacao participacao) throws AssociacaoException {
+		if (participacao.getTipoParticipacao().getTipoParticipacao().equals("PROFESSOR")) {
+			if (orientador == null)
+				orientador = participacao.getPessoa();
+			else
+				throw new AssociacaoException("Erro na associacao de pessoa a projeto: Monitoria nao pode ter mais de um professor");
+		}
 	}
 
 	@Override
 	public void remove(Participacao participacao) {
-		// TODO Auto-generated method stub
-		
+		if (participacao.getTipoParticipacao().getTipoParticipacao().equals("PROFESSOR")) {
+			orientador = null;
+		}
 	}
 
 }

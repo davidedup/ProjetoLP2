@@ -5,16 +5,17 @@ public class Custo {
 	private double valor;
 	private TipoCusto tipoCusto;
 
-	public Custo(int valor, TipoCusto tipoCusto) {
-
+	public Custo(double valor, TipoCusto tipoCusto) {
+		this.valor = valor;
+		this.tipoCusto = tipoCusto;
 	}
 
 	public double getValor() {
-		return 0;
+		return this.valor;
 	}
 
 	public TipoCusto getTipoCusto() {
-		return null;
+		return this.tipoCusto;
 	}
 	
 }

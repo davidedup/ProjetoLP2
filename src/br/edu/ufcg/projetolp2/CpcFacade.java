@@ -30,30 +30,31 @@ public class CpcFacade {
 	}
 
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao);
 	}
 
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
 	}
 
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
 	}
 
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
 	}
 
 	public String getInfoProjeto(int cod, String atributo) {
-		return null;
+		return controller.getInfoProjeto(cod, atributo);
 	}
 
-	public void editaProjeto(int codigo, String atributo, int valor) {
-
+	public void editaProjeto(int codigo, String atributo, String valor) {
+		controller.editaProjeto(codigo, atributo, valor);
 	}
 
 	public void removeProjeto(int codigo) {
+		controller.removeProjeto(codigo);
 
 	}
 

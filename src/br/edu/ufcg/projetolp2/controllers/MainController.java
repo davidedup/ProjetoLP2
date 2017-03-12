@@ -37,31 +37,48 @@ public class MainController {
 	}
 
 	public void adicionaParticipacao(int codigoProjeto, String cpf, Date dataInicio, int duracao, int horasSemanais, double valorHora) {
-
+		
 	}
-
+	
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
-		return 0;
+		return projetoController.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao);
 	}
 
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) {
-		return 0;
+		return projetoController.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
 	}
 
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) {
-		return 0;
+		return projetoController.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
 	}
 
+	
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
-		return 0;
+		return projetoController.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
 	}
 
 	public String getInfoProjeto(int cod, String atributo) {
-		return null;
+		if (atributo.equalsIgnoreCase("nome")){
+			return projetoController.getNome(cod);
+		}else if(atributo.equalsIgnoreCase("objetivo")){
+			return projetoController.getObjetivo(cod);
+		}else if(atributo.equalsIgnoreCase("Data de inicio")){
+			return projetoController.getDataInicio(cod);
+		}else{
+			return projetoController.getDuracao(cod);
+		}
 	}
 
-	public void editaProjeto(int codigo, String atributo, int valor) {
-
+	public void editaProjeto(int codigo, String atributo, String valor) {
+		if (atributo.equalsIgnoreCase("nome")){
+			projetoController.editaNome(codigo, valor);
+		}else if(atributo.equalsIgnoreCase("objetivo")){
+			projetoController.editaObjetivo(codigo, valor);
+		}else if(atributo.equalsIgnoreCase("Data de inicio")){
+			projetoController.editaDataInicio(codigo,valor);
+		}else{
+			projetoController.editaDuracao(codigo, Integer.parseInt(valor));
+		}
 	}
 
 	public void removeProjeto(int codigo) {

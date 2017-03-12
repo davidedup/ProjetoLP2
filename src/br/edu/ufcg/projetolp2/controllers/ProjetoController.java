@@ -17,7 +17,7 @@ public class ProjetoController {
 	
 	public ProjetoController() {
 		ultimoCodigo = 0;
-		projetos = new HashMap<>();
+		projetos = new HashMap<Integer, Projeto>();
 		pedFactory = new PedFactory();
 	}
 

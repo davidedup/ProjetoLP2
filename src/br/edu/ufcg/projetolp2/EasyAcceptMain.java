@@ -15,5 +15,4 @@ public class EasyAcceptMain {
 				};
 		EasyAccept.main(args);
 	}
-
 }

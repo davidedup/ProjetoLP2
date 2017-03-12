@@ -43,6 +43,19 @@ public class ProjetoControllerTest {
 		assertEquals(controller.getDuracao(cod), duracao);
 		assertEquals(controller.getObjetivo(cod), objetivo);
 		
+		
+		try{
+			controller.adicionaMonitoria("", disciplina, rendimento, objetivo, periodo, dataInicio, duracao);
+		}catch(CpcException e){
+			assertEquals(e.getMessage(), "Erro no cadastro de projeto: Nome nulo ou vazio");
+		}
+		
+		try{
+			controller.adicionaMonitoria(nome, "", rendimento, objetivo, periodo, dataInicio, duracao);
+		}catch(CpcException e){
+			assertEquals(e.getMessage(), "Erro no cadastro de projeto: Nome nulo ou vazio");
+		}
+		
 	}
 
 	@Test

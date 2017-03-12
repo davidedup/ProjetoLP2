@@ -5,6 +5,7 @@ import java.util.Date;
 
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.util.DateUtil;
+import br.edu.ufcg.projetolp2.util.StringUtil;
 
 public class MainController {
 
@@ -63,7 +64,7 @@ public class MainController {
 	 *  Cria um projeto do tipo PET e retorna seu codigo
 	 * @param nome - nome do projeto PET
 	 * @param objetivo - descri��o do objetivo do projeto PET
-	 * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade acad�mica, 2 - cidade, 3 - regi�o (dentro do estado), 4 - estado, 5 - regi�o (dentro da federa��o/Brasil), 6 - federa��o (Brasil)
+	 * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil)
 	 * @param rendimento - rendimento que varia de 0-100%
 	 * @param prodTecnica - quatidade de produ��es tecnicas
 	 * @param prodAcademica - quantidade de procu��es acad�micas
@@ -96,7 +97,7 @@ public class MainController {
 	 * Cria um projeto do tipo extens�o e retorna seu codigo
 	 * @param nome - nome do projeto de exens�o
 	 * @param objetivo - descricao do obejtivo do projeto
-	 * @param impacto -  * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade acad�mica, 2 - cidade, 3 - regi�o (dentro do estado), 4 - estado, 5 - regi�o (dentro da federa��o/Brasil), 6 - federa��o (Brasil)
+	 * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil)
 	 * @param dataInicio - data em que o projeto come�ou
 	 * @param duracao -duracao em meses do projeto
 	 * @return - codigo do projeto adicionado
@@ -112,18 +113,48 @@ public class MainController {
 	 * @return - retorna o atributo requerido no formato de String
 	 */
 	public String getInfoProjeto(int cod, String atributo) {
+		if (StringUtil.isStringNula(atributo) || StringUtil.isStringVazia(atributo)){
+			throw new CpcException("Erro na consulta de projeto: Atributo nulo ou invalido");
+		}
+		
 		if (atributo.equalsIgnoreCase("nome")){
 			return projetoController.getNome(cod);
-		}else if(atributo.equalsIgnoreCase("objetivo")){
+			
+		} else if(atributo.equalsIgnoreCase("objetivo")){
 			return projetoController.getObjetivo(cod);
-		}else if(atributo.equalsIgnoreCase("Data de inicio")){
+			
+		} else if(atributo.equalsIgnoreCase("Data de inicio")){
 			try {
 				return DateUtil.formatDate(projetoController.getDataInicio(cod));
 			} catch (ParseException e) {
 				throw new CpcException(e, "Data invalida");
-			}	
-		}else{
+			}
+			
+		} else if(atributo.equalsIgnoreCase("duracao")){
 			return "" + projetoController.getDuracao(cod);
+			
+		} else if(atributo.equalsIgnoreCase("disciplina")){
+			return projetoController.getDisciplina(cod);
+		
+		} else if(atributo.equalsIgnoreCase("periodo")){
+			return projetoController.getPeriodo(cod);
+		
+		} else if(atributo.equalsIgnoreCase("rendimento")){
+			return String.valueOf(projetoController.getRendimento(cod));
+			
+		} else if(atributo.equalsIgnoreCase("patentes")){
+			return String.valueOf(projetoController.getPatentes(cod));
+			
+		} else if(atributo.equalsIgnoreCase("producao academica")){
+			return String.valueOf(projetoController.getProdAcademica(cod));
+			
+		} else if(atributo.equalsIgnoreCase("producao tecnica")){
+			return String.valueOf(projetoController.getProdTecnica(cod));
+			
+		} else if(atributo.equalsIgnoreCase("impacto")){
+			return String.valueOf(projetoController.getImpacto(cod));
+		} else {
+			throw new CpcException("Erro na consulta de projeto: Atributo nulo ou invalido");
 		}
 	}
 
@@ -144,8 +175,31 @@ public class MainController {
 			} catch (ParseException e) {
 				throw new CpcException(e,"Erro na atualizacao de projeto: Formato de data invalido");
 			}
-		}else{
-			projetoController.editaDuracao(codigo, Integer.parseInt(valor));
+		} else if(atributo.equalsIgnoreCase("duracao")){
+			projetoController.editaDuracao(codigo, Integer.valueOf(valor));
+			
+		} else if(atributo.equalsIgnoreCase("disciplina")){
+			projetoController.setDisciplina(codigo, valor);
+		
+		} else if(atributo.equalsIgnoreCase("periodo")){
+			projetoController.setPeriodo(codigo, valor);
+		
+		} else if(atributo.equalsIgnoreCase("rendimento")){
+			projetoController.setRendimento(codigo, Integer.valueOf(valor));
+			
+		} else if(atributo.equalsIgnoreCase("patentes")){
+			projetoController.setPatentes(codigo, Integer.valueOf(valor));
+			
+		} else if(atributo.equalsIgnoreCase("producao academica")){
+			projetoController.setProdAcademica(codigo, Integer.valueOf(valor));
+			
+		} else if(atributo.equalsIgnoreCase("producao tecnica")){
+			projetoController.setProdTecnica(codigo, Integer.valueOf(valor));
+			
+		} else if(atributo.equalsIgnoreCase("impacto")){
+			projetoController.editaImpacto(codigo, Integer.valueOf(valor));
+		} else {
+			throw new CpcException("Erro na consulta de projeto: Atributo nulo ou invalido");
 		}
 	}
 

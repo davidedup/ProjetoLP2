@@ -13,8 +13,21 @@ import br.edu.ufcg.projetolp2.util.DateUtil;
 
 public class PedFactory {
 
+	/**
+	 * cria e retorna um objeto de P&D com o tipo correspondente a sua categoria
+	 * @param codigo - codigo do projeto
+	 * @param nome - nome do projeto
+	 * @param categoria - categoria do projeto
+	 * @param prodTecnica - total de producoes tecnicas
+	 * @param prodAcademica - total de producoes academicas
+	 * @param patentes - total de patentes
+	 * @param objetivo - objetivo do projeto
+	 * @param dataInicio - data de inicio do projeto
+	 * @param duracao - duracao do projeto (em meses)
+	 * @return - objeto de P&D com sua categoria correta
+	 * @throws FactoryException - formato de data incorreto ou categoria invalida
+	 */
 	public Ped create(int codigo, String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws FactoryException {
-		
 		Date date = null;
 		
 		try {

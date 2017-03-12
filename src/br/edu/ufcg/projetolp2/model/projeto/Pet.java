@@ -19,6 +19,10 @@ public class Pet extends Projeto {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 	}
 
+	/**
+	 * retorna o impacto do projeto
+	 * @return -  impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
+	 */
 	public int getImpacto() {
 		return this.impacto;
 	}
@@ -38,7 +42,11 @@ public class Pet extends Projeto {
 	public int getRendimento() {
 		return this.rendimento;
 	}
-
+	
+	/**
+	 * atualiza o valor do impacto do projeto
+	 * @param impacto - impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
+	 */
 	public void setImpacto(int impacto) {
 		this.impacto = impacto;
 	}

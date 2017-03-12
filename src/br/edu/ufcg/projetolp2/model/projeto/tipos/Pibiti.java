@@ -11,9 +11,9 @@ public class Pibiti extends Ped {
 	private Pessoa aluno;
 	private Pessoa orientador;
 	
-	public Pibiti(int codigo, String nome, String objetivo, Date dataInicio, int duracao, CategoriaPeD categoria,
+	public Pibiti(int codigo, String nome, String objetivo, Date dataInicio, int duracao,
 			int producaoTecnica, int producaoAcademica, int patentes) {
-		super(codigo, nome, objetivo, dataInicio, duracao, categoria, producaoTecnica, producaoAcademica, patentes);
+		super(codigo, nome, objetivo, dataInicio, duracao, producaoTecnica, producaoAcademica, patentes);
 	}
 
 	@Override

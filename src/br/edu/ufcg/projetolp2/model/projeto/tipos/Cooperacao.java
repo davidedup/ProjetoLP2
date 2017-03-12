@@ -10,9 +10,9 @@ public class Cooperacao extends Ped {
 
 	private Pessoa coordenador;
 	
-	public Cooperacao(int codigo, String nome, String objetivo, Date dataInicio, int duracao, CategoriaPeD categoria,
+	public Cooperacao(int codigo, String nome, String objetivo, Date dataInicio, int duracao,
 			int producaoTecnica, int producaoAcademica, int patentes) {
-		super(codigo, nome, objetivo, dataInicio, duracao, categoria, producaoTecnica, producaoAcademica, patentes);
+		super(codigo, nome, objetivo, dataInicio, duracao, producaoTecnica, producaoAcademica, patentes);
 	}
 
 	@Override

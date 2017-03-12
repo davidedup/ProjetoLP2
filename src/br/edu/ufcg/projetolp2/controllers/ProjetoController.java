@@ -66,5 +66,9 @@ public class ProjetoController {
 	public void removeProjeto(int codigo) {
 
 	}
+	
+	public Projeto getProjeto(int codigo) {
+		return null;
+	}
 
 }

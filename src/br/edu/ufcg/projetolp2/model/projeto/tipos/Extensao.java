@@ -8,30 +8,28 @@ import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 public class Extensao extends Projeto {
 
 	private int impacto;
-	private Projeto projeto;
 
-	public Extensao(String nome, String objetivo, Date dataInicio, int duracao, int impacto) {
-		super(nome, objetivo, dataInicio, duracao);
+	public Extensao(int codigo, String nome, String objetivo, Date dataInicio, int duracao, int impacto) {
+		super(codigo, nome, objetivo, dataInicio, duracao);
+		this.impacto = impacto;
 	}
 
 	public int getImpacto() {
-		return 0;
+		return this.impacto;
 	}
 
 	public void setImpacto(int impacto) {
-
+		this.impacto = impacto;
 	}
 
 	@Override
 	public void adiciona(Participacao participacao) {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 	@Override
 	public void remove(Participacao participacao) {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 }

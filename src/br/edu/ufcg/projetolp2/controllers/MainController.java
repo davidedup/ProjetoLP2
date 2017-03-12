@@ -36,10 +36,6 @@ public class MainController {
 
 	}
 
-	public void adicionaParticipacao(int codigoProjeto, String cpf, Date dataInicio, int duracao, int horasSemanais, double valorHora) {
-
-	}
-
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
 		return 0;
 	}
@@ -67,21 +63,49 @@ public class MainController {
 	public void removeProjeto(int codigo) {
 
 	}
-
+	
+	/**
+	 * Faz a associação de um professor a um projeto
+	 * @param cpfPessoa - cpf da pessoa a ser associada
+	 * @param codigoProjeto - projeto ao qual o professor será associado
+	 * @param coordenador - Flag para saber se é um professor coordenador
+	 * @param valorHora - valor R$ da hora do professor
+	 * @param qntHoras -  quantidade de horas semanais dedicada ao projeto
+	 */
 	public void associaProfessor(String cpfPessoa, int codigoProjeto, boolean coordenador, double valorHora, int qntHoras) {
-
+		participacaoController.associaProfessor(pessoaController.getPessoa(cpfPessoa), projetoController.getProjeto(codigoProjeto), coordenador, valorHora, qntHoras);
 	}
-
+	
+	/**
+	 * Faz a associação de um graduando a um projeto
+	 * @param cpfPessoa - cpf da pessoa a ser associada
+	 * @param codigoProjeto - projeto ao qual o graduando será associado
+	 * @param valorHora - valor R$ da hora do graduando
+	 * @param qntHoras -  quantidade de horas semanais dedicadas ao projeto
+	 */
 	public void associaGraduando(String cpfPessoa, int codigoProjeto, double valorHora, int qntHoras) {
-
+		participacaoController.associaGraduando(pessoaController.getPessoa(cpfPessoa), projetoController.getProjeto(codigoProjeto), valorHora, qntHoras);
 	}
-
+	
+	/**
+	 * Faz a associação de um profissional a um projeto
+	 * @param cpfPessoa - cpf da pessoa a ser associada
+	 * @param codigoProjeto - projeto ao qual o profissional será associado
+	 * @param cargo - cargo em que o profissional trabalha
+	 * @param valorHora - valor R$ da hora do graduando
+	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
+	 */
 	public void associaProfissional(String cpfPessoa, int codigoProjeto, String cargo, double valorHora, int qntHoras) {
-
+		participacaoController.associaProfissional(pessoaController.getPessoa(cpfPessoa), projetoController.getProjeto(codigoProjeto), cargo, valorHora, qntHoras);
 	}
 
+	/**
+	 * remove a participaçao de pessoa e projeto
+	 * @param cpfPessoa - CPF da pessoa a ser removida a participacao
+	 * @param codigoProjeto - codigo do projeto a ser removida a participacao
+	 */
 	public void removeParticipacao(String cpfPessoa, int codigoProjeto) {
-
+		participacaoController.removeParticipacao(pessoaController.getPessoa(cpfPessoa));
 	}
 
 }

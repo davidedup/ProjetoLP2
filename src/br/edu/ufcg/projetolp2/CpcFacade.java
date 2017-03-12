@@ -14,8 +14,8 @@ public class CpcFacade {
 	}
 	
 	/**
-	 * Este mÈtodo faz o cadastro da pessoa no sistema
-	 * @param cpf - CPF È uma String unica da pessoa a ser cadastrada
+	 * Este m√©todo faz o cadastro da pessoa no sistema
+	 * @param cpf - CPF √© uma String unica da pessoa a ser cadastrada
 	 * @param nome - Nome da Pessoa a ser cadastrada
 	 * @param email - Email da pessoa a ser cadastrada 
 	 * @return cpf da pessoa cadastrada
@@ -25,19 +25,19 @@ public class CpcFacade {
 	}
 	
 	/**
-	 * Este mÈtodo edita os dados da pessoa com base no atributo passado que se deseja editar
+	 * Este m√©todo edita os dados da pessoa com base no atributo passado que se deseja editar
 	 * @param cpf - CPF da pessoa a ser editada
 	 * @param atributo - atributo de Pessoa que se deseja editar
-	 * @param valor - Novo valor que o atributo escolhido editado ir· ter
+	 * @param valor - Novo valor que o atributo escolhido editado ir√° ter
 	 */
 	public void editaPessoa(String cpf, String atributo, String valor) {
 		controller.editaPessoa(cpf, atributo, valor);
 	}
 
 	/**
-	 * Este mÈtodo retorna o atributo de pessoa desejado com base no valor atributo.
-	 * @param cpf - CPF da pessoa que se quer a informaÁ„o
-	 * @param atributo - Qual o atributo de pessoa que ir· ser retornardo 
+	 * Este m√©todo retorna o atributo de pessoa desejado com base no valor atributo.
+	 * @param cpf - CPF da pessoa que se quer a informa√ß√£o
+	 * @param atributo - Qual o atributo de pessoa que ir√° ser retornardo 
 	 * @return pode retornar o nome ou email, ambos String
 	 */
 	public String getInfoPessoa(String cpf, String atributo) {
@@ -45,7 +45,7 @@ public class CpcFacade {
 	}
 	
 	/**
-	 * Este mÈtodo remove a pessoa portadora do CPF passado
+	 * Este m√©todo remove a pessoa portadora do CPF passado
 	 * @param cpf - CPF da pessoa que se deseja remover
 	 */
 	public void removePessoa(String cpf) {

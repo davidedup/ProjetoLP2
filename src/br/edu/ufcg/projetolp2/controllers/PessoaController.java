@@ -96,6 +96,10 @@ public class PessoaController {
 			throw new PessoaException(e, "Erro na atualizacao de pessoa: " + e.getMessage());
 		}
 	}
+	
+	public void editaCpf(String cpfOld, String cpfNew){
+		
+	}
 
 	/**
 	 * Recebe um cpf, pesguisa a pessoa com esse CPF e 

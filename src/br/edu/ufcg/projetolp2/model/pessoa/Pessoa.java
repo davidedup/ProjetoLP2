@@ -2,6 +2,12 @@ package br.edu.ufcg.projetolp2.model.pessoa;
 
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 
+/**
+ * Classe que representa uma Pessoa para o sistema.
+ * Uma pessoa é composta por atributos: nome, email e cpf.
+ * @author Juan
+ *
+ */
 public class Pessoa {
 
 	private String nome;

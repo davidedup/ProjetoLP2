@@ -26,7 +26,7 @@ public class CpcFacadeTests {
 	String VITOR_NOME = "Vitor Bordas";
 	String VITOR_EMAIL = "vit_bor@bol.com.br";
 	
-	String ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA = "Erro na atualizacao de pessoa: Pessoa nao encontrada";
+	String ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA = "Erro na consulta de pessoa: Pessoa nao encontrada";
 	
 	String ERRORCADASTROPESSOA_CPFDUPLICADO = "Erro no cadastro de pessoa: Pessoa com mesmo CPF ja cadastrada";
 	String ERRORCADASTROPESSOA_NOMENULOVAZIO = "Erro no cadastro de pessoa: Nome nulo ou vazio";

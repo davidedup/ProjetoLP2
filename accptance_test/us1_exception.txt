@@ -15,6 +15,7 @@ iniciaSistema
 #    Cadastro de Pessoas      #
 ###############################
 
+cadastraPessoa cpf="024.685.014-52" nome="Juleo Barroso" email="juleobar@gmail.com"
 expectError "Erro no cadastro de pessoa: Pessoa com mesmo CPF ja cadastrada" cadastraPessoa cpf="024.685.014-52" nome="Juleo Barroso" email="juleobar@gmail.com"
 expectError "Erro no cadastro de pessoa: Nome nulo ou vazio" cadastraPessoa cpf="058.014.574-54" nome="" email="juleobar@gmail.com"
 expectError "Erro no cadastro de pessoa: Nome nulo ou vazio" cadastraPessoa cpf="058.014.574-54" nome="  " email="juleobar@gmail.com"

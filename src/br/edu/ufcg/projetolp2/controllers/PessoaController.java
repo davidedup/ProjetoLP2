@@ -111,7 +111,7 @@ public class PessoaController {
 			Pessoa pessoa = getPessoa(cpf);
 			return pessoa.getNome();
 		} catch (PessoaException e) {
-			throw new PessoaException(e,"Erro na atualizacao de pessoa: " + e.getMessage());
+			throw new PessoaException(e,"Erro na consulta de pessoa: " + e.getMessage());
 		}
 	}
 
@@ -127,7 +127,7 @@ public class PessoaController {
 			Pessoa pessoa = getPessoa(cpf);
 			return pessoa.getEmail();
 		} catch (PessoaException e) {
-			throw new PessoaException(e,"Erro na atualizacao de pessoa: " + e.getMessage());
+			throw new PessoaException(e,"Erro na consulta de pessoa: " + e.getMessage());
 		}
 	}
 

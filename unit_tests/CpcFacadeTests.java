@@ -42,7 +42,7 @@ public class CpcFacadeTests {
 	String ERRORATUALIZACAOPESSOA_CPFALTERAR = "Erro na atualizacao de pessoa: CPF nao pode ser alterado"; 
 	
 	@Before
-	public void Prepara(){
+	public void prepara(){
 		facade = new CpcFacade();
 		facade.iniciaSistema();
 	}
@@ -54,13 +54,12 @@ public class CpcFacadeTests {
 
 	@Test
 	public void cadastraPessoa() {
-		assertEquals(MATHEUS_CPF, facade.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, MATHEUS_EMAIL));
 		assertEquals(ABDIAS_CPF, facade.cadastraPessoa(ABDIAS_CPF, ABDIAS_NOME, ABDIAS_EMAIL));
 		assertEquals(ARIANNY_CPF, facade.cadastraPessoa(ARIANNY_CPF, ARIANNY_NOME, ARIANNY_EMAIL));
 		assertEquals(VITOR_CPF, facade.cadastraPessoa(VITOR_CPF, VITOR_NOME, VITOR_EMAIL));
 		
 		try {
-			facade.cadastraPessoa(MATHEUS_CPF, MATHEUS_NOME, MATHEUS_EMAIL);
+			facade.cadastraPessoa(ABDIAS_CPF, ARIANNY_NOME, ARIANNY_EMAIL);
 			fail();
 		} catch (CpcException e) {
 			assertEquals(ERRORCADASTROPESSOA_CPFDUPLICADO, e.getMessage());
@@ -167,7 +166,68 @@ public class CpcFacadeTests {
 			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 		
-		//TODO: cobrir us1_exception.txt 
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "nome", null);
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_NOMENULOVAZIO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "nome", "    ");
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_NOMENULOVAZIO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "email", null);
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "email", "    ");
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "email", "@mestre.magos");
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_EMAILINVALIDO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "cpf", null);
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_CPFNULOVAZIO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "cpf", "   ");
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_CPFNULOVAZIO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "cpf", "123.321.43-96");
+			fail();
+		} catch (ValidacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_CPFINVALIDO, e.getMessage());
+		}
+		
+		try {
+			facade.editaPessoa(MATHEUS_CPF, "cpf", "058.014.574-54");
+			fail();
+		} catch (AtualizacaoException e) {
+			assertEquals(ERRORATUALIZACAOPESSOA_CPFALTERAR, e.getMessage());
+		}
 	}
 	
 	@Test

@@ -22,6 +22,10 @@ public class PessoaController {
 	public void editaEmail(String cpf, String email) {
 
 	}
+	
+	public void editaCpf(String cpfOld, String cpfNew){
+		
+	}
 
 	public String getNome(String cpf) {
 		return null;

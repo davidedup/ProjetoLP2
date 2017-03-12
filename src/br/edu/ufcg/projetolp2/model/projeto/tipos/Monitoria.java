@@ -11,14 +11,12 @@ public class Monitoria extends Projeto {
 
 	private String disciplina;
 	private String periodo;
-	private int expectativaDeAprovacao;
 	private Pessoa orientador;
 
-	public Monitoria(int codigo, String nome, String objetivo, Date dataInicio, int duracao, String disciplina, String periodo, int expectativa) {
+	public Monitoria(int codigo, String nome, String objetivo, Date dataInicio, int duracao, String disciplina, String periodo) {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		this.disciplina = disciplina;
 		this.periodo = periodo;
-		this.expectativaDeAprovacao = expectativa;
 	}
 
 	public String getDisciplina() {
@@ -29,20 +27,12 @@ public class Monitoria extends Projeto {
 		return this.periodo;
 	}
 
-	public int getExpectativaDeAprovacao() {
-		return this.expectativaDeAprovacao;
-	}
-
 	public void setDisciplina(String disciplina) {
 		this.disciplina = disciplina;
 	}
 
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
-	}
-
-	public void setExpectativaDeAprovacao(int expecttiva) {
-		this.expectativaDeAprovacao = expecttiva;
 	}
 
 	@Override

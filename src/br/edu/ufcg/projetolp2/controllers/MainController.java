@@ -9,7 +9,7 @@ public class MainController {
 	private ParticipacaoController participacaoController;
 	
 	public MainController () {
-		// TODO Auto-generated constructor stub
+		participacaoController = new ParticipacaoController();
 	}
 
 	public void iniciaSistema() {

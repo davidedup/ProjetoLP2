@@ -9,15 +9,15 @@ public class CpcException extends RuntimeException{
 	}
 
 	public CpcException(Exception e) {
-
+		super(e);
 	}
 
 	public CpcException(String message) {
-
+		super(message);
 	}
 
 	public CpcException(Exception e, String message) {
-
+		super(message, e);
 	}
 
 }

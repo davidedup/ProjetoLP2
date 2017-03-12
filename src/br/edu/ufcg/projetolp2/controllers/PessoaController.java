@@ -34,5 +34,9 @@ public class PessoaController {
 	public void removePessoa(String cpf) {
 
 	}
+	
+	public Pessoa getPessoa(String cpf) {
+		return null;
+	}
 
 }

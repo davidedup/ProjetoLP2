@@ -43,6 +43,10 @@ public class Participacao {
 	public Projeto getProjeto() {
 		return null;
 	}
+	
+	public TipoParticipacao getTipoParticipacao() {
+		return null;
+	}
 
 	public void setDuracao(int duracao) {
 

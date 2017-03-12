@@ -127,7 +127,7 @@ public class PessoaControllerTests {
 		
 		assertEquals(MATHEUS_NOME, pessoas.getNome(MATHEUS_CPF));
 		pessoas.editaNome(MATHEUS_CPF, "Mestre dos Magos");
-		assertEquals("Mestre dos Magos", MATHEUS_NOME);
+		assertEquals("Mestre dos Magos", pessoas.getNome(MATHEUS_CPF));
 		
 		try {
 			pessoas.editaEmail(MATHEUS_CPF, null);

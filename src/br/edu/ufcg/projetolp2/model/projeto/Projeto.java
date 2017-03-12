@@ -45,6 +45,10 @@ public abstract class Projeto implements Participavel {
 		this.objetivo = objetivo;
 	}
 
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

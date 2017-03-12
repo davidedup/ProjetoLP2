@@ -20,8 +20,8 @@ public class PessoaTests {
 	
 	@Before
 	public void prepara(){
-		Matheus = new Pessoa(MATHEUS_CPF, MATHEUS_NOME, MATHEUS_EMAIL);
-		Abdias = new Pessoa(ABDIAS_CPF, ABDIAS_NOME, ABDIAS_EMAIL);
+		Matheus = new Pessoa(MATHEUS_NOME, MATHEUS_EMAIL, MATHEUS_CPF);
+		Abdias = new Pessoa(ABDIAS_NOME, ABDIAS_EMAIL, ABDIAS_CPF);
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class PessoaTests {
 		assertEquals(MATHEUS_NOME, Matheus.getNome());
 		assertEquals(MATHEUS_EMAIL, Matheus.getEmail());
 
-		Pessoa Matheus2 = new Pessoa(MATHEUS_CPF, "Outro Nome", "outro@email.com");
+		Pessoa Matheus2 = new Pessoa("Outro Nome", "outro@email.com", MATHEUS_CPF);
 		
 		assertEquals(Matheus.hashCode(), Matheus2.hashCode());
 		assertEquals(true, Matheus.equals(Matheus2));

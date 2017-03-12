@@ -35,6 +35,7 @@ public class CpcFacadeTests {
 	String ERRORCADASTROPESSOA_CPFNULOVAZIO = "Erro no cadastro de pessoa: CPF nulo ou vazio";
 	String ERRORCADASTROPESSOA_CPFINVALIDO = "Erro no cadastro de pessoa: CPF invalido";
 	
+	String ERRORATUALIZACAOPESSOA_PESSOANAOENCONTRADA = "Erro na atualizacao de pessoa: Pessoa nao encontrada";
 	String ERRORATUALIZACAOPESSOA_NOMENULOVAZIO = "Erro na atualizacao de pessoa: Nome nulo ou vazio";
 	String ERRORATUALIZACAOPESSOA_EMAILNULOVAZIO = "Erro na atualizacao de pessoa: Email nulo ou vazio";
 	String ERRORATUALIZACAOPESSOA_EMAILINVALIDO = "Erro na atualizacao de pessoa: Email invalido";
@@ -164,7 +165,7 @@ public class CpcFacadeTests {
 			facade.editaPessoa(VITOR_CPF, "nome", "Vitor Krum");
 			fail();
 		} catch (PessoaException e) {
-			assertEquals(ERRORCONSULTAPESSOA_PESSOANAOENCONTRADA, e.getMessage());
+			assertEquals(ERRORATUALIZACAOPESSOA_PESSOANAOENCONTRADA, e.getMessage());
 		}
 		
 		try {

@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.FactoryException;
+import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.projeto.PedFactory;
 import br.edu.ufcg.projetolp2.model.projeto.Pet;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
@@ -33,7 +34,7 @@ public class ProjetoController {
 		try {
 			data = DateUtil.parseDate(dataInicio);
 		} catch (ParseException e) {
-			throw new CpcException(e, "Ocorreu um erro: Formato de data invalido");
+			throw new ValidacaoException(e, "Formato de data invalido");
 		}
 		
 		Projeto projeto = new Monitoria(ultimoCodigo, nome, objetivo, data, duracao, disciplina, periodo);
@@ -48,7 +49,7 @@ public class ProjetoController {
 		try {
 			data = DateUtil.parseDate(dataInicio);
 		} catch (ParseException e) {
-			throw new CpcException(e, "Erro no cadastro de projeto: Formato de data invalido");
+			throw new ValidacaoException(e, "Formato de data invalido");
 		}
 		
 		Projeto projeto = new Pet(ultimoCodigo, nome, objetivo, data, duracao, impacto, prodTecnica, prodAcademica, patentes, rendimento);
@@ -65,7 +66,7 @@ public class ProjetoController {
 		try {
 			projeto = pedFactory.create(ultimoCodigo, nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
 		} catch (FactoryException e) {
-			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+			throw new ValidacaoException(e, e.getMessage());
 		}
 		
 		projetos.put(projeto.getCodigo(), projeto);
@@ -79,7 +80,7 @@ public class ProjetoController {
 		try {
 			data = DateUtil.parseDate(dataInicio);
 		} catch (ParseException e) {
-			throw new CpcException(e, "Erro no cadastro de projeto: Formato de data invalido");
+			throw new ValidacaoException(e, "Formato de data invalido");
 		}
 		
 		Projeto projeto = new Extensao(ultimoCodigo, nome, objetivo, data, duracao, impacto);
@@ -118,9 +119,9 @@ public class ProjetoController {
 		} else if (projeto instanceof Extensao) {
 			return ((Extensao) projeto).getImpacto();
 		} else if (projeto instanceof Ped){
-			throw new CpcException("Erro na consulta de projeto: P&D nao possui Impacto");
+			throw new ProjetoException("P&D nao possui Impacto");
 		} else {
-			throw new CpcException("Erro na consulta de projeto: Monitoria nao possui Impacto");
+			throw new ProjetoException("Monitoria nao possui Impacto");
 		}
 	}
 	
@@ -130,11 +131,11 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			return ((Pet) projeto).getProducaoTecnica();
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Producao tecnica");
+			throw new ProjetoException("Extensao nao possui Producao tecnica");
 		} else if (projeto instanceof Ped){
 			return ((Ped) projeto).getProducaoTecnica();
 		} else {
-			throw new CpcException("Erro na consulta de projeto: Monitoria nao possui Producao tecnica");
+			throw new ProjetoException("Monitoria nao possui Producao tecnica");
 		}
 	}
 	
@@ -143,11 +144,11 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			return ((Pet) projeto).getProducaoAcademica();
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Producao academica");
+			throw new ProjetoException("Extensao nao possui Producao academica");
 		} else if (projeto instanceof Ped){
 			return ((Ped) projeto).getProducaoAcademica();
 		} else {
-			throw new CpcException("Erro na consulta de projeto: Monitoria nao possui Producao academica");
+			throw new ProjetoException("Monitoria nao possui Producao academica");
 		}
 	}
 	
@@ -156,11 +157,11 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			return ((Pet) projeto).getPatentes();
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
 			return ((Ped) projeto).getPatentes();
 		} else {
-			throw new CpcException("Erro na consulta de projeto: Monitoria nao possui Patentes");
+			throw new ProjetoException("Monitoria nao possui Patentes");
 		}
 	}
 	
@@ -169,22 +170,22 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			return ((Pet) projeto).getPatentes();
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
 			return ((Ped) projeto).getPatentes();
 		} else {
-			throw new CpcException("Erro na consulta de projeto: Monitoria nao possui Patentes");
+			throw new ProjetoException("Monitoria nao possui Patentes");
 		}
 	}
 	
 	public String getDisciplina(int codigo) {
 		Projeto projeto = this.getProjeto(codigo);
 		if (projeto instanceof Pet) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else {
 			return ((Monitoria) projeto).getDisciplina();
 		}
@@ -193,11 +194,11 @@ public class ProjetoController {
 	public String getPeriodo(int codigo) {
 		Projeto projeto = this.getProjeto(codigo);
 		if (projeto instanceof Pet) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
-			throw new CpcException("Erro na consulta de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else {
 			return ((Monitoria) projeto).getPeriodo();
 		}
@@ -232,9 +233,9 @@ public class ProjetoController {
 		} else if (projeto instanceof Extensao) {
 			((Extensao) projeto).setImpacto(impacto);
 		} else if (projeto instanceof Ped){
-			throw new CpcException("Erro na atualizacao de projeto: P&D nao possui Impacto");
+			throw new ProjetoException("P&D nao possui Impacto");
 		} else {
-			throw new CpcException("Erro na atualizacao de projeto: Monitoria nao possui Impacto");
+			throw new ProjetoException("Monitoria nao possui Impacto");
 		}
 	}
 	
@@ -244,11 +245,11 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			((Pet) projeto).setProducaoTecnica(prodTecnica);
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Producao tecnica");
+			throw new ProjetoException("Extensao nao possui Producao tecnica");
 		} else if (projeto instanceof Ped) {
 			((Ped) projeto).setProducaoTecnica(prodTecnica);
 		} else {
-			throw new CpcException("Erro na atualizacao de projeto: Monitoria nao possui Producao tecnica");
+			throw new ProjetoException("Monitoria nao possui Producao tecnica");
 		}
 	}
 	
@@ -257,11 +258,11 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			((Pet) projeto).setProducaoAcademica(prodAcademica);
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Producao academica");
+			throw new ProjetoException("Extensao nao possui Producao academica");
 		} else if (projeto instanceof Ped){
 			((Ped) projeto).setProducaoAcademica(prodAcademica);
 		} else {
-			throw new CpcException("Erro na atualizacao de projeto: Monitoria nao possui Producao academica");
+			throw new ProjetoException("Monitoria nao possui Producao academica");
 		}
 	}
 	
@@ -270,11 +271,11 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			((Pet) projeto).setPatentes(patentes);
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
 			((Ped) projeto).setPatentes(patentes);
 		} else {
-			throw new CpcException("Erro na atualizacao de projeto: Monitoria nao possui Patentes");
+			throw new ProjetoException("Monitoria nao possui Patentes");
 		}
 	}
 	
@@ -283,22 +284,22 @@ public class ProjetoController {
 		if (projeto instanceof Pet) {
 			((Pet) projeto).setPatentes(rendimento);
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
 			((Ped) projeto).setPatentes(rendimento);
 		} else {
-			throw new CpcException("Erro na atualizacao de projeto: Monitoria nao possui Patentes");
+			throw new ProjetoException("Monitoria nao possui Patentes");
 		}
 	}
 	
 	public void setDisciplina(int codigo, String disciplina) {
 		Projeto projeto = this.getProjeto(codigo);
 		if (projeto instanceof Pet) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else {
 			((Monitoria) projeto).setDisciplina(disciplina);
 		}
@@ -307,11 +308,11 @@ public class ProjetoController {
 	public void setPeriodo(int codigo, String periodo) {
 		Projeto projeto = this.getProjeto(codigo);
 		if (projeto instanceof Pet) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Extensao) {
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else if (projeto instanceof Ped){
-			throw new CpcException("Erro na atualizacao de projeto: Extensao nao possui Patentes");
+			throw new ProjetoException("Extensao nao possui Patentes");
 		} else {
 			((Monitoria) projeto).setPeriodo(periodo);
 		}
@@ -326,7 +327,7 @@ public class ProjetoController {
 		if (projetos.containsKey(codigo))
 			return projetos.get(codigo);
 		else
-			throw new CpcException("Erro na consulta de projeto: Projeto nao encontrado");
+			throw new ProjetoException("Projeto nao encontrado");
 	}
 
 }

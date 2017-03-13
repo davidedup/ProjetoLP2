@@ -44,8 +44,9 @@ public class PedFactory {
 			return new Pivic(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
 		if (categoria.equalsIgnoreCase("coop"))
 			return new Cooperacao(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
-		else
+		else{
 			throw new FactoryException("Categoria invalida");
+		}
 	}
 
 }

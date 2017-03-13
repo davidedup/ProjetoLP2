@@ -7,6 +7,7 @@ import java.util.Map;
 
 import br.edu.ufcg.projetolp2.exceptions.*;
 import br.edu.ufcg.projetolp2.model.projeto.*;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.*;
 import br.edu.ufcg.projetolp2.util.*;
 
 public class ProjetoController {
@@ -479,7 +480,7 @@ public class ProjetoController {
 	 * @param prodAcademica - novo numero de producoes academicas
 	 */
 	public void setProdAcademica(int codigo, int prodAcademica) {
-		if (!NumbersUtil.isNatural(prodTecnica)){
+		if (!NumbersUtil.isNatural(prodAcademica)){
 			throw new ValidacaoException("Erro na atualizacao de projeto: Valor de producao academica invalido");
 		}
 		
@@ -501,7 +502,7 @@ public class ProjetoController {
 	 * @param patentes - novo numero de patentes
 	 */
 	public void setPatentes(int codigo, int patentes) {
-		if (!NumbersUtil.isNatural(prodTecnica)){
+		if (!NumbersUtil.isNatural(patentes)){
 			throw new ValidacaoException("Erro na atualizacao de projeto: Valor de patentes invalido");
 		}
 		

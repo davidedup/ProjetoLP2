@@ -19,5 +19,4 @@ public class ParticipacaoProfessor implements TipoParticipacao {
 		else
 			return TipoParticipacao.PROFESSOR;
 	}
-
 }

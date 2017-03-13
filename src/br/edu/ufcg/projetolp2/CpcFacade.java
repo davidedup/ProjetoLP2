@@ -6,27 +6,50 @@ public class CpcFacade {
 	private MainController controller;
 
 	public void iniciaSistema() {
-
+		
 	}
 
 	public void fechaSistema() {
-
+	
 	}
-
+	
+	/**
+	 * Este mÃ©todo faz o cadastro da pessoa no sistema
+	 * @param cpf - CPF Ã© uma String unica da pessoa a ser cadastrada
+	 * @param nome - Nome da Pessoa a ser cadastrada
+	 * @param email - Email da pessoa a ser cadastrada 
+	 * @return cpf da pessoa cadastrada
+	 */
 	public String cadastraPessoa(String cpf, String nome, String email) {
-		return null;
+		return controller.cadastraPessoa(cpf, nome, email);
 	}
-
+	
+	/**
+	 * Este mÃ©todo edita os dados da pessoa com base no atributo passado que se deseja editar
+	 * @param cpf - CPF da pessoa a ser editada
+	 * @param atributo - atributo de Pessoa que se deseja editar
+	 * @param valor - Novo valor que o atributo escolhido editado irÃ¡ ter
+	 */
 	public void editaPessoa(String cpf, String atributo, String valor) {
-
+		controller.editaPessoa(cpf, atributo, valor);
 	}
 
+	/**
+	 * Este mÃ©todo retorna o atributo de pessoa desejado com base no valor atributo.
+	 * @param cpf - CPF da pessoa que se quer a informaÃ§Ã£o
+	 * @param atributo - Qual o atributo de pessoa que irÃ¡ ser retornardo 
+	 * @return pode retornar o nome ou email, ambos String
+	 */
 	public String getInfoPessoa(String cpf, String atributo) {
-		return null;
+		return controller.getInfoPessoa(cpf, atributo);
 	}
-
+	
+	/**
+	 * Este mÃ©todo remove a pessoa portadora do CPF passado
+	 * @param cpf - CPF da pessoa que se deseja remover
+	 */
 	public void removePessoa(String cpf) {
-
+		controller.removePessoa(cpf);
 	}
 
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
@@ -58,10 +81,10 @@ public class CpcFacade {
 	}
 
 	/**
-	 * Faz a associação de um professor a um projeto
+	 * Faz a associaï¿½ï¿½o de um professor a um projeto
 	 * @param cpfPessoa - cpf da pessoa a ser associada
-	 * @param codigoProjeto - projeto ao qual o professor será associado
-	 * @param coordenador - Flag para saber se é um professor coordenador
+	 * @param codigoProjeto - projeto ao qual o professor serï¿½ associado
+	 * @param coordenador - Flag para saber se ï¿½ um professor coordenador
 	 * @param valorHora - valor R$ da hora do professor
 	 * @param qntHoras -  quantidade de horas semanais dedicada ao projeto
 	 */
@@ -70,9 +93,9 @@ public class CpcFacade {
 	}
 
 	/**
-	 * Faz a associação de um graduando a um projeto
+	 * Faz a associaï¿½ï¿½o de um graduando a um projeto
 	 * @param cpfPessoa - cpf da pessoa a ser associada
-	 * @param codigoProjeto - projeto ao qual o graduando será associado
+	 * @param codigoProjeto - projeto ao qual o graduando serï¿½ associado
 	 * @param valorHora - valor R$ da hora do graduando
 	 * @param qntHoras -  quantidade de horas semanais dedicadas ao projeto
 	 */
@@ -81,9 +104,9 @@ public class CpcFacade {
 	}
 
 	/**
-	 * Faz a associação de um profissional a um projeto
+	 * Faz a associaï¿½ï¿½o de um profissional a um projeto
 	 * @param cpfPessoa - cpf da pessoa a ser associada
-	 * @param codigoProjeto - projeto ao qual o profissional será associado
+	 * @param codigoProjeto - projeto ao qual o profissional serï¿½ associado
 	 * @param cargo - cargo em que o profissional trabalha
 	 * @param valorHora - valor R$ da hora do graduando
 	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
@@ -93,7 +116,7 @@ public class CpcFacade {
 	}
 
 	/**
-	 * remove a participaçao de pessoa e projeto
+	 * remove a participaï¿½ao de pessoa e projeto
 	 * @param cpfPessoa - CPF da pessoa a ser removida a participacao
 	 * @param codigoProjeto - codigo do projeto a ser removida a participacao
 	 */

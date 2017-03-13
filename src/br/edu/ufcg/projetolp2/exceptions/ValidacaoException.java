@@ -9,15 +9,15 @@ public class ValidacaoException extends RuntimeException{
 	}
 
 	public ValidacaoException(Exception e) {
-
+		super(e);
 	}
 
 	public ValidacaoException(String message) {
-
+		super(message);
 	}
 
 	public ValidacaoException(Exception e, String message) {
-
+		super(message, e);
 	}
 
 }

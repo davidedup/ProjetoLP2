@@ -1,63 +1,71 @@
 package br.edu.ufcg.projetolp2.model.participacao;
 
-import java.util.Date;
-
 import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class Participacao {
 
-	private Date dataDeInicio;
-	private int duracao;
 	private int quantHorasSemanais;
 	private double valorHora;
 	private Pessoa pessoa;
 	private Projeto projeto;
 	private TipoParticipacao tipoParticipacao;
 
-	public Participacao(Projeto projeto, Pessoa pessoa, Date dataDeInicio, int duracao, int horasSemanais, double valorHora, TipoParticipacao tipoParticipacao) {
-
+	public Participacao(Projeto projeto, Pessoa pessoa, int horasSemanais, double valorHora, TipoParticipacao tipoParticipacao) {
+		this.pessoa = pessoa;
+		this.projeto = projeto;
+		this.quantHorasSemanais = horasSemanais;
+		this.tipoParticipacao = tipoParticipacao;
+		this.valorHora = valorHora;
 	}
 
-	public Date getDataDeInicio() {
-		return null;
-	}
-
-	public int getDuracao() {
-		return 0;
-	}
-
+	/**
+	 * Método que retorna a quantidade de horas semanais trabalhadas pela pessoa no projeto
+	 * @return int representando a quantidade de horas semanains
+	 */
 	public int getQuantHorasSemanais() {
-		return 0;
+		return this.quantHorasSemanais;
 	}
 
+	/**
+	 * Método que retorna o valor da hora de trabalho da pessoa no projeto
+	 * @return double representando o valor em reais da hora de trabalho
+	 */
 	public double getValorHora() {
-		return 0;
+		return this.valorHora;
 	}
 
+	/**
+	 * Método que retorna a pessoa que está associada ao projeto
+	 * @return objeto {@link Pessoa} cuja está associada ao projeto
+	 */
 	public Pessoa getPessoa() {
-		return null;
+		return this.pessoa;
 	}
 
+	/**
+	 * Método que retorna o projeto ao qual a pessoa está associada
+	 * @return objeto {@link Projeto}
+	 */
 	public Projeto getProjeto() {
-		return null;
+		return this.projeto;
 	}
 	
+	/**
+	 * Método que retorna o tipo de participação da pessoa no projeto
+	 * @return objeto que implementa {@link TipoParticipacao}
+	 */
 	public TipoParticipacao getTipoParticipacao() {
-		return null;
-	}
-
-	public void setDuracao(int duracao) {
-
+		return this.tipoParticipacao;
 	}
 
 	public void setQuantHorasSemanais(int quant) {
-
+		this.quantHorasSemanais = quant;
 	}
 
 	public void setValorHora(double valor) {
-
+		this.valorHora = valor;
 	}
 
 	@Override
@@ -89,11 +97,6 @@ public class Participacao {
 		} else if (!projeto.equals(other.projeto))
 			return false;
 		return true;
-	}
-	
-	public String toString() {
-		//TODO
-		return null;
 	}
 
 }

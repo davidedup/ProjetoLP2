@@ -9,15 +9,15 @@ public class FactoryException extends Exception {
 	}
 
 	public FactoryException(Exception e) {
-
+		super(e);
 	}
 
 	public FactoryException(String message) {
-
+		super(message);
 	}
 
 	public FactoryException(Exception e, String message) {
-
+		super(message, e);
 	}
 
 }

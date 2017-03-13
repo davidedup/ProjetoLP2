@@ -57,27 +57,32 @@ public class CpcFacade {
 		controller.removePessoa(cpf);
 	}
 
-
 	public void adicionaParticipacao(int codigoProjeto, String cpf, Date dataInicio, int duracao, int horasSemanais,
 			double valorHora) {
 		controller.adicionaParticipacao(codigoProjeto, cpf, dataInicio, duracao, horasSemanais, valorHora);
 	}
-
-	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
-			String dataInicio, int duracao) {
+	
+	/**
+	 * Adiciona ao sistema um projeto de monitoria
+	 * @param nome - nome do projeto de monitoria
+	 * @param disciplina - nome da disciplina da monitoria
+	 * @param rendimento - porcentagem do rendimento do projeto
+	 * @param objetivo - objetivo da monitoria
+	 * @param periodo - periodo letivo da monitoria
+	 * @param dataInicio - data de inicio do projeto
+	 * @param duracao - tempo (em meses) de duracao do projeto
+	 * @return
+	 */
+	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
 		return controller.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao);
 	}
 
-	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica,
-			int prodAcademica, int patentes, String dataInicio, int duracao) {
-		return controller.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes,
-				dataInicio, duracao);
+	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) {
+		return controller.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
 	}
 
-	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
-			String objetivo, String dataInicio, int duracao) {
-		return controller.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio,
-				duracao);
+	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) {
+		return controller.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
 	}
 
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
@@ -86,6 +91,10 @@ public class CpcFacade {
 
 	public String getInfoProjeto(int cod, String atributo) {
 		return controller.getInfoProjeto(cod, atributo);
+	}
+	
+	public int getCodigoProjeto(String nomeProjeto) {
+		return controller.getCodigoProjeto(nomeProjeto);
 	}
 
 	public void editaProjeto(int codigo, String atributo, String valor) {
@@ -111,5 +120,4 @@ public class CpcFacade {
 	public void removeParticipacao(String cpfPessoa, int codigoProjeto) {
 
 	}
-
 }

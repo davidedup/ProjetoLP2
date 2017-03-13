@@ -6,7 +6,7 @@ public class CpcFacade {
 	private MainController controller;
 
 	public void iniciaSistema() {
-		controller = new MainController();
+		
 	}
 
 	public void fechaSistema() {

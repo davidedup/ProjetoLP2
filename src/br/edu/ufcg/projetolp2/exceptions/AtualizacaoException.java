@@ -9,15 +9,15 @@ public class AtualizacaoException extends Exception{
 	}
 
 	public AtualizacaoException(Exception e) {
-
+		super(e);
 	}
 
 	public AtualizacaoException(String message) {
-
+		super(message);
 	}
 
 	public AtualizacaoException(Exception e, String message) {
-
+		super(message, e);
 	}
 
 }

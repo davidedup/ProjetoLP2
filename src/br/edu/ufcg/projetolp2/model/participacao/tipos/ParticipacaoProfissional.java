@@ -5,13 +5,12 @@ public class ParticipacaoProfissional implements TipoParticipacao {
 	private String cargo;
 	
 	public String getCargo() {
-		return null;
+		return this.cargo;
 	}
 
 	@Override
 	public String getTipoParticipacao() {
-		// TODO Auto-generated method stub
-		return null;
+		return TipoParticipacao.PROFISSIONAL;
 	}
 
 }

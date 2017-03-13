@@ -4,18 +4,19 @@ public class ParticipacaoProfessor implements TipoParticipacao {
 
 	private boolean coordenador;
 
-	public boolean getCoordenador() {
-		return false;
+	public ParticipacaoProfessor(boolean coordenador) {
+		this.coordenador = coordenador;
 	}
-
-	public void setCoordenador(boolean coordenador) {
-
+	
+	public boolean getCoordenador() {
+		return this.coordenador;
 	}
 
 	@Override
 	public String getTipoParticipacao() {
-		// TODO Auto-generated method stub
-		return null;
+		if (coordenador)
+			return TipoParticipacao.PROFESSOR_COORDENADOR;
+		else
+			return TipoParticipacao.PROFESSOR;
 	}
-
 }

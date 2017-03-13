@@ -1,12 +1,16 @@
 package br.edu.ufcg.projetolp2;
+
 import br.edu.ufcg.projetolp2.controllers.MainController;
 
 public class CpcFacade {
 
 	private MainController controller;
+	
+	public CpcFacade(){
+		controller = new MainController();
+	}
 
 	public void iniciaSistema() {
-		
 	}
 
 	public void fechaSistema() {
@@ -51,33 +55,48 @@ public class CpcFacade {
 	public void removePessoa(String cpf) {
 		controller.removePessoa(cpf);
 	}
-
+	
+	/**
+	 * Adiciona ao sistema um projeto de monitoria
+	 * @param nome - nome do projeto de monitoria
+	 * @param disciplina - nome da disciplina da monitoria
+	 * @param rendimento - porcentagem do rendimento do projeto
+	 * @param objetivo - objetivo da monitoria
+	 * @param periodo - periodo letivo da monitoria
+	 * @param dataInicio - data de inicio do projeto
+	 * @param duracao - tempo (em meses) de duracao do projeto
+	 * @return
+	 */
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao);
 	}
 
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
 	}
 
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
 	}
 
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
-		return 0;
+		return controller.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
 	}
 
 	public String getInfoProjeto(int cod, String atributo) {
-		return null;
+		return controller.getInfoProjeto(cod, atributo);
+	}
+	
+	public int getCodigoProjeto(String nomeProjeto) {
+		return controller.getCodigoProjeto(nomeProjeto);
 	}
 
-	public void editaProjeto(int codigo, String atributo, int valor) {
-
+	public void editaProjeto(int codigo, String atributo, String valor) {
+		controller.editaProjeto(codigo, atributo, valor);
 	}
 
 	public void removeProjeto(int codigo) {
-
+		controller.removeProjeto(codigo);
 	}
 
 	/**
@@ -123,5 +142,4 @@ public class CpcFacade {
 	public void removeParticipacao(String cpfPessoa, int codigoProjeto) {
 		controller.removeParticipacao(cpfPessoa, codigoProjeto);
 	}
-
 }

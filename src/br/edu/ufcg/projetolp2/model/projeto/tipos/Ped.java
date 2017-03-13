@@ -6,46 +6,39 @@ import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public abstract class Ped extends Projeto {
 
-	private CategoriaPeD categoria;
 	private int producaoTecnica;
 	private int procucaoAcademica;
 	private int patentes;
-	private Projeto projeto;
 
-	public Ped(String nome, String objetivo, Date dataInicio, int duracao, CategoriaPeD categoria, int producaoTecnica, int producaoAcademica, int patentes) {
-		super(nome, objetivo, dataInicio, duracao);
-	}
-
-	public CategoriaPeD getCategoria() {
-		return null;
+	public Ped(int codigo, String nome, String objetivo, Date dataInicio, int duracao, int producaoTecnica, int producaoAcademica, int patentes) {
+		super(codigo, nome, objetivo, dataInicio, duracao);
+		this.producaoTecnica = producaoTecnica;
+		this.procucaoAcademica = producaoAcademica;
+		this.patentes = patentes;
 	}
 
 	public int getProducaoTecnica() {
-		return 0;
+		return this.producaoTecnica;
 	}
 
 	public int getProducaoAcademica() {
-		return 0;
+		return this.procucaoAcademica;
 	}
 
 	public int getPatentes() {
-		return 0;
-	}
-
-	public void setCategoria(CategoriaPeD categoria) {
-
+		return this.patentes;
 	}
 
 	public void setProducaoTecnica(int producao) {
-
+		this.producaoTecnica = producao;
 	}
 
 	public void setProducaoAcademica(int producao) {
-
+		this.procucaoAcademica = producao;
 	}
 
 	public void setPatentes(int patentes) {
-
+		this.patentes = patentes;
 	}
 
 }

@@ -2,6 +2,7 @@ package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
 import java.util.Date;
 
+import br.edu.ufcg.projetolp2.exceptions.AssociacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 
@@ -9,22 +10,26 @@ public class Cooperacao extends Ped {
 
 	private Pessoa coordenador;
 	
-	public Cooperacao(String nome, String objetivo, Date dataInicio, int duracao, CategoriaPeD categoria,
+	public Cooperacao(int codigo, String nome, String objetivo, Date dataInicio, int duracao,
 			int producaoTecnica, int producaoAcademica, int patentes) {
-		super(nome, objetivo, dataInicio, duracao, categoria, producaoTecnica, producaoAcademica, patentes);
-		// TODO Auto-generated constructor stub
+		super(codigo, nome, objetivo, dataInicio, duracao, producaoTecnica, producaoAcademica, patentes);
 	}
 
 	@Override
-	public void adiciona(Participacao participacao) {
-		// TODO Auto-generated method stub
-		
+	public void adiciona(Participacao participacao) throws AssociacaoException {
+		if (participacao.getTipoParticipacao().getTipoParticipacao().equals("PROFESSOR COORDENADOR")){
+			if (coordenador == null)
+				coordenador = participacao.getPessoa();
+			else
+				throw new AssociacaoException("Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um coordenador");
+		}		
 	}
 
 	@Override
 	public void remove(Participacao participacao) {
-		// TODO Auto-generated method stub
-		
+		if (participacao.getTipoParticipacao().getTipoParticipacao().equals("PROFESSOR COORDENADOR")){
+			coordenador = null;
+		}
 	}
 
 }

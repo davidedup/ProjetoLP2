@@ -12,44 +12,54 @@ public abstract class Projeto implements Participavel {
 	private int codigo;
 	private ArrayList<Custo> custos;
 
-	public Projeto(String nome, String objetivo, Date dataInicio, int duracao) {
-
+	public Projeto(int codigo, String nome, String objetivo, Date dataInicio, int duracao) {
+		this.nome = nome;
+		this.objetivo = objetivo;
+		this.dataInicio = dataInicio;
+		this.duracaoMeses = duracao;
+		this.codigo = codigo;
+		this.custos = new ArrayList<>();
 	}
 
 	public String getNome() {
-		return null;
+		return this.nome;
 	}
 
 	public String getObjetivo() {
-		return null;
+		return this.objetivo;
 	}
 
 	public Date getDataInicio() {
-		return null;
+		return this.dataInicio;
 	}
 
 	public int getDuracao() {
-		return 0;
+		return this.duracaoMeses;
 	}
 
 	public int getCodigo() {
-		return 0;
+		return this.codigo;
 	}
 
 	public void setObjetivo(String objetivo) {
-
+		this.objetivo = objetivo;
 	}
 
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	
 	public void setNome(String nome) {
-
+		this.nome = nome;
 	}
 
 	public void setDuracao(int duracao) {
-
+		this.duracaoMeses = duracao;
 	}
 
 	public void addCusto(double valor, TipoCusto tipoCusto) {
-
+		Custo custo = new Custo(valor, tipoCusto);
+		this.custos.add(custo);
 	}
 
 	public String toString() {

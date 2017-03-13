@@ -5,16 +5,30 @@ public class Custo {
 	private double valor;
 	private TipoCusto tipoCusto;
 
-	public Custo(int valor, TipoCusto tipoCusto) {
-
+	/**
+	 * Construtor de Custo
+	 * @param valor - valor do custo
+	 * @param tipoCusto - tipo do custo
+	 */
+	public Custo(double valor, TipoCusto tipoCusto) {
+		this.valor = valor;
+		this.tipoCusto = tipoCusto;
 	}
 
+	/**
+	 * retorna o valor do custo
+	 * @return - valor do custo
+	 */
 	public double getValor() {
-		return 0;
+		return this.valor;
 	}
-
+	
+	/**
+	 * retorna o tipo do custo
+	 * @return - tipo do custo
+	 */
 	public TipoCusto getTipoCusto() {
-		return null;
+		return this.tipoCusto;
 	}
 	
 }

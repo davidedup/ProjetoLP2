@@ -1,10 +1,11 @@
 package br.edu.ufcg.projetolp2.model.participacao.tipos;
 
-public class ParticipacaoGraduando implements TipoParticipacao {
+public class ParticipacaoPosGraduanduando implements TipoParticipacao {
 
 	@Override
 	public String getTipoParticipacao() {
-		return TipoParticipacao.GRADUANDO;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

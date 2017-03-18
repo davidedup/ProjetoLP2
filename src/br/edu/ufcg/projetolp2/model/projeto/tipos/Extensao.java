@@ -2,7 +2,6 @@ package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
 import java.util.Date;
 
-import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class Extensao extends Projeto {
@@ -23,13 +22,15 @@ public class Extensao extends Projeto {
 	}
 
 	@Override
-	public void adiciona(Participacao participacao) {
-		return;
+	public String getInfo(String atributo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void remove(Participacao participacao) {
-		return;
+	public void setInfo(String atributo, String valor) {
+		// TODO Auto-generated method stub
+		
 	}
-
+	
 }

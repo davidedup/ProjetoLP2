@@ -18,4 +18,5 @@ public interface TipoParticipacao {
 	 * </ul>
 	 */
 	String getTipoParticipacao();
+	double calculaPontos();
 }

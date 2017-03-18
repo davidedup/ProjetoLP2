@@ -3,7 +3,10 @@ package br.edu.ufcg.projetolp2.model.projeto;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Projeto implements Participavel {
+import br.edu.ufcg.projetolp2.model.Atributavel;
+import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+
+public abstract class Projeto implements Atributavel{
 
 	private String nome;
 	private String objetivo;
@@ -60,6 +63,19 @@ public abstract class Projeto implements Participavel {
 	public void addCusto(double valor, TipoCusto tipoCusto) {
 		Custo custo = new Custo(valor, tipoCusto);
 		this.custos.add(custo);
+	}
+	
+	public String getParticipacoes() {
+		//TODO
+		return null;
+	}
+	
+	public void removeParticipacao(String cpfPessoa) {
+		//TODO
+	}
+	
+	public void adicionaParticipacao(Participacao participacao) {
+		//TODO
 	}
 
 	public String toString() {

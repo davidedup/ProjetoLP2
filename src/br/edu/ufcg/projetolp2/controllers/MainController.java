@@ -1,22 +1,15 @@
 package br.edu.ufcg.projetolp2.controllers;
 
-import java.text.ParseException;
-
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
-import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
-import br.edu.ufcg.projetolp2.util.DateUtil;
-import br.edu.ufcg.projetolp2.util.StringUtil;
 
 public class MainController {
 
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;
-	private ParticipacaoController participacaoController;
 	
 	public MainController () {
 		projetoController = new ProjetoController();
-		participacaoController = new ParticipacaoController();
 		pessoaController = new PessoaController();
 	}
 
@@ -46,13 +39,7 @@ public class MainController {
 	 * @param valor - Novo valor que o atributo escolhido editado irá ter
 	 */
 	public void editaPessoa(String cpf, String atributo, String valor) {
-		if (atributo.equalsIgnoreCase("nome")){
-			pessoaController.editaNome(cpf, valor);
-		} else if (atributo.equalsIgnoreCase("email")){
-			pessoaController.editaEmail(cpf, valor);
-		} else if (atributo.equalsIgnoreCase("cpf")){
-			pessoaController.editaCpf(cpf, valor);
-		}
+		
 	}
 
 	/**
@@ -62,11 +49,8 @@ public class MainController {
 	 * @return pode retornar o nome ou email, ambos String
 	 */
 	public String getInfoPessoa(String cpf, String atributo) {
-		if (atributo.equalsIgnoreCase("nome")){
-			return pessoaController.getNome(cpf);
-		}else{
-			return pessoaController.getEmail(cpf);		
-		}
+		//TODO
+		return null;
 	}
 
 	/**
@@ -95,11 +79,11 @@ public class MainController {
 	/**
 	 *  Cria um projeto do tipo PET e retorna seu codigo
 	 * @param nome - nome do projeto PET
-	 * @param objetivo - descri��o do objetivo do projeto PET
+	 * @param objetivo - descrição do objetivo do projeto PET
 	 * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil)
 	 * @param rendimento - rendimento que varia de 0-100%
-	 * @param prodTecnica - quatidade de produ��es tecnicas
-	 * @param prodAcademica - quantidade de procu��es acad�micas
+	 * @param prodTecnica - quatidade de produções tecnicas
+	 * @param prodAcademica - quantidade de produções acadêmicas
 	 * @param patentes - quantidades de patentes
 	 * @param dataInicio - data em que o projeto come�ou
 	 * @param duracao - duracoa em meses do projeto
@@ -113,8 +97,8 @@ public class MainController {
 	 * Cria um projeto do tipo P&D e retorna seu codigo
 	 * @param nome do projeto do tipo P&D
 	 * @param categoria - Determina a categoria do projeto Coopera��o, PIBIC,PIBITI ou PIVIC
-	 * @param prodTecnica - quatidade de produ��es tecnicas
-	 * @param prodAcademica - quantidade de procu��es acad�micas
+	 * @param prodTecnica - quatidade de produções tecnicas
+	 * @param prodAcademica - quantidade de procuções acadêmicas
 	 * @param patentes - quantidades de patentes
 	 * @param objetivo -  descreve o objetivo do projeto
 	 * @param dataInicio - data em que o projeto come�ou
@@ -131,10 +115,10 @@ public class MainController {
 
 	/**
 	 * Cria um projeto do tipo extens�o e retorna seu codigo
-	 * @param nome - nome do projeto de exens�o
+	 * @param nome - nome do projeto de exensão
 	 * @param objetivo - descricao do obejtivo do projeto
 	 * @param impacto - varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil)
-	 * @param dataInicio - data em que o projeto come�ou
+	 * @param dataInicio - data em que o projeto começou
 	 * @param duracao -duracao em meses do projeto
 	 * @return - codigo do projeto adicionado
 	 */
@@ -149,56 +133,11 @@ public class MainController {
 	 * @return - retorna o atributo requerido no formato de String
 	 */
 	public String getInfoProjeto(int cod, String atributo) {
-		if (StringUtil.isStringNula(atributo) || StringUtil.isStringVazia(atributo)){
-			throw new CpcException("Erro na consulta de projeto: Atributo nulo ou invalido");
-		}
-		
-		if (atributo.equalsIgnoreCase("nome")){
-			return projetoController.getNome(cod);
-		} else if(atributo.equalsIgnoreCase("objetivo")){
-			return projetoController.getObjetivo(cod);
-			
-		} else if(atributo.equalsIgnoreCase("Data de inicio")){
-			try {
-				return DateUtil.formatDate(projetoController.getDataInicio(cod));
-			} catch (ParseException e) {
-				throw new CpcException(e, "Data invalida");
-			}
-			
-		} else if(atributo.equalsIgnoreCase("duracao")){
-			return "" + projetoController.getDuracao(cod);
-			
-		} else if(atributo.equalsIgnoreCase("disciplina")){
-			return projetoController.getDisciplina(cod);
-		
-		} else if(atributo.equalsIgnoreCase("periodo")){
-			return projetoController.getPeriodo(cod);
-		
-		} else if(atributo.equalsIgnoreCase("rendimento")){
-			return String.valueOf(projetoController.getRendimento(cod));
-			
-		} else if(atributo.equalsIgnoreCase("patentes")){
-			return String.valueOf(projetoController.getPatentes(cod));
-			
-		} else if(atributo.equalsIgnoreCase("producao academica")){
-			return String.valueOf(projetoController.getProdAcademica(cod));
-			
-		} else if(atributo.equalsIgnoreCase("producao tecnica")){
-			return String.valueOf(projetoController.getProdTecnica(cod));
-			
-		} else if(atributo.equalsIgnoreCase("impacto")){
-			return String.valueOf(projetoController.getImpacto(cod));
-		} else {
-			throw new CpcException("Erro na consulta de projeto: Atributo nulo ou invalido");
-		}
+		return null;
 	}
 	
 	public int getCodigoProjeto(String nomeProjeto) {
-		try {
-			return projetoController.getProjeto(nomeProjeto).getCodigo();
-		} catch (ProjetoException e) {
-			throw new CpcException("Erro na consulta de projeto: ");
-		}
+		return 0;
 	}
 
 	/**
@@ -208,42 +147,7 @@ public class MainController {
 	 * @param valor -  novo valor que o atributo requerido ser� atulizado
 	 */
 	public void editaProjeto(int codigo, String atributo, String valor) {
-		if (atributo.equalsIgnoreCase("nome")){
-			projetoController.editaNome(codigo, valor);
-		}else if(atributo.equalsIgnoreCase("objetivo")){
-			projetoController.editaObjetivo(codigo, valor);
-		}else if(atributo.equalsIgnoreCase("Data de inicio")){
-			try {
-				projetoController.editaDataInicio(codigo,DateUtil.parseDate(valor));
-			} catch (ParseException e) {
-				throw new CpcException(e,"Erro na atualizacao de projeto: Formato de data invalido");
-			}
-		} else if(atributo.equalsIgnoreCase("duracao")){
-			projetoController.editaDuracao(codigo, Integer.valueOf(valor));
-			
-		} else if(atributo.equalsIgnoreCase("disciplina")){
-			projetoController.setDisciplina(codigo, valor);
 		
-		} else if(atributo.equalsIgnoreCase("periodo")){
-			projetoController.setPeriodo(codigo, valor);
-		
-		} else if(atributo.equalsIgnoreCase("rendimento")){
-			projetoController.setRendimento(codigo, Integer.valueOf(valor));
-			
-		} else if(atributo.equalsIgnoreCase("patentes")){
-			projetoController.setPatentes(codigo, Integer.valueOf(valor));
-			
-		} else if(atributo.equalsIgnoreCase("producao academica")){
-			projetoController.setProdAcademica(codigo, Integer.valueOf(valor));
-			
-		} else if(atributo.equalsIgnoreCase("producao tecnica")){
-			projetoController.setProdTecnica(codigo, Integer.valueOf(valor));
-			
-		} else if(atributo.equalsIgnoreCase("impacto")){
-			projetoController.editaImpacto(codigo, Integer.valueOf(valor));
-		} else {
-			throw new CpcException("Erro na consulta de projeto: Atributo nulo ou invalido");
-		}
 	}
 
 	/**
@@ -255,7 +159,7 @@ public class MainController {
 	}
 	
 	/**
-	 * Faz a associa��o de um professor a um projeto
+	 * Faz a associação de um professor a um projeto
 	 * @param cpfPessoa - cpf da pessoa a ser associada
 	 * @param codigoProjeto - projeto ao qual o professor ser� associado
 	 * @param coordenador - Flag para saber se � um professor coordenador
@@ -263,38 +167,54 @@ public class MainController {
 	 * @param qntHoras -  quantidade de horas semanais dedicada ao projeto
 	 */
 	public void associaProfessor(String cpfPessoa, int codigoProjeto, boolean coordenador, double valorHora, int qntHoras) {
-		participacaoController.associaProfessor(pessoaController.getPessoa(cpfPessoa), projetoController.getProjeto(codigoProjeto), coordenador, valorHora, qntHoras);
+
 	}
 	
 	/**
-	 * Faz a associa��o de um graduando a um projeto
+	 * Faz a associação de um graduando a um projeto
 	 * @param cpfPessoa - cpf da pessoa a ser associada
 	 * @param codigoProjeto - projeto ao qual o graduando ser� associado
 	 * @param valorHora - valor R$ da hora do graduando
 	 * @param qntHoras -  quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaGraduando(String cpfPessoa, int codigoProjeto, double valorHora, int qntHoras) {
-		participacaoController.associaGraduando(pessoaController.getPessoa(cpfPessoa), projetoController.getProjeto(codigoProjeto), valorHora, qntHoras);
+
 	}
 	
 	/**
-	 * Faz a associa��o de um profissional a um projeto
+	 * Faz a associação de um profissional a um projeto
 	 * @param cpfPessoa - cpf da pessoa a ser associada
-	 * @param codigoProjeto - projeto ao qual o profissional ser� associado
+	 * @param codigoProjeto - projeto ao qual o profissional será associado
 	 * @param cargo - cargo em que o profissional trabalha
 	 * @param valorHora - valor R$ da hora do graduando
 	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaProfissional(String cpfPessoa, int codigoProjeto, String cargo, double valorHora, int qntHoras) {
-		participacaoController.associaProfissional(pessoaController.getPessoa(cpfPessoa), projetoController.getProjeto(codigoProjeto), cargo, valorHora, qntHoras);
+
+	}
+	
+	/**
+	 * Faz a associação de um pós-graduando a um projeto
+	 * @param cpfPessoa - cpf da pessoa a ser associada
+	 * @param codigoProjeto - projeto ao qual o profissional será associado
+	 * @param nivel - String indicando qual o nível da pós graduação do aluno, podendo ser mestrado ou doutorado
+	 * @param valorHora - valor R$ da hora do graduando
+	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
+	 */
+	public void associaPosGraduando(String cpfPessoa, int codigoProjeto, String nivel, double valorHora, int qntHoras) {
+
 	}
 
 	/**
-	 * remove a participa�ao de pessoa e projeto
+	 * remove a participação de pessoa e projeto
 	 * @param cpfPessoa - CPF da pessoa a ser removida a participacao
 	 * @param codigoProjeto - codigo do projeto a ser removida a participacao
 	 */
 	public void removeParticipacao(String cpfPessoa, int codigoProjeto) {
-		participacaoController.removeParticipacao(pessoaController.getPessoa(cpfPessoa));
+
+	}
+	
+	public double calculaPontucaoPorParticipacao(String cpfPessoa) {
+		return 0;
 	}
 }

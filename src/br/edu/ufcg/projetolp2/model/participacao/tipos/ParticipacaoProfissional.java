@@ -13,4 +13,10 @@ public class ParticipacaoProfissional implements TipoParticipacao {
 		return TipoParticipacao.PROFISSIONAL;
 	}
 
+	@Override
+	public double calculaPontos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -19,4 +19,10 @@ public class ParticipacaoProfessor implements TipoParticipacao {
 		else
 			return TipoParticipacao.PROFESSOR;
 	}
+
+	@Override
+	public double calculaPontos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

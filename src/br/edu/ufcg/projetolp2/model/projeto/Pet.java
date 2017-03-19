@@ -2,10 +2,6 @@ package br.edu.ufcg.projetolp2.model.projeto;
 
 import java.util.Date;
 
-import br.edu.ufcg.projetolp2.exceptions.AssociacaoException;
-import br.edu.ufcg.projetolp2.model.participacao.Participacao;
-import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
-
 public class Pet extends Projeto {
 
 	private int impacto;
@@ -13,7 +9,6 @@ public class Pet extends Projeto {
 	private int procucaoAcademica;
 	private int patentes;
 	private int rendimento;
-	private Pessoa tutor;
 
 	public Pet(int codigo, String nome, String objetivo, Date dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) {
 		super(codigo, nome, objetivo, dataInicio, duracao);
@@ -68,19 +63,14 @@ public class Pet extends Projeto {
 	}
 
 	@Override
-	public void adiciona(Participacao participacao) throws AssociacaoException {
-		if (participacao.getTipoParticipacao().getTipoParticipacao().contains("PROFESSOR COORDENADOR")) {
-			if (tutor == null)
-				tutor = participacao.getPessoa();
-			else
-				throw new AssociacaoException("Erro na associacao de pessoa a projeto: Projetos PET nao podem ter mais de um coordenador");
-		}
+	public String getInfo(String atributo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void remove(Participacao participacao) {
-		if (participacao.getTipoParticipacao().getTipoParticipacao().contains("PROFESSOR COORDENADOR")) {
-			tutor = null;
-		}	
+	public void setInfo(String atributo, String valor) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -2,18 +2,23 @@ package br.edu.ufcg.projetolp2.model.projeto;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
+import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.model.Atributavel;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
 
 public abstract class Projeto implements Atributavel{
-
+	
 	private String nome;
 	private String objetivo;
 	private Date dataInicio;
 	private int duracaoMeses;
 	private int codigo;
-	private ArrayList<Custo> custos;
+	private List<Custo> custos;
+	private List<Participacao> participacoes;
 
 	public Projeto(int codigo, String nome, String objetivo, Date dataInicio, int duracao) {
 		this.nome = nome;
@@ -21,7 +26,8 @@ public abstract class Projeto implements Atributavel{
 		this.dataInicio = dataInicio;
 		this.duracaoMeses = duracao;
 		this.codigo = codigo;
-		this.custos = new ArrayList<>();
+		this.custos = new ArrayList<Custo>();
+		this.participacoes = new ArrayList<Participacao>();
 	}
 
 	public String getNome() {
@@ -70,12 +76,43 @@ public abstract class Projeto implements Atributavel{
 		return null;
 	}
 	
+	private Participacao getParticipacao(String cpfPessoa) {
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (cpfPessoa.equals(p.getPessoa().getCpf())) {
+				return p;
+			}
+		}
+		throw new ProjetoException("Projeto nao possui participacao da pessoa indicada");
+	}
+	
 	public void removeParticipacao(String cpfPessoa) {
-		//TODO
+		participacoes.remove(getParticipacao(cpfPessoa));		
 	}
 	
 	public void adicionaParticipacao(Participacao participacao) {
-		//TODO
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (participacao.getPessoa().getCpf().equals(p.getPessoa().getCpf())) {
+				String prefixo = "";
+				
+				
+				switch(participacao.getTipoParticipacao().getTipoParticipacao()) {
+					case(TipoParticipacao.GRADUANDO): case(TipoParticipacao.POS_GRADUANDO):
+						prefixo = "Aluno";
+						break;
+					case(TipoParticipacao.PROFESSOR):
+						prefixo = "Professor";
+						break;
+					case(TipoParticipacao.PROFISSIONAL):
+						prefixo = "Profissional";
+				}
+				
+				throw new ProjetoException(prefixo+" ja esta cadastado nesse projeto");
+			}
+		}
 	}
 
 	public String toString() {

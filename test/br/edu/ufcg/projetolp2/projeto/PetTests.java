@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pet;
-import br.edu.ufcg.projetolp2.model.projeto.tipos.Pivic;
 
 public class PetTests {
 	

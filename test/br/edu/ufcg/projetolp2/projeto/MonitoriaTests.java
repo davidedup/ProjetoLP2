@@ -5,45 +5,62 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.edu.ufcg.projetolp2.model.projeto.PedFactory;
+import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Pet;
+
 public class MonitoriaTests {
+
+	Projeto projMon;
 
 	@Before
 	public void setUp() throws Exception {
+		projMon = new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "P2", "1232.2", 1);
 	}
-
+	
 	@Test
 	public void testMonitoria() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetDisciplina() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPeriodo() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetDisciplina() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetPeriodo() {
-		fail("Not yet implemented");
+		try{
+			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "", "1232.2", 1);
+		} catch(Exception e){
+			assertEquals("Disciplina nula ou vazia", e.getMessage());
+		}
+		
+		try{
+			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "da", "", 1);
+		} catch(Exception e){
+			assertEquals("Periodo nulo ou vazio", e.getMessage());
+		}
+		
+		try{
+			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "", "1232.2", 1);
+		} catch(Exception e){
+			assertEquals("Rendimento invalido", e.getMessage());
+		}
 	}
 
 	@Test
 	public void testGetInfo() {
-		fail("Not yet implemented");
+		assertEquals(projMon.getInfo("disciplina"), "P2");
+		assertEquals(projMon.getInfo("periodo"), "1232.2");
+		assertEquals(projMon.getInfo("rendimento"), "1");
+		
+		try {
+			projMon.getInfo("monitoria");
+		} catch (Exception e) {
+			assertEquals("Monitoria nao possui Producao academica", e.getMessage());
+		}
 	}
 
 	@Test
 	public void testSetInfo() {
-		fail("Not yet implemented");
+		projMon.setInfo("disciplina", "P3");
+		assertEquals(projMon.getInfo("disciplina"), "P3");
+		projMon.setInfo("periodo", "2012.2");
+		assertEquals(projMon.getInfo("periodo"), "2012.2");
+		projMon.setInfo("rendimento", "2");
+		assertEquals(projMon.getInfo("rendimento"), "2");
 	}
 
 }

@@ -2,23 +2,49 @@ package br.edu.ufcg.projetolp2.projeto;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Pivic;
+
 public class PedTests {
+	Ped projPivic;
 
 	@Before
 	public void setUp() throws Exception {
+		projPivic = new Pivic(0, "as", "sao", "22/12/2012", 2, 3, 4, 5);
 	}
 
 	@Test
-	public void testPed() {
-		fail("Not yet implemented");
+	public void testPed() throws ParseException {
+		try {
+			Pivic pivic = new Pivic(0, "as", "sao", "22/12/2012", 12, -2, 2, 2);
+			fail();
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Numero de producoes tecnicas invalido");
+		}
+
+		try {
+			Pivic pivic = new Pivic(0, "as", "sao", "22/12/2012", 12, 2, -2, 2);
+			fail();
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Numero de producoes academicas invalido");
+		}
+
+		try {
+			Pivic pivic = new Pivic(0, "as", "sao", "22/12/2012", 12, 2, 2, -2);
+			fail();
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Numero de patentes invalido");
+		}
 	}
 
 	@Test
 	public void testGetProducaoTecnica() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test

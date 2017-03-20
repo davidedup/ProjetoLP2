@@ -2,6 +2,14 @@ package br.edu.ufcg.projetolp2.controllers;
 
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
+import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduanduando;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
+import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
+import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class MainController {
 
@@ -39,7 +47,7 @@ public class MainController {
 	 * @param valor - Novo valor que o atributo escolhido editado irá ter
 	 */
 	public void editaPessoa(String cpf, String atributo, String valor) {
-		
+		pessoaController.editaPessoa(cpf, atributo, valor);
 	}
 
 	/**
@@ -49,8 +57,7 @@ public class MainController {
 	 * @return pode retornar o nome ou email, ambos String
 	 */
 	public String getInfoPessoa(String cpf, String atributo) {
-		//TODO
-		return null;
+		return pessoaController.getInfoPessoa(cpf, atributo);
 	}
 
 	/**
@@ -133,21 +140,26 @@ public class MainController {
 	 * @return - retorna o atributo requerido no formato de String
 	 */
 	public String getInfoProjeto(int cod, String atributo) {
-		return null;
+		return projetoController.getInfoProjeto(cod, atributo);
 	}
 	
+	/**
+	 * Recupera o codigo do projeto com base no nome
+	 * @param nomeProjeto - nome do projeto que se deseja recuperar o codigo
+	 * @return - codigo do projeto
+	 */
 	public int getCodigoProjeto(String nomeProjeto) {
-		return 0;
+		return projetoController.getProjeto(nomeProjeto).getCodigo();
 	}
 
 	/**
-	 * Recebe o codigo e um atributo do projeto e edita uma informa��o do projeto com base no atributo requerido com um novo valor que foi recebido
+	 * Recebe o codigo e um atributo do projeto e edita uma informacao do projeto com base no atributo requerido com um novo valor que foi recebido
 	 * @param codigo - codigo do projeto a ser editado
 	 * @param atributo - atributo do projeto que se deseja editar
 	 * @param valor -  novo valor que o atributo requerido ser� atulizado
 	 */
 	public void editaProjeto(int codigo, String atributo, String valor) {
-		
+		projetoController.editaProjeto(codigo, atributo, valor);
 	}
 
 	/**
@@ -167,22 +179,32 @@ public class MainController {
 	 * @param qntHoras -  quantidade de horas semanais dedicada ao projeto
 	 */
 	public void associaProfessor(String cpfPessoa, int codigoProjeto, boolean coordenador, double valorHora, int qntHoras) {
-
+		Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
+		Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		TipoParticipacao participacaoProfessor = new ParticipacaoProfessor(coordenador);
+		Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfessor);
+		pessoaController.adicionaParticipacao(participacao);
+		projeto.adicionaParticipacao(participacao);
 	}
 	
 	/**
-	 * Faz a associação de um graduando a um projeto
+	 * Faz a associação de um graduando a um projeto e registra em pessoa e projeto a nova participacao
 	 * @param cpfPessoa - cpf da pessoa a ser associada
 	 * @param codigoProjeto - projeto ao qual o graduando ser� associado
 	 * @param valorHora - valor R$ da hora do graduando
 	 * @param qntHoras -  quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaGraduando(String cpfPessoa, int codigoProjeto, double valorHora, int qntHoras) {
-
+		Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
+		Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		TipoParticipacao participacaoGraduando = new ParticipacaoGraduando();
+		Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoGraduando);
+		pessoaController.adicionaParticipacao(participacao);
+		projeto.adicionaParticipacao(participacao);
 	}
 	
 	/**
-	 * Faz a associação de um profissional a um projeto
+	 * Faz a associação de um profissional a um projeto e registra em pessoa e projeto a nova participacao
 	 * @param cpfPessoa - cpf da pessoa a ser associada
 	 * @param codigoProjeto - projeto ao qual o profissional será associado
 	 * @param cargo - cargo em que o profissional trabalha
@@ -190,11 +212,16 @@ public class MainController {
 	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaProfissional(String cpfPessoa, int codigoProjeto, String cargo, double valorHora, int qntHoras) {
-
+		Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
+		Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		TipoParticipacao participacaoProfissional = new ParticipacaoProfissional();
+		Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfissional);
+		pessoaController.adicionaParticipacao(participacao);
+		projeto.adicionaParticipacao(participacao);
 	}
 	
 	/**
-	 * Faz a associação de um pós-graduando a um projeto
+	 * Faz a associação de um pós-graduando a um projeto e registra em pessoa e projeto a nova participacao
 	 * @param cpfPessoa - cpf da pessoa a ser associada
 	 * @param codigoProjeto - projeto ao qual o profissional será associado
 	 * @param nivel - String indicando qual o nível da pós graduação do aluno, podendo ser mestrado ou doutorado
@@ -202,7 +229,12 @@ public class MainController {
 	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaPosGraduando(String cpfPessoa, int codigoProjeto, String nivel, double valorHora, int qntHoras) {
-
+		Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
+		Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		TipoParticipacao participacaoPosGraduando = new ParticipacaoPosGraduanduando();
+		Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoPosGraduando);
+		pessoaController.adicionaParticipacao(participacao);
+		projeto.adicionaParticipacao(participacao);
 	}
 
 	/**
@@ -211,10 +243,16 @@ public class MainController {
 	 * @param codigoProjeto - codigo do projeto a ser removida a participacao
 	 */
 	public void removeParticipacao(String cpfPessoa, int codigoProjeto) {
-
+		pessoaController.getPessoa(cpfPessoa).removeParticipacao(codigoProjeto);
+		projetoController.getProjeto(codigoProjeto).removeParticipacao(cpfPessoa);
 	}
 	
+	/**
+	 * Calcula e retorna a quantidade de pontos de uma pessoa
+	 * @param cpfPessoa -  cpf da pessoa que sera calculado os pontos
+	 * @return - retorna um double com a quantidade de pontos da pessoa portadora do cpf
+	 */
 	public double calculaPontucaoPorParticipacao(String cpfPessoa) {
-		return 0;
+		return pessoaController.calculaPontuacaoPorParticipacao(cpfPessoa);
 	}
 }

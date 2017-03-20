@@ -1,7 +1,6 @@
 package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;

@@ -10,6 +10,10 @@ import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.Atributavel;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
 import br.edu.ufcg.projetolp2.util.DateUtil;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
@@ -158,7 +162,6 @@ public abstract class Projeto implements Atributavel{
 			if (participacao.getPessoa().getCpf().equals(p.getPessoa().getCpf())) {
 				String prefixo = "";
 				
-				
 				switch(participacao.getTipoParticipacao().getTipoParticipacao()) {
 					case(TipoParticipacao.GRADUANDO): case(TipoParticipacao.POS_GRADUANDO):
 						prefixo = "Aluno";
@@ -176,6 +179,68 @@ public abstract class Projeto implements Atributavel{
 		participacoes.add(participacao);
 	}
 	
+	final public int getParticipacoesProfessor(){
+		int res = 0;
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (p.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
+				res++;
+			}
+		}
+		return res;
+	}
+	
+	final public int getParticipacoesCoordenador(){
+		int res = 0;
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (p.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
+				ParticipacaoProfessor professor = (ParticipacaoProfessor) p.getTipoParticipacao();
+				if (professor.getCoordenador()){
+					res++;
+				}
+			}
+		}
+		return res;
+	}
+	
+	final public int getParticipacoesGraduando(){
+		int res = 0;
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (p.getTipoParticipacao().getClass() == ParticipacaoGraduando.class){
+				res++;
+			}
+		}
+		return res;
+	}
+	
+	final public int getParticipacoesPosGraduando(){
+		int res = 0;
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (p.getTipoParticipacao().getClass() == ParticipacaoPosGraduando.class){
+				res++;
+			}
+		}
+		return res;
+	}
+	
+	final public int getParticipacoesProfissional(){
+		int res = 0;
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (p.getTipoParticipacao().getClass() == ParticipacaoProfissional.class){
+				res++;
+			}
+		}
+		return res;
+	}
 
 	public String toString() {
 		return codigo +": "+ nome;

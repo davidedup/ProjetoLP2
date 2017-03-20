@@ -1,10 +1,10 @@
 package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
+import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
@@ -122,6 +122,11 @@ public abstract class Ped extends Projeto {
 		}
 		
 		throw new ProjetoException("Atributo nulo ou invalido");
+	}
+	
+	@Override
+	public void adicionaParticipacao(Participacao participacao){
+		super.adicionaParticipacao(participacao);
 	}
 
 }

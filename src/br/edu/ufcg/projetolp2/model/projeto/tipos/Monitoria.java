@@ -1,10 +1,11 @@
 package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
+import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
@@ -26,7 +27,7 @@ public class Monitoria extends Projeto {
 		this.periodo = periodo;
 		this.rendimento = rendimento;
 	}
-
+	
 	public String getDisciplina() {
 		return this.disciplina;
 	}
@@ -101,5 +102,18 @@ public class Monitoria extends Projeto {
 		}
 		
 		throw new ProjetoException("Atributo nulo ou invalido");
+	}
+	
+	@Override
+	public void adicionaParticipacao(Participacao participacao){
+		if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
+			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao.getTipoParticipacao();
+			if (!professor.getCoordenador() && super.getParticipacoesProfessor() > 0){
+				throw new ProjetoException("Monitoria nao pode ter mais de um professor");
+			} else  if (professor.getCoordenador() && super.getParticipacoesCoordenador() > 0){
+				throw new ProjetoException("Monitoria nao pode ter mais de um Coordenador");
+			}
+		}
+		super.adicionaParticipacao(participacao);
 	}
 }

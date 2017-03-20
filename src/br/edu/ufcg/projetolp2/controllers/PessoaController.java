@@ -1,5 +1,6 @@
 package br.edu.ufcg.projetolp2.controllers;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -115,7 +116,7 @@ public class PessoaController {
 			Pessoa pessoa = getPessoa(cpf);
 			pessoa.setInfo(atributo, valor);
 		}catch (CpcException e){
-			throw new CpcException("Erro na consulta de pessoa:" + e.getMessage());
+			throw new CpcException("Erro na atualizacao de pessoa:  " + e.getMessage());
 		}
 	}
 
@@ -161,9 +162,8 @@ public class PessoaController {
 	 *            - codigo do projeto a ser removido
 	 */
 	public void removeParticipacao(int codProjeto) {
-		Set<String> cpfs = pessoas.keySet();
-		for (String cpf : cpfs) {
-			pessoas.get(cpf).removeParticipacao(codProjeto);
+		for (Pessoa pessoa : pessoas.values()) {
+			pessoa.removeParticipacao(codProjeto);
 		}
 	}
 

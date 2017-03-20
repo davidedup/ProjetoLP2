@@ -26,24 +26,19 @@ public class PedFactory {
 	 * @param duracao - duracao do projeto (em meses)
 	 * @return - objeto de P&D com sua categoria correta
 	 * @throws FactoryException - formato de data incorreto ou categoria invalida
+	 * @throws ParseException - erro na conversao da data
 	 */
-	public Ped create(int codigo, String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws FactoryException {
-		Date date = null;
+	public Ped create(int codigo, String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws FactoryException, ParseException {
 		
-		try {
-			date = DateUtil.parseDate(dataInicio);
-		} catch (ParseException e) {
-			throw new FactoryException(e, "Formato de data invalido");
-		}
 		
 		if (categoria.equalsIgnoreCase("pibic"))
-			return new Pibic(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			return new Pibic(codigo, nome, objetivo, dataInicio, duracao, prodTecnica, prodAcademica, patentes);
 		if (categoria.equalsIgnoreCase("pibiti"))
-			return new Pibiti(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			return new Pibiti(codigo, nome, objetivo, dataInicio, duracao, prodTecnica, prodAcademica, patentes);
 		if (categoria.equalsIgnoreCase("pivic"))
-			return new Pivic(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			return new Pivic(codigo, nome, objetivo, dataInicio, duracao, prodTecnica, prodAcademica, patentes);
 		if (categoria.equalsIgnoreCase("coop"))
-			return new Cooperacao(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			return new Cooperacao(codigo, nome, objetivo, dataInicio, duracao, prodTecnica, prodAcademica, patentes);
 		else{
 			throw new FactoryException("Categoria invalida");
 		}

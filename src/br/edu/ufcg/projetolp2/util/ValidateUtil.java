@@ -66,9 +66,10 @@ public class ValidateUtil {
 	/**
 	 * verifica se o numero e positivo (exclui zero)
 	 * @param numero - parametro a ser validado
+	 * @param msg - mensagem de erro
 	 * @throws ValidacaoException - excecao caso o numero seja negativo ou nulo
 	 */
-	public static void validaPositivo(double numero) throws ValidacaoException {
+	public static void validaPositivo(double numero, String msg) throws ValidacaoException {
 		//TODO
 	}
 	

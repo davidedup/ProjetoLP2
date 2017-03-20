@@ -25,6 +25,15 @@ public abstract class Projeto implements Atributavel{
 	private List<Custo> custos;
 	private List<Participacao> participacoes;
 
+	/**
+	 * construtor de Projeto (abstrato)
+	 * @param codigo - codigo do projeto
+	 * @param nome - nome do projeto
+	 * @param objetivo - objetivo do projeto
+	 * @param dataInicio - data de inicio do projeto
+	 * @param duracao - duracao do projeto (em meses)
+	 * @throws ParseException
+	 */
 	public Projeto(int codigo, String nome, String objetivo, String dataInicio, int duracao) throws ParseException {
 		ValidateUtil.validaString(nome, "Nome nulo ou vazio");
 		ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
@@ -37,7 +46,7 @@ public abstract class Projeto implements Atributavel{
 			throw new ValidacaoException("Formato de data invalido");
 		}
 		
-		ValidateUtil.validaPositivo(duracao);
+		ValidateUtil.validaPositivo(duracao, "Duracao invalida");
 		
 		this.nome = nome;
 		this.objetivo = objetivo;
@@ -91,7 +100,7 @@ public abstract class Projeto implements Atributavel{
 	}
 
 	public void setDuracao(int duracao) {
-		ValidateUtil.validaPositivo(duracao);
+		ValidateUtil.validaPositivo(duracao, "Duracao invalida");
 		this.duracaoMeses = duracao;
 	}
 
@@ -114,6 +123,11 @@ public abstract class Projeto implements Atributavel{
 		return res.toString();
 	}
 	
+	/**
+	 * procura (e retorna) uma participacao com uma pessoa com a participacao fornecida
+	 * @param cpfPessoa - cpf da pessoa a ser procurado
+	 * @return - retorna participacao com o a pessoa do cpf
+	 */
 	private Participacao getParticipacao(String cpfPessoa) {
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
@@ -125,10 +139,18 @@ public abstract class Projeto implements Atributavel{
 		throw new ProjetoException("Projeto nao possui participacao da pessoa indicada");
 	}
 	
+	/**
+	 * remove participacao com pessoa a partir do cpf fornecido
+	 * @param cpfPessoa - cpf da pessoa
+	 */
 	public void removeParticipacao(String cpfPessoa) {
 		participacoes.remove(getParticipacao(cpfPessoa));		
 	}
 	
+	/**
+	 * adiciona uma participacao, caso nao haja participacao com essa pessoa
+	 * @param participacao - objeto Participacao a ser adicionado
+	 */
 	public void adicionaParticipacao(Participacao participacao) {
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
@@ -181,19 +203,33 @@ public abstract class Projeto implements Atributavel{
 			return getParticipacoes();
 		}
 		
-		throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
+		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 	
 	@Override
 	public void setInfo(String atributo, String valor) {
+		ValidateUtil.validaString(atributo, "Atributo nulo ou invalido");
+		ValidateUtil.validaString(atributo, atributo+" nulo ou vazio");
+		
 		switch (atributo.toLowerCase()){
 		case "codigo":
 			throw new ProjetoException("nao pode alterar codigo de "+tipoProjeto);
 			
 		case "data de inicio":
 			setDataInicio(valor);
-		
+			
+		case "duracao":
+			ValidateUtil.validaPositivo(Integer.valueOf(valor), "Duracao invalida");
+			setDuracao(Integer.valueOf(valor));
+			
+		case "nome":
+			setNome(valor);
+			
+		case "objetivo":
+			setObjetivo(valor);
 		}
+		
+		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
@@ -55,7 +56,7 @@ public class Monitoria extends Projeto {
 
 	@Override
 	public String getInfo(String atributo) {
-		ValidateUtil.validaString(atributo, "Atributo nulo ou vazio");
+		ValidateUtil.validaString(atributo, "Atributo nulo ou invalido");
 		
 		switch (atributo.toLowerCase()){
 		case "disciplina":
@@ -71,11 +72,34 @@ public class Monitoria extends Projeto {
 			super.getInfo(atributo);
 		}
 		
-		throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
+		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 
 	@Override
 	public void setInfo(String atributo, String valor) {
-		// TODO Auto-generated method stub		
+		ValidateUtil.validaString(atributo, "Atributo nulo ou invalido");
+		ValidateUtil.validaString(atributo, atributo+" nulo ou vazio");
+		
+		switch (atributo.toLowerCase()){
+		case "disciplina":
+			setDisciplina(valor);
+		
+		case "periodo":
+			setPeriodo(valor);
+			
+		case "rendimento":
+			try{
+				Integer.valueOf(valor);
+			} catch (Exception e){
+				throw new ValidacaoException("Rendimento invalido");
+			}
+			setRendimento(Integer.valueOf(valor));
+			
+			
+		default:
+			super.getInfo(atributo);
+		}
+		
+		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 }

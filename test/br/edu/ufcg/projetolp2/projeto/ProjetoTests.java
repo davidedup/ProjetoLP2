@@ -18,7 +18,7 @@ import br.edu.ufcg.projetolp2.model.projeto.tipos.Extensao;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
 
 public class ProjetoTests {
-	Projeto projPivic;
+	
 	Projeto projExt;
 	Projeto projMon;
 	Projeto projPet;
@@ -29,13 +29,12 @@ public class ProjetoTests {
 	@Before
 	public void setUp() throws Exception {
 		PedFactory factory  = new PedFactory();
-		projPet = new Pet(0, "OPI", "Levar os jovens a olimpiada", new Date(), 5, 8, 8, 8, 2, 8);
-		projPivic = factory.create(111, "pivic", "pivic", 1, 2, 3, "OSHSAO", "12/12/2012", 2);
+		projPet = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
 		projCoop = factory.create(112, "coop", "coop", 3, 3, 3, "sSHSAO", "12/12/2011", 1);
 		projPibic = factory.create(113, "pibic", "pibic", 1, 2, 3, "OSHSAbO", "11/12/2012", 2);
 		projPibiti = factory.create(111, "pibiti", "pibiti", 1, 2, 3, "12OSHSAO", "14/12/2012", 2);
-		projMon = new Monitoria(1, "Monitoria", "monitorar", new Date(), 1, "P2", "1232.2");
-		projExt = new Extensao(1, "Extensao", "objetivo", new Date(), 2, 1);
+		projMon = new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "P2", "1232.2");
+		projExt = new Extensao(1, "Extensao", "objetivo", "10/02/2019", 2, 1);
 	}
 
 	@Test
@@ -110,4 +109,39 @@ public class ProjetoTests {
 		assertNotEquals(projCoop, projPetAux);
 	}
 
+	@Test
+	public void testSetInfo() {
+		try {
+			projCoop.setInfo("data de inicio", "10/02/19");
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Formato de data invalido");
+		}
+		try {
+			projCoop.setInfo("data de inicio", "1010/02/1978");
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Formato de data invalido");
+		}
+		try {
+			projCoop.setInfo("data de inicio", "10/0200/1978");
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Formato de data invalido");
+		}
+		try {
+			projCoop.setInfo("data de inicio", "10/13/1920");
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Formato de data invalido");
+		}
+		try {
+			projCoop.setInfo("data de inicio", "32/02/1920");
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Formato de data invalido");
+		}
+		try {
+			projCoop.setInfo("data de inicio", "01.02.2017");
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Formato de data invalido");
+		}
+
+	
+	}
 }

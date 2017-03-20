@@ -41,44 +41,11 @@ public class PedTests {
 			assertEquals(e.getMessage(), "Numero de patentes invalido");
 		}
 	}
-
-	@Test
-	public void testGetProducaoTecnica() {
-		
-	}
-
-	@Test
-	public void testGetProducaoAcademica() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPatentes() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetProducaoTecnica() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetProducaoAcademica() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetPatentes() {
-		fail("Not yet implemented");
-	}
 	
 	@Test
 	public void testGetInfo() {
-		assertEquals("as", projPivic.getInfo("nome"));
-		assertEquals("22/12/2012", projPivic.getInfo("dataInicio"));
-		assertEquals("2", projPivic.getInfo("duracao"));
-		assertEquals("3", projPivic.getInfo("producaoTecnica"));
-		assertEquals("4", projPivic.getInfo("producaoAcademica"));
+		assertEquals("3", projPivic.getInfo("producao Tecnica"));
+		assertEquals("4", projPivic.getInfo("producao Academica"));
 		assertEquals("5", projPivic.getInfo("patentes"));
 
 		try {
@@ -97,4 +64,29 @@ public class PedTests {
 
 	}
 
+	@Test
+	public void testSetInfo() {
+		projPivic.setInfo("producao tecnica", "4");
+		projPivic.setInfo("producao academica", "3");
+		projPivic.setInfo("patentes", "1");
+		
+		assertEquals("4", projPivic.getInfo("producao tecnica"));
+		assertEquals("3", projPivic.getInfo("producao Academica"));
+		assertEquals("1", projPivic.getInfo("patentes"));
+		
+		try {
+			projPivic.setInfo("", "ds");
+			fail();
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Atributo nulo ou invalido");
+		}
+
+		try {
+			projPivic.setInfo("nomeee", "osado");
+			fail();
+		} catch (Exception e) {
+			assertEquals(e.getMessage(), "Atributo nulo ou invalido");
+		}
+		
+	}
 }

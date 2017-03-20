@@ -27,14 +27,12 @@ public class ProjetoTests {
 	Projeto projPet;
 	Projeto projCoop;
 	Projeto projPibiti;
-	Projeto projPibic;
 
 	@Before
 	public void setUp() throws Exception {
 		PedFactory factory  = new PedFactory();
 		projPet = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
 		projCoop = factory.create(112, "coop", "coop", 3, 3, 3, "sSHSAO", "12/12/2011", 1);
-		projPibic = factory.create(113, "pibic", "pibic", 1, 2, 3, "OSHSAbO", "11/12/2012", 2);
 		projPibiti = factory.create(111, "pibiti", "pibiti", 1, 2, 3, "12OSHSAO", "14/12/2012", 2);
 		projMon = new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "P2", "1232.2", 1);			
 		projExt = new Extensao(1, "Extensao", "objetivo", "10/02/2019", 2, 1);

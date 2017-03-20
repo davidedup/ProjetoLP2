@@ -63,11 +63,35 @@ public class ValidateUtil {
 		//TODO
 	}
 	
+	/**
+	 * verifica se o numero e positivo (exclui zero)
+	 * @param numero - parametro a ser validado
+	 * @throws ValidacaoException - excecao caso o numero seja negativo ou nulo
+	 */
 	public static void validaPositivo(double numero) throws ValidacaoException {
+		//TODO
+	}
+	
+	/**
+	 * verifica se o numero e natural (inclui zero)
+	 * @param numero - parametro a ser validado 
+	 * @throws ValidacaoException - excecao caso o numero seja negativo
+	 */
+	public static void validaNatural(int numero) throws ValidacaoException {
 		//TODO
 	}
 	
 	public static void validaData(String data) throws ValidacaoException {
 		//TODO
-	}	
+	}
+	
+	/**
+	 * verifica se o numero esta entre 0 e 100 (inclusive)
+	 * @param rendimento - rendimento esperado
+	 * @return 
+	 * @throws ValidacaoException - excecao caso o rendimento nao esteja entre 0 e 100
+	 */
+	public static void validaRendimento(int rendimento) throws ValidacaoException {
+		//TODO
+	}
 }

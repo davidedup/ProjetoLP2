@@ -1,6 +1,9 @@
-package br.edu.ufcg.projetolp2.model.projeto;
+package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
+import java.text.ParseException;
 import java.util.Date;
+
+import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class Pet extends Projeto {
 
@@ -10,7 +13,7 @@ public class Pet extends Projeto {
 	private int patentes;
 	private int rendimento;
 
-	public Pet(int codigo, String nome, String objetivo, Date dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) {
+	public Pet(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 	}
 

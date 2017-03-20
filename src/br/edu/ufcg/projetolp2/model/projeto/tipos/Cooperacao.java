@@ -1,12 +1,16 @@
 package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
+import java.text.ParseException;
 import java.util.Date;
 
+import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
+
 public class Cooperacao extends Ped {
+	Pessoa coordenador;
 	
-	public Cooperacao(int codigo, String nome, String objetivo, Date dataInicio, int duracao,
-			int producaoTecnica, int producaoAcademica, int patentes) {
+	public Cooperacao(int codigo, String nome, String objetivo, String dataInicio, int duracao, int producaoTecnica, int producaoAcademica, int patentes) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao, producaoTecnica, producaoAcademica, patentes);
+		coordenador = null;
 	}
 
 	@Override

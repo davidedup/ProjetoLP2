@@ -1,14 +1,16 @@
 package br.edu.ufcg.projetolp2.model.projeto.tipos;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class Extensao extends Projeto {
+	public String tipoProjeto = "Extensao";
 
 	private int impacto;
 
-	public Extensao(int codigo, String nome, String objetivo, Date dataInicio, int duracao, int impacto) {
+	public Extensao(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		this.impacto = impacto;
 	}

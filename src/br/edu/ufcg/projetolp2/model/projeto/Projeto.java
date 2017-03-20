@@ -1,16 +1,21 @@
 package br.edu.ufcg.projetolp2.model.projeto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.Atributavel;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
+import br.edu.ufcg.projetolp2.util.DateUtil;
+import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public abstract class Projeto implements Atributavel{
+	public String tipoProjeto = "Projeto";
 	
 	private String nome;
 	private String objetivo;
@@ -20,10 +25,23 @@ public abstract class Projeto implements Atributavel{
 	private List<Custo> custos;
 	private List<Participacao> participacoes;
 
-	public Projeto(int codigo, String nome, String objetivo, Date dataInicio, int duracao) {
+	public Projeto(int codigo, String nome, String objetivo, String dataInicio, int duracao) throws ParseException {
+		ValidateUtil.validaString(nome, "Nome nulo ou vazio");
+		ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+		
+		ValidateUtil.validaData(dataInicio);
+		Date inicio;
+		try{
+			inicio = DateUtil.parseDate(dataInicio);
+		} catch (ParseException e){
+			throw new ValidacaoException("Formato de data invalido");
+		}
+		
+		ValidateUtil.validaPositivo(duracao);
+		
 		this.nome = nome;
 		this.objetivo = objetivo;
-		this.dataInicio = dataInicio;
+		this.dataInicio = inicio;
 		this.duracaoMeses = duracao;
 		this.codigo = codigo;
 		this.custos = new ArrayList<Custo>();
@@ -51,18 +69,29 @@ public abstract class Projeto implements Atributavel{
 	}
 
 	public void setObjetivo(String objetivo) {
+		ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
 		this.objetivo = objetivo;
 	}
 
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setDataInicio(String dataInicio) {
+		ValidateUtil.validaData(dataInicio);
+		Date inicio;
+		try{
+			inicio = DateUtil.parseDate(dataInicio);
+		} catch (ParseException e){
+			throw new ValidacaoException("Formato de data invalido");
+		}
+		
+		this.dataInicio = inicio;
 	}
 	
 	public void setNome(String nome) {
+		ValidateUtil.validaString(nome, "Nome nulo ou vazio");
 		this.nome = nome;
 	}
 
 	public void setDuracao(int duracao) {
+		ValidateUtil.validaPositivo(duracao);
 		this.duracaoMeses = duracao;
 	}
 
@@ -72,8 +101,17 @@ public abstract class Projeto implements Atributavel{
 	}
 	
 	public String getParticipacoes() {
-		//TODO
-		return null;
+		StringBuilder res = new StringBuilder();
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()){
+			Participacao p = it.next();
+			res.append(p.getPessoa().getNome());
+			
+			if (it.hasNext()){
+				res.append(", ");
+			}
+		}
+		return res.toString();
 	}
 	
 	private Participacao getParticipacao(String cpfPessoa) {
@@ -113,13 +151,51 @@ public abstract class Projeto implements Atributavel{
 				throw new ProjetoException(prefixo+" ja esta cadastado nesse projeto");
 			}
 		}
+		participacoes.add(participacao);
 	}
+	
 
 	public String toString() {
-		//TODO
-		return null;
+		return codigo +": "+ nome;
 	}
 
+	@Override
+	public String getInfo(String atributo){
+		switch (atributo.toLowerCase()){
+		case "codigo":
+			return ""+getCodigo();
+			
+		case "data de inicio":
+			return getDataInicio().toString();
+			
+		case "duracao":
+			return ""+getDuracao();
+			
+		case "nome":
+			return getNome();
+			
+		case "objetivo":
+			return getObjetivo();
+		
+		case "participacoes":
+			return getParticipacoes();
+		}
+		
+		throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
+	}
+	
+	@Override
+	public void setInfo(String atributo, String valor) {
+		switch (atributo.toLowerCase()){
+		case "codigo":
+			throw new ProjetoException("nao pode alterar codigo de "+tipoProjeto);
+			
+		case "data de inicio":
+			setDataInicio(valor);
+		
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -130,12 +206,11 @@ public abstract class Projeto implements Atributavel{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
 		Projeto other = (Projeto) obj;
 		if (codigo != other.codigo)
 			return false;

@@ -69,5 +69,10 @@ public class ValidateUtil {
 	
 	public static void validaData(String data) throws ValidacaoException {
 		//TODO
+	}
+
+	public static void validaRendimento(int rendimento) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

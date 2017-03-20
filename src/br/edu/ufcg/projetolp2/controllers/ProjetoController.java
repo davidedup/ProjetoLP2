@@ -1,13 +1,22 @@
 package br.edu.ufcg.projetolp2.controllers;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import br.edu.ufcg.projetolp2.exceptions.CpcException;
+import br.edu.ufcg.projetolp2.exceptions.FactoryException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.projeto.PedFactory;
+import br.edu.ufcg.projetolp2.model.projeto.Pet;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Extensao;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
+import br.edu.ufcg.projetolp2.util.DateUtil;
+import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public class ProjetoController {
 
@@ -33,8 +42,30 @@ public class ProjetoController {
 	 * @return o codigo da monitoria adicionada
 	 */
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		try {
+			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
+			ValidateUtil.validaString(disciplina, "Disciplina nula ou vazia");
+			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+			ValidateUtil.validaString(periodo, "Periodo nulo ou vazio");
+			ValidateUtil.validaPositivo(duracao);
+			ValidateUtil.validaRendimento(rendimento);
+			ValidateUtil.validaData(dataInicio);
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = new Monitoria(ultimoCodigo++, nome, objetivo, DateUtil.parseDate(dataInicio), duracao, disciplina, periodo);
+		} catch (ParseException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 	
 	/**
@@ -51,8 +82,32 @@ public class ProjetoController {
 	 * @return - o codigo do projeto adicionado
 	 */
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		try {
+			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
+			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+			ValidateUtil.validaImpacto(impacto);
+			ValidateUtil.validaRendimento(rendimento);
+			ValidateUtil.validaPositivo(prodAcademica);
+			ValidateUtil.validaPositivo(prodTecnica);
+			ValidateUtil.validaPositivo(patentes);
+			ValidateUtil.validaData(dataInicio);
+			ValidateUtil.validaPositivo(duracao);
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = new Pet(ultimoCodigo++, nome, objetivo, DateUtil.parseDate(dataInicio), duracao, impacto, prodTecnica, prodAcademica, patentes, rendimento);
+		} catch (ParseException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 
 	/**
@@ -68,8 +123,31 @@ public class ProjetoController {
 	 * @return - o codigo do projeto adicionado
 	 */
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		try {
+			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
+			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+			ValidateUtil.validaString(categoria,  "Categoria nula ou vazia");
+			ValidateUtil.validaPositivo(prodAcademica);
+			ValidateUtil.validaPositivo(prodTecnica);
+			ValidateUtil.validaPositivo(patentes);
+			ValidateUtil.validaData(dataInicio);
+			ValidateUtil.validaPositivo(duracao);
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = pedFactory.create(ultimoCodigo++, nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
+		} catch (FactoryException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 
 	
@@ -83,8 +161,28 @@ public class ProjetoController {
 	 * @return - codigo do projeto adicionado
 	 */
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		try {
+			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
+			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+			ValidateUtil.validaImpacto(impacto);
+			ValidateUtil.validaData(dataInicio);
+			ValidateUtil.validaPositivo(duracao);
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = new Extensao(ultimoCodigo++, nome, objetivo, DateUtil.parseDate(dataInicio), duracao, impacto);
+		} catch (ParseException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 
 	/**
@@ -97,8 +195,20 @@ public class ProjetoController {
 	}
 	
 	public String getInfoProjeto (int codigo, String atributo) {
-		//TODO
-		return null;
+		
+		try {
+			ValidateUtil.validaString(atributo, "Nome nulo ou vazio");
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "Erro na consulta de projeto: " + e.getMessage());
+		}
+		
+		Projeto projeto = this.getProjeto(codigo);
+		
+		try {
+			return projeto.getInfo(atributo);
+		} catch (Exception e) {
+			throw new CpcException(e, "Erro na consulta de projeto: " + e.getMessage());
+		}
 	}
 	
 	public void editaProjeto (int codigo, String atributo, String valor) {

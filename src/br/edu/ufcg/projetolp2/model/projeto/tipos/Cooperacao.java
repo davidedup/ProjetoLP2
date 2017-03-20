@@ -18,7 +18,7 @@ public class Cooperacao extends Ped {
 	public void adicionaParticipacao(Participacao participacao){
 		if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
 			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao.getTipoParticipacao();
-			if (professor.getCoordenador() && super.getParticipacoesCoordenador() > 0){
+			if (professor.getCoordenador() && super.getTotalParticipacoesCoordenador() > 0){
 				throw new ProjetoException("Projetos P&D nao pode ter mais de um Coordenador");
 			}
 		}

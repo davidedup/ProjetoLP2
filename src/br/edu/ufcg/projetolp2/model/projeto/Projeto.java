@@ -179,7 +179,11 @@ public abstract class Projeto implements Atributavel{
 		participacoes.add(participacao);
 	}
 	
-	final public int getParticipacoesProfessor(){
+	/**
+	 * retorna a quantidade de participacoes de professor no projeto
+	 * @return - quantidade de professores engajados
+	 */
+	final public int getTotalParticipacoesProfessor(){
 		int res = 0;
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
@@ -191,7 +195,11 @@ public abstract class Projeto implements Atributavel{
 		return res;
 	}
 	
-	final public int getParticipacoesCoordenador(){
+	/**
+	 * retorna a quantidade de participacoes de professor coordenador no projeto
+	 * @return - quantidade de professores coordenadores engajados
+	 */
+	final public int getTotalParticipacoesCoordenador(){
 		int res = 0;
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
@@ -206,7 +214,11 @@ public abstract class Projeto implements Atributavel{
 		return res;
 	}
 	
-	final public int getParticipacoesGraduando(){
+	/**
+	 * retorna a quantidade de participacoes de aluno de graduacao no projeto
+	 * @return - quantidade de graduandos engajados
+	 */
+	final public int getTotalParticipacoesGraduando(){
 		int res = 0;
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
@@ -218,7 +230,11 @@ public abstract class Projeto implements Atributavel{
 		return res;
 	}
 	
-	final public int getParticipacoesPosGraduando(){
+	/**
+	 * retorna a quantidade de participacoes de alunos de pos-graduacao no projeto
+	 * @return - quantidade de pos-graduandos engajados
+	 */
+	final public int getTotalParticipacoesPosGraduando(){
 		int res = 0;
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
@@ -230,7 +246,11 @@ public abstract class Projeto implements Atributavel{
 		return res;
 	}
 	
-	final public int getParticipacoesProfissional(){
+	/**
+	 * retorna a quantidade de participacoes de profissional no projeto
+	 * @return - quantidade de profissionais engajados
+	 */
+	final public int getTotalParticipacoesProfissional(){
 		int res = 0;
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
@@ -241,9 +261,61 @@ public abstract class Projeto implements Atributavel{
 		}
 		return res;
 	}
+	
+	/**
+	 * retorna a quantidade de pessoas que estao associadas no projeto
+	 * @return - quantidade de participacoes registradas
+	 */
+	final public int getTotalParicipacoes(){
+		return participacoes.size();
+	}
 
 	public String toString() {
 		return codigo +": "+ nome;
+	}
+	
+	/**
+	 * Calcula o valor da bolsa da participacao relacionada ao cpf fornecido
+	 * @param cpf - cpf do bolsista
+	 * @return - valor total da bolsa para o bolsista solicitado
+	 */
+	public double calculaValorBolsa(String cpf){
+		Participacao p = getParticipacao(cpf);
+		
+		double total = p.getValorHora() * p.getQuantHorasSemanais();
+		
+		//para participacao de professor, aumenta 40% no valor da hora se for coordenador
+		if (p.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
+			ParticipacaoProfessor prof = (ParticipacaoProfessor) p.getTipoParticipacao();
+			if (prof.getCoordenador()){
+				total += p.getValorHora() * 0.4 * p.getQuantHorasSemanais();
+			}
+		}
+		
+		//para participacao de pos-graduando,  tem adicional de taxa de bancada para alunos de doutorado no valor de 1/3 na bolsa base
+		if (p.getTipoParticipacao().getClass() == ParticipacaoPosGraduando.class){
+			total += (p.getValorHora() * p.getQuantHorasSemanais()) / 3;
+		}
+		
+		//para participacao de profissional, o adicional e por funcao
+		if (p.getTipoParticipacao().getClass() == ParticipacaoProfissional.class){
+			ParticipacaoProfissional prof = (ParticipacaoProfissional) p.getTipoParticipacao();
+			
+			switch (prof.getCargo().toLowerCase()){
+			//pesquisador tem adicional R$100,00
+			case "pesquisador":
+				total += 100;
+				break;
+				
+			//e gerente de R$ 20 por participante do projeto -- considerar no máximo 5 participantes
+			case "gerente":
+				total += Math.min(5, getTotalParicipacoes()) * 20;
+				break;
+			}
+		}
+		
+		//Vale salientar que nenhuma bolsa pode ser inferior a R$ 350,00.
+		return Math.max(total, 350);
 	}
 
 	@Override
@@ -317,5 +389,7 @@ public abstract class Projeto implements Atributavel{
 			return false;
 		return true;
 	}
+	
+	
 	
 }

@@ -1,0 +1,75 @@
+#################
+# User Story 4  #
+#################
+
+# "024.685.014-52" - Matheus Aldencio
+# "324.543.674-78" - Abdias Melo
+# "234.765.067-64" - Arianny Farias
+# "734.823.922-79" - Vitor Bordas
+
+#iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
+
+iniciaSistema
+
+cod1=getCodigoProjeto nome="Monitoria de P2"
+cod2=getCodigoProjeto nome="PET Computacao"
+cod3=getCodigoProjeto nome="Projeto olimpico"
+cod4=getCodigoProjeto nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS"
+cod5=getCodigoProjeto nome="Kubernetes"
+
+
+############################
+#    Calcula pontos        #
+############################
+
+expect 13.0 calculaPontuacaoPorParticipacao cpf="024.685.014-52"
+expect 10.0 calculaPontuacaoPorParticipacao cpf="324.543.674-78"
+expect 11.0 calculaPontuacaoPorParticipacao cpf="234.765.067-64"
+expect 9.0 calculaPontuacaoPorParticipacao cpf="734.823.922-79"
+
+######## novas pessoas ##########
+
+cpf5=cadastraPessoa cpf="100.666.823-00" nome="Taigo Leonel" email="taigo.leonel@ccc.ufcg.edu.br"
+cpf6=cadastraPessoa cpf="200.289.643-65" nome="Francisco Saudoso Neto" email="francisco.neto@gmail.com"
+cpf7=cadastraPessoa cpf="700.604.382-06" nome="Amauri Junior" email="amauri.junior@yahoo.com.br"
+cpf8=cadastraPessoa cpf="404.606.888-81" nome="Mareana Menes" email="m4reana@gmail.com"
+cpf9=cadastraPessoa cpf="250.526.774-01" nome="Lobao Galvao" email="lobao.galvao@ccc.ufcg.edu.br"
+cpf10=cadastraPessoa cpf="521.022.204-52" nome="Mirella Leonhart" email="mi.leon@gmail.com"
+
+###### associa novas pessoas #######
+
+associaProfessor cpfPessoa=${cpf6} codigoProjeto=${cod2} coordenador=true valorHora=50.0 qntHoras=20
+associaGraduando cpfPessoa=${cpf8} codigoProjeto=${cod2} valorHora=5.0 qntHoras=20
+associaProfessor cpfPessoa=${cpf6} codigoProjeto=${cod3} coordenador=true valorHora=50.0 qntHoras=20
+associaGraduando cpfPessoa=${cpf8} codigoProjeto=${cod3} valorHora=0.0 qntHoras=10
+associaGraduando cpfPessoa=${cpf8} codigoProjeto=${cod5} valorHora=15.0 qntHoras=12
+associaProfissional cpfPessoa=${cpf5} codigoProjeto=${cod5} cargo="Gerente" valorHora=300.0 qntHoras=20
+associaProfissional cpfPessoa=${cpf7} codigoProjeto=${cod5} cargo="Pesquisador" valorHora=100.0 qntHoras=20
+
+####### calcula pontos #######
+
+expect 14.0 calculaPontuacaoPorParticipacao cpf="024.685.014-52"
+expect 18.0 calculaPontuacaoPorParticipacao cpf=${cpf5}
+expect 10.0 calculaPontuacaoPorParticipacao cpf=${cpf6}
+expect 12.0 calculaPontuacaoPorParticipacao cpf=${cpf7}
+expect 8.0 calculaPontuacaoPorParticipacao cpf=${cpf8}
+
+## pessoa sem associacoes ##
+
+expect 0.0 calculaPontuacaoPorParticipacao cpf=${cpf9}
+
+## associa pos graduando ##
+
+associaPosGraduando cpf=${cpf10} codigoProjeto=${cod4} nivel="Mestrado" valorHora=10.0 qntHoras=20
+
+## calcula pontuacao de pos graduando ##
+
+expect 0.0 calculaPontuacaoPorParticipacao cpf=${cpf10}
+
+## pos graduando so pode participar de extensao e p&d ##
+
+expectError "Erro na associacao de pessoa a projeto: Tipo de projeto invalido para pos graduando" associaPosGraduando cpf=${cpf10} codigoProjeto=${cod1} nivel="Mestrado" valorHora=10.0 qntHoras=12
+expectError "Erro na associacao de pessoa a projeto: Tipo de projeto invalido para pos graduando" associaPosGraduando cpf=${cpf10} codigoProjeto=${cod2} nivel="Mestrado" valorHora=12.0 qntHoras=16
+
+
+fechaSistema

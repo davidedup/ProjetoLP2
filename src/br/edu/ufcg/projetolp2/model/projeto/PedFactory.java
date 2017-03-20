@@ -1,7 +1,6 @@
 package br.edu.ufcg.projetolp2.model.projeto;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import br.edu.ufcg.projetolp2.exceptions.FactoryException;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Cooperacao;
@@ -9,7 +8,6 @@ import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibic;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibiti;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pivic;
-import br.edu.ufcg.projetolp2.util.DateUtil;
 
 public class PedFactory {
 

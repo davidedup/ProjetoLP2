@@ -1,6 +1,6 @@
 package br.edu.ufcg.projetolp2.model.participacao.tipos;
 
-public class ParticipacaoPosGraduanduando implements TipoParticipacao {
+public class ParticipacaoPosGraduando implements TipoParticipacao {
 
 	@Override
 	public String getTipoParticipacao() {

@@ -1,6 +1,6 @@
 package br.edu.ufcg.projetolp2.exceptions;
 
-public class AssociacaoException extends Exception {
+public class AssociacaoException extends RuntimeException {
 
 	private static final long serialVersionUID = 7920261850035958296L;
 

@@ -187,16 +187,22 @@ public class ProjetoController {
 
 	/**
 	 * remove o projeto, dado seu codigo
-	 * @param codigo - codigo do projeto
+	 * @param codigo - codigo do projeto a ser removido
 	 */
 	public void removeProjeto(int codigo) {
 		Projeto projeto = this.getProjeto(codigo);
 		projetos.remove(codigo, projeto);
 	}
 	
+	/**
+	 * Método que retorna uma string contendo determinada informação do projeto
+	 * @param codigo - código do projeto a ser buscado
+	 * @param atributo - nome do atributo a ser retornado
+	 * @return valor dado ao determinado atributo do determinado projeto
+	 */
 	public String getInfoProjeto (int codigo, String atributo) {
 		try {
-			ValidateUtil.validaString(atributo, "Nome nulo ou vazio");
+			ValidateUtil.validaString(atributo, "Atributo nulo ou vazio");
 		} catch (ValidacaoException e) {
 			throw new CpcException(e, "Erro na consulta de projeto: " + e.getMessage());
 		}
@@ -210,10 +216,16 @@ public class ProjetoController {
 		}
 	}
 	
+	/**
+	 * Método que edita um determinado valor de um atributo de um projeto
+	 * @param codigo - código do projeto a ser buscado
+	 * @param atributo - atributo do projeto a ser modificado
+	 * @param valor - novo valor a ser atribuido
+	 */
 	public void editaProjeto (int codigo, String atributo, String valor) {
 		try {
-			ValidateUtil.validaString(atributo, "Objetivo nulo ou vazio");
-			ValidateUtil.validaString(valor, "Objetivo nulo ou vazio");
+			ValidateUtil.validaString(atributo, "Atributo nulo ou vazio");
+			ValidateUtil.validaString(valor, "Valor nulo ou vazio");
 		} catch (ValidacaoException e) {
 			throw new CpcException(e, "Erro na atualizacao de projeto: " + e.getMessage());
 		}
@@ -225,6 +237,11 @@ public class ProjetoController {
 		}
 	}
 	
+	/**
+	 * Método responsável por remover a participação de uma pessoa de um projeto
+	 * @param cpfPessoa - CPF da pessoa a ser desassociada do projeto
+	 * @param codProjeto - código do projeto o qual a pessoa deve ser desassociado
+	 */
 	public void removeParticipacao(String cpfPessoa, int codProjeto) {
 		try {
 			ValidateUtil.validaCpf(cpfPessoa);
@@ -239,6 +256,10 @@ public class ProjetoController {
 		}
 	}
 	
+	/**
+	 * Método que remove todas as participações de uma pessa de todos os projetos
+	 * @param cpfPessoa - CPF da pessoa a ter todas as suas participações removidas
+	 */
 	public void removeParticipacao(String cpfPessoa) {
 		try {
 			ValidateUtil.validaCpf(cpfPessoa);
@@ -254,6 +275,10 @@ public class ProjetoController {
 		}
 	}
 	
+	/**
+	 * Método que adiciona uma nova participação de uma pessoa em um determinado projeto.
+	 * @param participacao - objeto participação a ser adicionado
+	 */
 	public void adicionaParticipacao(Participacao participacao) {
 		try {
 			Projeto projeto = getProjeto(participacao.getProjeto().getCodigo());
@@ -263,9 +288,14 @@ public class ProjetoController {
 		}
 	}
 	
+	/**
+	 * Método que retorna o código de um projeto dado o seu nome.
+	 * @param nome - nome do projeto a ser buscado
+	 * @return inteiro representando o código do objeto buscado
+	 */
 	public int getCodigoProjeto(String nome) {
 		try {
-			ValidateUtil.validaString(nome, "");
+			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
 		} catch (ValidacaoException e) {
 			throw new CpcException(e, "Erro na obtencao de codigo de projeto: " + e.getMessage());
 		}
@@ -278,7 +308,7 @@ public class ProjetoController {
 	}
 	
 	/**
-	 * recupera o projeto, dado seu codigo
+	 * Recupera o projeto, dado seu codigo
 	 * @param codigo - codigo do projeto
 	 * @return - objeto Projeto requisitado
 	 */
@@ -289,6 +319,11 @@ public class ProjetoController {
 			throw new ProjetoException("Erro na consulta de projeto: Projeto nao encontrado");
 	}
 
+	/**
+	 * Método que retorna um projeto dado o seu nome
+	 * @param nomeProjeto - nome do projeto a ser buscado
+	 * @return objeto projeto buscado
+	 */
 	public Projeto getProjeto(String nomeProjeto) {
 		Set<Integer> codigos = projetos.keySet();
 		for (Integer codigo : codigos) {

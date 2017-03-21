@@ -9,8 +9,7 @@ import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 
 public class Pibiti extends Ped {
 	
-	public Pibiti(int codigo, String nome, String objetivo, String dataInicio, int duracao,
-			int producaoTecnica, int producaoAcademica, int patentes) throws ParseException {
+	public Pibiti(int codigo, String nome, String objetivo, String dataInicio, int duracao, int producaoTecnica, int producaoAcademica, int patentes) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao, producaoTecnica, producaoAcademica, patentes);
 	}
 

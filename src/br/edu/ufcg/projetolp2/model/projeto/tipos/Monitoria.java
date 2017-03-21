@@ -20,12 +20,10 @@ public class Monitoria extends Projeto {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		
 		ValidateUtil.validaString(disciplina, "Disciplina nulo ou vazio");
-		ValidateUtil.validaString(periodo, "Periodo nulo ou vazio");
-		ValidateUtil.validaRendimento(rendimento);
-		
 		this.disciplina = disciplina;
-		this.periodo = periodo;
-		this.rendimento = rendimento;
+		
+		setPeriodo(periodo);
+		setRendimento(rendimento);
 	}
 	
 	public String getDisciplina() {
@@ -70,10 +68,8 @@ public class Monitoria extends Projeto {
 			return ""+getRendimento();
 			
 		default:
-			super.getInfo(atributo);
+			return super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 
 	@Override
@@ -90,18 +86,15 @@ public class Monitoria extends Projeto {
 			
 		case "rendimento":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setRendimento(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Rendimento invalido");
 			}
-			setRendimento(Integer.valueOf(valor));
 			
 			
 		default:
 			super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 	
 	@Override

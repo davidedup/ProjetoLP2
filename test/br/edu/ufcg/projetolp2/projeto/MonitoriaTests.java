@@ -36,7 +36,7 @@ public class MonitoriaTests {
 		}
 		
 		try{
-			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "", "1232.2", -1);
+			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "a", "1232.2", -1);
 			fail();
 		} catch(Exception e){
 			assertEquals("Rendimento invalido", e.getMessage());

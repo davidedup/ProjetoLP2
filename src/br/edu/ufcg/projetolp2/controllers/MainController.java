@@ -268,7 +268,7 @@ public class MainController {
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
 		} catch (Exception e) {
-			throw new AssociacaoException("Erro na obtencao de codigo de projeto: " + e.getMessage());
+			throw new AssociacaoException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
 
@@ -294,7 +294,7 @@ public class MainController {
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
 		} catch (Exception e) {
-			throw new AssociacaoException("Erro na obtencao de codigo de projeto: " + e.getMessage());
+			throw new AssociacaoException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
 
@@ -323,7 +323,7 @@ public class MainController {
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
 		} catch (Exception e) {
-			throw new AssociacaoException("Erro na obtencao de codigo de projeto: " + e.getMessage());
+			throw new AssociacaoException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
 
@@ -352,7 +352,7 @@ public class MainController {
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
 		} catch (Exception e) {
-			throw new AssociacaoException("Erro na obtencao de codigo de projeto: " + e.getMessage());
+			throw new AssociacaoException("Erro na associacao de pessoa a projeto:  "+ e.getMessage());
 		}
 	}
 

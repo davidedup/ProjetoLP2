@@ -48,7 +48,7 @@ public class ProjetoController {
 			ValidateUtil.validaString(disciplina, "Disciplina nula ou vazia");
 			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
 			ValidateUtil.validaString(periodo, "Periodo nulo ou vazio");
-			ValidateUtil.validaPositivo(duracao);
+			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
 			ValidateUtil.validaRendimento(rendimento);
 			ValidateUtil.validaData(dataInicio);
 		} catch (ValidacaoException e) {
@@ -88,11 +88,11 @@ public class ProjetoController {
 			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
 			ValidateUtil.validaImpacto(impacto);
 			ValidateUtil.validaRendimento(rendimento);
-			ValidateUtil.validaPositivo(prodAcademica);
-			ValidateUtil.validaPositivo(prodTecnica);
-			ValidateUtil.validaPositivo(patentes);
+			ValidateUtil.validaPositivo(prodAcademica, "Numero de producoes academicas invalido");
+			ValidateUtil.validaPositivo(prodTecnica, "Numero de producoes tecnicas invalido");
+			ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
 			ValidateUtil.validaData(dataInicio);
-			ValidateUtil.validaPositivo(duracao);
+			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
 		} catch (ValidacaoException e) {
 			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
 		}
@@ -128,11 +128,11 @@ public class ProjetoController {
 			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
 			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
 			ValidateUtil.validaString(categoria,  "Categoria nula ou vazia");
-			ValidateUtil.validaPositivo(prodAcademica);
-			ValidateUtil.validaPositivo(prodTecnica);
-			ValidateUtil.validaPositivo(patentes);
+			ValidateUtil.validaPositivo(prodAcademica, "Numero de producoes academicas invalido");
+			ValidateUtil.validaPositivo(prodTecnica, "Numero de producoes tecnicas invalido");
+			ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
 			ValidateUtil.validaData(dataInicio);
-			ValidateUtil.validaPositivo(duracao);
+			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
 		} catch (ValidacaoException e) {
 			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
 		}
@@ -167,7 +167,7 @@ public class ProjetoController {
 			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
 			ValidateUtil.validaImpacto(impacto);
 			ValidateUtil.validaData(dataInicio);
-			ValidateUtil.validaPositivo(duracao);
+			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
 		} catch (ValidacaoException e) {
 			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
 		}

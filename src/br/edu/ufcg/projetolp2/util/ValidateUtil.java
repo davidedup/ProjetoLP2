@@ -63,7 +63,7 @@ public class ValidateUtil {
 		//TODO
 	}
 	
-	public static void validaPositivo(double numero) throws ValidacaoException {
+	public static void validaPositivo(double numero, String msg) throws ValidacaoException {
 		//TODO
 	}
 	

@@ -2,6 +2,7 @@ package br.edu.ufcg.projetolp2.controllers;
 
 import br.edu.ufcg.projetolp2.exceptions.AssociacaoException;
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
+import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
@@ -267,7 +268,7 @@ public class MainController {
 			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfessor);
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
-		} catch (Exception e) {
+		} catch (CpcException e) {
 			throw new AssociacaoException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
@@ -293,7 +294,7 @@ public class MainController {
 			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoGraduando);
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
-		} catch (Exception e) {
+		} catch (CpcException e) {
 			throw new AssociacaoException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
@@ -322,7 +323,7 @@ public class MainController {
 					participacaoProfissional);
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
-		} catch (Exception e) {
+		} catch (CpcException e) {
 			throw new AssociacaoException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
@@ -351,7 +352,7 @@ public class MainController {
 			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoPosGraduando);
 			pessoaController.adicionaParticipacao(participacao);
 			projeto.adicionaParticipacao(participacao);
-		} catch (Exception e) {
+		} catch (CpcException e) {
 			throw new AssociacaoException("Erro na associacao de pessoa a projeto:  "+ e.getMessage());
 		}
 	}
@@ -368,7 +369,7 @@ public class MainController {
 		try {
 			pessoaController.getPessoa(cpfPessoa).removeParticipacao(codigoProjeto);
 			projetoController.getProjeto(codigoProjeto).removeParticipacao(cpfPessoa);
-		} catch (Exception e) {
+		} catch (CpcException e) {
 			throw new AssociacaoException("Erro na remocao de participacao: " + e.getMessage());
 		}
 	}

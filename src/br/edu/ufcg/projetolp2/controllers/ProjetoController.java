@@ -124,19 +124,6 @@ public class ProjetoController {
 	 */
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) {
 		
-		try {
-			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
-			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
-			ValidateUtil.validaString(categoria,  "Categoria nula ou vazia");
-			ValidateUtil.validaPositivo(prodAcademica, "Numero de producoes academicas invalido");
-			ValidateUtil.validaPositivo(prodTecnica, "Numero de producoes tecnicas invalido");
-			ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
-			ValidateUtil.validaData(dataInicio);
-			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
-		}
-		
 		Projeto projeto = null;
 			
 		try {
@@ -162,21 +149,11 @@ public class ProjetoController {
 	 */
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
 		
-		try {
-			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
-			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
-			ValidateUtil.validaImpacto(impacto);
-			ValidateUtil.validaData(dataInicio);
-			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
-		}
-		
 		Projeto projeto = null;
 			
 		try {
 			projeto = new Extensao(ultimoCodigo++, nome, objetivo, DateUtil.parseDate(dataInicio), duracao, impacto);
-		} catch (ParseException e) {
+		} catch (ParseException | ValidacaoException | ProjetoException e) {
 			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
 		}
 		
@@ -201,17 +178,11 @@ public class ProjetoController {
 	 * @return valor dado ao determinado atributo do determinado projeto
 	 */
 	public String getInfoProjeto (int codigo, String atributo) {
-		try {
-			ValidateUtil.validaString(atributo, "Atributo nulo ou vazio");
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro na consulta de projeto: " + e.getMessage());
-		}
-		
 		Projeto projeto = this.getProjeto(codigo);
 		
 		try {
 			return projeto.getInfo(atributo);
-		} catch (Exception e) {
+		} catch (ProjetoException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na consulta de projeto: " + e.getMessage());
 		}
 	}
@@ -223,16 +194,10 @@ public class ProjetoController {
 	 * @param valor - novo valor a ser atribuido
 	 */
 	public void editaProjeto (int codigo, String atributo, String valor) {
-		try {
-			ValidateUtil.validaString(atributo, "Atributo nulo ou vazio");
-			ValidateUtil.validaString(valor, "Valor nulo ou vazio");
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro na atualizacao de projeto: " + e.getMessage());
-		}
 		Projeto projeto = getProjeto(codigo);
 		try {
 			projeto.setInfo(atributo, valor);
-		} catch (ProjetoException e) {
+		} catch (ProjetoException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na atualizacao de projeto: " + e.getMessage());
 		}
 	}
@@ -243,15 +208,10 @@ public class ProjetoController {
 	 * @param codProjeto - código do projeto o qual a pessoa deve ser desassociado
 	 */
 	public void removeParticipacao(String cpfPessoa, int codProjeto) {
-		try {
-			ValidateUtil.validaCpf(cpfPessoa);
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro na remocao de participacao: " + e.getMessage());
-		}
 		Projeto projeto = getProjeto(codProjeto);
 		try {
 			projeto.removeParticipacao(cpfPessoa);
-		} catch (ProjetoException e) {
+		} catch (ProjetoException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na remocao de participacao: " + e.getMessage());
 		}
 	}
@@ -262,15 +222,10 @@ public class ProjetoController {
 	 */
 	public void removeParticipacao(String cpfPessoa) {
 		try {
-			ValidateUtil.validaCpf(cpfPessoa);
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro na remocao de participacao: " + e.getMessage());
-		}
-		try {
 			for (Integer i : projetos.keySet()) {
 				projetos.get(i).removeParticipacao(cpfPessoa);
 			}
-		} catch (ProjetoException e) {
+		} catch (ProjetoException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na remocao de participacao: " + e.getMessage());
 		}
 	}
@@ -283,7 +238,7 @@ public class ProjetoController {
 		try {
 			Projeto projeto = getProjeto(participacao.getProjeto().getCodigo());
 			projeto.adicionaParticipacao(participacao);
-		} catch (ProjetoException e) {
+		} catch (ProjetoException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
@@ -295,14 +250,8 @@ public class ProjetoController {
 	 */
 	public int getCodigoProjeto(String nome) {
 		try {
-			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro na obtencao de codigo de projeto: " + e.getMessage());
-		}
-		
-		try {
 			return getProjeto(nome).getCodigo();
-		} catch (ProjetoException e) {
+		} catch (ProjetoException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na obtencao de codigo de projeto: Projeto nao encontrado");
 		}
 	}

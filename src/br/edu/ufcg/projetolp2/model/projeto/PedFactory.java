@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Date;
 
 import br.edu.ufcg.projetolp2.exceptions.FactoryException;
+import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Cooperacao;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibic;
@@ -36,16 +38,20 @@ public class PedFactory {
 			throw new FactoryException(e, "Formato de data invalido");
 		}
 		
-		if (categoria.equalsIgnoreCase("pibic"))
-			return new Pibic(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
-		if (categoria.equalsIgnoreCase("pibiti"))
-			return new Pibiti(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
-		if (categoria.equalsIgnoreCase("pivic"))
-			return new Pivic(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
-		if (categoria.equalsIgnoreCase("coop"))
-			return new Cooperacao(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
-		else{
-			throw new FactoryException("Categoria invalida");
+		try {
+			if (categoria.equalsIgnoreCase("pibic"))
+				return new Pibic(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			if (categoria.equalsIgnoreCase("pibiti"))
+				return new Pibiti(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			if (categoria.equalsIgnoreCase("pivic"))
+				return new Pivic(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			if (categoria.equalsIgnoreCase("coop"))
+				return new Cooperacao(codigo, nome, objetivo, date, duracao, prodTecnica, prodAcademica, patentes);
+			else {
+				throw new FactoryException("Categoria invalida");
+			}
+		} catch (ValidacaoException | ProjetoException e) {
+			throw new FactoryException(e, e.getMessage());
 		}
 	}
 

@@ -121,6 +121,7 @@ public abstract class Projeto implements Atributavel{
 	 * @return - retorna participacao com o a pessoa do cpf
 	 */
 	private Participacao getParticipacao(String cpfPessoa) {
+		ValidateUtil.validaCpf(cpfPessoa);
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
 			Participacao p = (Participacao) it.next();

@@ -13,16 +13,14 @@ public class ParticipacaoProfessor implements TipoParticipacao {
 	}
 
 	@Override
-	public String getTipoParticipacao() {
-		if (coordenador)
-			return TipoParticipacao.PROFESSOR_COORDENADOR;
-		else
-			return TipoParticipacao.PROFESSOR;
-	}
-
-	@Override
 	public double calculaPontos() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String getTipoParticipacao() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

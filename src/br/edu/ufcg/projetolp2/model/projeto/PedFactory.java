@@ -3,6 +3,8 @@ package br.edu.ufcg.projetolp2.model.projeto;
 import java.text.ParseException;
 
 import br.edu.ufcg.projetolp2.exceptions.FactoryException;
+import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Cooperacao;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibic;

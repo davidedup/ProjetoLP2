@@ -1,13 +1,22 @@
 package br.edu.ufcg.projetolp2.controllers;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import br.edu.ufcg.projetolp2.exceptions.CpcException;
+import br.edu.ufcg.projetolp2.exceptions.FactoryException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.projeto.PedFactory;
+import br.edu.ufcg.projetolp2.model.projeto.Pet;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Extensao;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
+import br.edu.ufcg.projetolp2.util.DateUtil;
+import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public class ProjetoController {
 
@@ -33,8 +42,30 @@ public class ProjetoController {
 	 * @return o codigo da monitoria adicionada
 	 */
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		try {
+			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
+			ValidateUtil.validaString(disciplina, "Disciplina nula ou vazia");
+			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+			ValidateUtil.validaString(periodo, "Periodo nulo ou vazio");
+			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
+			ValidateUtil.validaRendimento(rendimento);
+			ValidateUtil.validaData(dataInicio);
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = new Monitoria(ultimoCodigo++, nome, objetivo, DateUtil.parseDate(dataInicio), duracao, disciplina, periodo);
+		} catch (ParseException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 	
 	/**
@@ -51,8 +82,32 @@ public class ProjetoController {
 	 * @return - o codigo do projeto adicionado
 	 */
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		try {
+			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
+			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+			ValidateUtil.validaImpacto(impacto);
+			ValidateUtil.validaRendimento(rendimento);
+			ValidateUtil.validaPositivo(prodAcademica, "Numero de producoes academicas invalido");
+			ValidateUtil.validaPositivo(prodTecnica, "Numero de producoes tecnicas invalido");
+			ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
+			ValidateUtil.validaData(dataInicio);
+			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = new Pet(ultimoCodigo++, nome, objetivo, DateUtil.parseDate(dataInicio), duracao, impacto, prodTecnica, prodAcademica, patentes, rendimento);
+		} catch (ParseException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 
 	/**
@@ -68,8 +123,18 @@ public class ProjetoController {
 	 * @return - o codigo do projeto adicionado
 	 */
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = pedFactory.create(ultimoCodigo++, nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
+		} catch (FactoryException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 
 	
@@ -83,47 +148,116 @@ public class ProjetoController {
 	 * @return - codigo do projeto adicionado
 	 */
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
-		//TODO
-		return 0;
+		
+		Projeto projeto = null;
+			
+		try {
+			projeto = new Extensao(ultimoCodigo++, nome, objetivo, DateUtil.parseDate(dataInicio), duracao, impacto);
+		} catch (ParseException | ValidacaoException | ProjetoException e) {
+			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
+		}
+		
+		projetos.put(projeto.getCodigo(), projeto);
+		
+		return projeto.getCodigo();
 	}
 
 	/**
 	 * remove o projeto, dado seu codigo
-	 * @param codigo - codigo do projeto
+	 * @param codigo - codigo do projeto a ser removido
 	 */
 	public void removeProjeto(int codigo) {
 		Projeto projeto = this.getProjeto(codigo);
 		projetos.remove(codigo, projeto);
 	}
 	
+	/**
+	 * Método que retorna uma string contendo determinada informação do projeto
+	 * @param codigo - código do projeto a ser buscado
+	 * @param atributo - nome do atributo a ser retornado
+	 * @return valor dado ao determinado atributo do determinado projeto
+	 */
 	public String getInfoProjeto (int codigo, String atributo) {
-		//TODO
-		return null;
-	}
-	
-	public void editaProjeto (int codigo, String atributo, String valor) {
-		//TODO
-	}
-	
-	public void removeParticipacao(String cpfPessoa, int codProjeto) {
-		//TODO
-	}
-	
-	public void removeParticipacao(String cpfPessoa) {
-		//TODO
-	}
-	
-	public void adicionaParticipacao(Participacao participacao) {
-		//TODO
-	}
-	
-	public int getCodigoProjeto(String nome) {
-		return 0;
-		//TODO
+		Projeto projeto = this.getProjeto(codigo);
+		
+		try {
+			return projeto.getInfo(atributo);
+		} catch (ProjetoException | ValidacaoException e) {
+			throw new CpcException(e, "Erro na consulta de projeto: " + e.getMessage());
+		}
 	}
 	
 	/**
-	 * recupera o projeto, dado seu codigo
+	 * Método que edita um determinado valor de um atributo de um projeto
+	 * @param codigo - código do projeto a ser buscado
+	 * @param atributo - atributo do projeto a ser modificado
+	 * @param valor - novo valor a ser atribuido
+	 */
+	public void editaProjeto (int codigo, String atributo, String valor) {
+		Projeto projeto = getProjeto(codigo);
+		try {
+			projeto.setInfo(atributo, valor);
+		} catch (ProjetoException | ValidacaoException e) {
+			throw new CpcException(e, "Erro na atualizacao de projeto: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Método responsável por remover a participação de uma pessoa de um projeto
+	 * @param cpfPessoa - CPF da pessoa a ser desassociada do projeto
+	 * @param codProjeto - código do projeto o qual a pessoa deve ser desassociado
+	 */
+	public void removeParticipacao(String cpfPessoa, int codProjeto) {
+		Projeto projeto = getProjeto(codProjeto);
+		try {
+			projeto.removeParticipacao(cpfPessoa);
+		} catch (ProjetoException | ValidacaoException e) {
+			throw new CpcException(e, "Erro na remocao de participacao: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Método que remove todas as participações de uma pessa de todos os projetos
+	 * @param cpfPessoa - CPF da pessoa a ter todas as suas participações removidas
+	 */
+	public void removeParticipacao(String cpfPessoa) {
+		try {
+			for (Integer i : projetos.keySet()) {
+				projetos.get(i).removeParticipacao(cpfPessoa);
+			}
+		} catch (ProjetoException | ValidacaoException e) {
+			throw new CpcException(e, "Erro na remocao de participacao: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Método que adiciona uma nova participação de uma pessoa em um determinado projeto.
+	 * @param participacao - objeto participação a ser adicionado
+	 */
+	public void adicionaParticipacao(Participacao participacao) {
+		try {
+			Projeto projeto = getProjeto(participacao.getProjeto().getCodigo());
+			projeto.adicionaParticipacao(participacao);
+		} catch (ProjetoException | ValidacaoException e) {
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Método que retorna o código de um projeto dado o seu nome.
+	 * @param nome - nome do projeto a ser buscado
+	 * @return inteiro representando o código do objeto buscado
+	 */
+	public int getCodigoProjeto(String nome) {
+		try {
+			return getProjeto(nome).getCodigo();
+		} catch (ProjetoException | ValidacaoException e) {
+			throw new CpcException(e, "Erro na obtencao de codigo de projeto: Projeto nao encontrado");
+		}
+	}
+	
+	/**
+	 * Recupera o projeto, dado seu codigo
 	 * @param codigo - codigo do projeto
 	 * @return - objeto Projeto requisitado
 	 */
@@ -134,6 +268,11 @@ public class ProjetoController {
 			throw new ProjetoException("Erro na consulta de projeto: Projeto nao encontrado");
 	}
 
+	/**
+	 * Método que retorna um projeto dado o seu nome
+	 * @param nomeProjeto - nome do projeto a ser buscado
+	 * @return objeto projeto buscado
+	 */
 	public Projeto getProjeto(String nomeProjeto) {
 		Set<Integer> codigos = projetos.keySet();
 		for (Integer codigo : codigos) {

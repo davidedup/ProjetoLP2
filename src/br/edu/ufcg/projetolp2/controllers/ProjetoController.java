@@ -195,7 +195,6 @@ public class ProjetoController {
 	}
 	
 	public String getInfoProjeto (int codigo, String atributo) {
-		
 		try {
 			ValidateUtil.validaString(atributo, "Nome nulo ou vazio");
 		} catch (ValidacaoException e) {
@@ -212,24 +211,65 @@ public class ProjetoController {
 	}
 	
 	public void editaProjeto (int codigo, String atributo, String valor) {
-		//TODO
+		try {
+			ValidateUtil.validaString(atributo, "");
+			ValidateUtil.validaString(valor, "");
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
+		Projeto projeto = getProjeto(codigo);
+		try {
+			projeto.setInfo(atributo, valor);
+		} catch (ProjetoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
 	}
 	
 	public void removeParticipacao(String cpfPessoa, int codProjeto) {
-		//TODO
+		try {
+			ValidateUtil.validaCpf(cpfPessoa);
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
+		Projeto projeto = getProjeto(codProjeto);
+		try {
+			projeto.removeParticipacao(cpfPessoa);
+		} catch (ProjetoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
 	}
 	
 	public void removeParticipacao(String cpfPessoa) {
-		//TODO
+		try {
+			ValidateUtil.validaCpf(cpfPessoa);
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
+		try {
+			for (Integer i : projetos.keySet()) {
+				projetos.get(i).removeParticipacao(cpfPessoa);
+			}
+		} catch (ProjetoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
 	}
 	
 	public void adicionaParticipacao(Participacao participacao) {
-		//TODO
+		try {
+			Projeto projeto = getProjeto(participacao.getProjeto().getCodigo());
+			projeto.adicionaParticipacao(participacao);
+		} catch (ProjetoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
 	}
 	
 	public int getCodigoProjeto(String nome) {
-		return 0;
-		//TODO
+		try {
+			ValidateUtil.validaString(nome, "");
+		} catch (ValidacaoException e) {
+			throw new CpcException(e, "" + e.getMessage());
+		}
+		return getProjeto(nome).getCodigo();
 	}
 	
 	/**

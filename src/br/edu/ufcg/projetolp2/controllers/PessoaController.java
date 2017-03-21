@@ -163,7 +163,11 @@ public class PessoaController {
 	 */
 	public void removeParticipacao(int codProjeto) {
 		for (Pessoa pessoa : pessoas.values()) {
-			pessoa.removeParticipacao(codProjeto);
+			try{
+				pessoa.removeParticipacao(codProjeto);
+			}catch (Exception e){
+				
+			}
 		}
 	}
 

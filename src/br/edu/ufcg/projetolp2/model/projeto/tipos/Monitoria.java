@@ -93,7 +93,7 @@ public class Monitoria extends Projeto {
 			
 			
 		default:
-			super.getInfo(atributo);
+			super.setInfo(atributo, valor);
 		}
 	}
 	

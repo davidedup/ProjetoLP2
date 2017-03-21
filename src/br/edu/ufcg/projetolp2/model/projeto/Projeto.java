@@ -314,7 +314,10 @@ public abstract class Projeto implements Atributavel{
 			return ""+getCodigo();
 			
 		case "data de inicio":
-			return getDataInicio().toString();
+			try {
+				return DateUtil.formatDate(getDataInicio());
+			} catch (ParseException e) {
+			}
 			
 		case "duracao":
 			return ""+getDuracao();
@@ -340,22 +343,23 @@ public abstract class Projeto implements Atributavel{
 		switch (atributo.toLowerCase()){
 		case "codigo":
 			throw new ProjetoException("nao pode alterar codigo de "+tipoProjeto);
-			
 		case "data de inicio":
 			setDataInicio(valor);
-			
+			break;
 		case "duracao":
 			ValidateUtil.validaPositivo(Integer.valueOf(valor), "Duracao invalida");
 			setDuracao(Integer.valueOf(valor));
-			
+			break;
 		case "nome":
 			setNome(valor);
-			
+			break;
 		case "objetivo":
 			setObjetivo(valor);
+			break;
+		default:
+			throw new ProjetoException("Atributo nulo ou invalido");
 		}
 		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 	
 	@Override

@@ -29,7 +29,8 @@ public class Pessoa implements Atributavel {
 	public Pessoa(String nome, String email, String cpf) throws ValidacaoException {
 		setNome(nome);
 		setEmail(email);
-		setCpf(cpf);
+		ValidateUtil.validaCpf(cpf);
+		this.cpf = cpf;
 		this.participacoes = new ArrayList<Participacao>();
 	}
 
@@ -56,11 +57,7 @@ public class Pessoa implements Atributavel {
 	}
 
 	public void setCpf(String cpf) throws ValidacaoException {
-		ValidateUtil.validaCpf(cpf);
-		if (cpf != null) {
-			throw new ValidacaoException("CPF nao pode ser alterado");
-		}
-		this.cpf = cpf;
+		throw new ValidacaoException("CPF nao pode ser alterado");
 	}
 
 	/**

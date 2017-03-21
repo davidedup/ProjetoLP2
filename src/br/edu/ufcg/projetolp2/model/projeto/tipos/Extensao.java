@@ -25,8 +25,7 @@ public class Extensao extends Projeto {
 	public Extensao(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		
-		ValidateUtil.validaImpacto(impacto);
-		this.impacto = impacto;
+		setImpacto(impacto);
 	}
 
 	/**
@@ -55,10 +54,8 @@ public class Extensao extends Projeto {
 			return ""+getImpacto();
 			
 		default:
-			super.getInfo(atributo);
+			return super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 
 	@Override
@@ -69,11 +66,11 @@ public class Extensao extends Projeto {
 		switch (atributo.toLowerCase()){
 		case "impacto":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setImpacto(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Impacto invalido");
 			}
-			setImpacto(Integer.valueOf(valor));
+			
 		
 		default:
 			super.getInfo(atributo);

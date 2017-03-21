@@ -32,15 +32,10 @@ public class Pet extends Projeto {
 	public Pet(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		
-		ValidateUtil.validaPositivo(producaoTecnica, "Numero de producoes tecnicas invalido");
-		ValidateUtil.validaPositivo(producaoAcademica, "Numero de producoes academicas invalido");
-		ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
-		ValidateUtil.validaImpacto(impacto);
-		
-		this.producaoTecnica = producaoTecnica;
-		this.procucaoAcademica = producaoAcademica;
-		this.patentes = patentes;
-		this.impacto = impacto;
+		setProducaoTecnica(producaoTecnica);
+		setProducaoAcademica(producaoAcademica);
+		setPatentes(patentes);
+		setImpacto(impacto);
 	}
 
 	/**
@@ -114,10 +109,8 @@ public class Pet extends Projeto {
 			return ""+getProducaoTecnica();
 			
 		default:
-			super.getInfo(atributo);
+			return super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 
 	@Override
@@ -128,35 +121,31 @@ public class Pet extends Projeto {
 		switch (atributo.toLowerCase()){
 		case "patentes":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setPatentes(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de patentes invalido");
 			}
-			setPatentes(Integer.valueOf(valor));
 		
 		case "proucao academica":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setProducaoAcademica(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes academicas invalido");
-			}
-			setProducaoAcademica(Integer.valueOf(valor));
+			}			
 			
 		case "producao tecnica":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setProducaoTecnica(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes tecnicas invalido");
-			}
-			setProducaoTecnica(Integer.valueOf(valor));	
+			}			
 			
 		case "rendimento":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setRendimento(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Rendimento invalido");
 			}
-			setRendimento(Integer.valueOf(valor));
 			
 		case "producao academica":
 			throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
@@ -164,7 +153,5 @@ public class Pet extends Projeto {
 		default:
 			super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 }

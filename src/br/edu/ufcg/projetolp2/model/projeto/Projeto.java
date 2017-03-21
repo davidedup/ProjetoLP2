@@ -39,23 +39,11 @@ public abstract class Projeto implements Atributavel{
 	 * @throws ParseException
 	 */
 	public Projeto(int codigo, String nome, String objetivo, String dataInicio, int duracao) throws ParseException {
-		ValidateUtil.validaString(nome, "Nome nulo ou vazio");
-		ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
+		setNome(nome);
+		setObjetivo(objetivo);
+		setDataInicio(dataInicio);
+		setDuracao(duracao);
 		
-		ValidateUtil.validaData(dataInicio);
-		Date inicio;
-		try{
-			inicio = DateUtil.parseDate(dataInicio);
-		} catch (ParseException e){
-			throw new ValidacaoException("Formato de data invalido");
-		}
-		
-		ValidateUtil.validaPositivo(duracao, "Duracao invalida");
-		
-		this.nome = nome;
-		this.objetivo = objetivo;
-		this.dataInicio = inicio;
-		this.duracaoMeses = duracao;
 		this.codigo = codigo;
 		this.custos = new ArrayList<Custo>();
 		this.participacoes = new ArrayList<Participacao>();
@@ -266,7 +254,7 @@ public abstract class Projeto implements Atributavel{
 	 * retorna a quantidade de pessoas que estao associadas no projeto
 	 * @return - quantidade de participacoes registradas
 	 */
-	final public int getTotalParicipacoes(){
+	final public int getTotalParticipacoes(){
 		return participacoes.size();
 	}
 
@@ -309,7 +297,7 @@ public abstract class Projeto implements Atributavel{
 				
 			//e gerente de R$ 20 por participante do projeto -- considerar no máximo 5 participantes
 			case "gerente":
-				total += Math.min(5, getTotalParicipacoes()) * 20;
+				total += Math.min(5, getTotalParticipacoes()) * 20;
 				break;
 			}
 		}

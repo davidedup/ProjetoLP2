@@ -30,13 +30,9 @@ public abstract class Ped extends Projeto {
 	public Ped(int codigo, String nome, String objetivo, String dataInicio, int duracao, int producaoTecnica, int producaoAcademica, int patentes) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		
-		ValidateUtil.validaPositivo(producaoTecnica, "Numero de producoes tecnicas invalido");
-		ValidateUtil.validaPositivo(producaoAcademica, "Numero de producoes academicas invalido");
-		ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
-		
-		this.producaoTecnica = producaoTecnica;
-		this.procucaoAcademica = producaoAcademica;
-		this.patentes = patentes;
+		setProducaoTecnica(producaoTecnica);
+		setProducaoAcademica(producaoAcademica);
+		setPatentes(patentes);
 	}
 
 	public int getProducaoTecnica() {
@@ -95,27 +91,25 @@ public abstract class Ped extends Projeto {
 		switch (atributo.toLowerCase()){
 		case "patentes":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setPatentes(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de patentes invalido");
 			}
-			setPatentes(Integer.valueOf(valor));
+			
 		
 		case "proucao academica":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setProducaoAcademica(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes academicas invalido");
 			}
-			setProducaoAcademica(Integer.valueOf(valor));
 			
 		case "producao tecnica":
 			try{
-				Integer.valueOf(valor);
-			} catch (Exception e){
+				setProducaoTecnica(Integer.valueOf(valor));		
+			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes tecnicas invalido");
 			}
-			setProducaoTecnica(Integer.valueOf(valor));		
 			
 		default:
 			super.getInfo(atributo);

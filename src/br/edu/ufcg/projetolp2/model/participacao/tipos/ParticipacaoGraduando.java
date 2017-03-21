@@ -8,4 +8,10 @@ public class ParticipacaoGraduando implements TipoParticipacao {
 		return 0;
 	}
 
+	@Override
+	public String getTipoParticipacao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

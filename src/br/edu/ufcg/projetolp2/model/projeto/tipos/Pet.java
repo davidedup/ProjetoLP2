@@ -4,35 +4,46 @@ import java.text.ParseException;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
-import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
-public abstract class Ped extends Projeto {
-	public String tipoProjeto = "P&D";
+public class Pet extends Projeto {
 
+	private int impacto;
 	private int producaoTecnica;
 	private int procucaoAcademica;
 	private int patentes;
+	private int rendimento;
 
 	/**
-	 * construtor de Ped (P&D)
+	 * construtor de Pet
 	 * @param codigo - codigo do projeto
 	 * @param nome - nome do projeto
 	 * @param objetivo - objetivo do projeto
 	 * @param dataInicio - data de inicio do projeto
 	 * @param duracao - duracao do projeto (em meses)
-	 * @param producaoTecnica - total de producoes tecnicas do projeto de P&D
-	 * @param producaoAcademica - total de producoes academicas do projeto de P&D
-	 * @param patentes - total de producoes patentes de P&D
-	 * @throws ParseException - Erro ao converter a data de inicio
+	 * @param impacto - impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
+	 * @param producaoTecnica - numero de producoes tecnicas geradas no projeto
+	 * @param producaoAcademica - numero de producoes academicas geradas no projeto
+	 * @param patentes - numero de patentes geradas no projeo
+	 * @param rendimento - expectativa de aprovacao
+	 * @throws ParseException
 	 */
-	public Ped(int codigo, String nome, String objetivo, String dataInicio, int duracao, int producaoTecnica, int producaoAcademica, int patentes) throws ParseException {
+	public Pet(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		
 		setProducaoTecnica(producaoTecnica);
 		setProducaoAcademica(producaoAcademica);
 		setPatentes(patentes);
+		setImpacto(impacto);
+	}
+
+	/**
+	 * retorna o impacto do projeto
+	 * @return -  impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
+	 */
+	public int getImpacto() {
+		return this.impacto;
 	}
 
 	public int getProducaoTecnica() {
@@ -45,6 +56,19 @@ public abstract class Ped extends Projeto {
 
 	public int getPatentes() {
 		return this.patentes;
+	}
+
+	public int getRendimento() {
+		return this.rendimento;
+	}
+	
+	/**
+	 * atualiza o valor do impacto do projeto
+	 * @param impacto - impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
+	 */
+	public void setImpacto(int impacto) {
+		ValidateUtil.validaImpacto(impacto);
+		this.impacto = impacto;
 	}
 
 	public void setProducaoTecnica(int producao) {
@@ -61,12 +85,20 @@ public abstract class Ped extends Projeto {
 		ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
 		this.patentes = patentes;
 	}
-	
+
+	public void setRendimento(int rendimento) {
+		ValidateUtil.validaRendimento(rendimento);
+		this.rendimento = rendimento;
+	}
+
 	@Override
 	public String getInfo(String atributo) {
 		ValidateUtil.validaString(atributo, "Atributo nulo ou invalido");
 		
 		switch (atributo.toLowerCase()){
+		case "impacto":
+			return ""+getImpacto();
+		
 		case "patentes":
 			return ""+getPatentes();
 		
@@ -77,10 +109,8 @@ public abstract class Ped extends Projeto {
 			return ""+getProducaoTecnica();
 			
 		default:
-			super.getInfo(atributo);
+			return super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 
 	@Override
@@ -95,32 +125,33 @@ public abstract class Ped extends Projeto {
 			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de patentes invalido");
 			}
-			
 		
 		case "proucao academica":
 			try{
 				setProducaoAcademica(Integer.valueOf(valor));
 			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes academicas invalido");
-			}
+			}			
 			
 		case "producao tecnica":
 			try{
-				setProducaoTecnica(Integer.valueOf(valor));		
+				setProducaoTecnica(Integer.valueOf(valor));
 			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes tecnicas invalido");
+			}			
+			
+		case "rendimento":
+			try{
+				setRendimento(Integer.valueOf(valor));
+			} catch (NumberFormatException e){
+				throw new ValidacaoException("Rendimento invalido");
 			}
+			
+		case "producao academica":
+			throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
 			
 		default:
 			super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
-	
-	@Override
-	public void adicionaParticipacao(Participacao participacao){
-		super.adicionaParticipacao(participacao);
-	}
-
 }

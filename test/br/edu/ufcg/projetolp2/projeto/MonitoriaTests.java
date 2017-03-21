@@ -23,18 +23,21 @@ public class MonitoriaTests {
 	public void testMonitoria() {
 		try{
 			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "", "1232.2", 1);
+			fail();
 		} catch(Exception e){
 			assertEquals("Disciplina nula ou vazia", e.getMessage());
 		}
 		
 		try{
 			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "da", "", 1);
+			fail();
 		} catch(Exception e){
 			assertEquals("Periodo nulo ou vazio", e.getMessage());
 		}
 		
 		try{
-			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "", "1232.2", 1);
+			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "", "1232.2", -1);
+			fail();
 		} catch(Exception e){
 			assertEquals("Rendimento invalido", e.getMessage());
 		}
@@ -47,7 +50,7 @@ public class MonitoriaTests {
 		assertEquals(projMon.getInfo("rendimento"), "1");
 		
 		try {
-			projMon.getInfo("monitoria");
+			projMon.getInfo("producao academica");
 		} catch (Exception e) {
 			assertEquals("Monitoria nao possui Producao academica", e.getMessage());
 		}

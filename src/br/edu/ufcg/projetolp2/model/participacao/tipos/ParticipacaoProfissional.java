@@ -9,11 +9,6 @@ public class ParticipacaoProfissional implements TipoParticipacao {
 	}
 
 	@Override
-	public String getTipoParticipacao() {
-		return TipoParticipacao.PROFISSIONAL;
-	}
-
-	@Override
 	public double calculaPontos() {
 		// TODO Auto-generated method stub
 		return 0;

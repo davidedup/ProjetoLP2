@@ -63,11 +63,16 @@ public class ValidateUtil {
 		//TODO
 	}
 	
-	public static void validaPositivo(double numero) throws ValidacaoException {
+	public static void validaPositivo(double numero, String msg) throws ValidacaoException {
 		//TODO
 	}
 	
 	public static void validaData(String data) throws ValidacaoException {
 		//TODO
+	}
+
+	public static void validaRendimento(int rendimento) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

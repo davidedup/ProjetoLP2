@@ -65,6 +65,7 @@ public class Participacao {
 
 	public void setQuantHorasSemanais(int quant) {
 		ValidateUtil.validaPositivo(quant, "Quantidade de horas invalida");
+		this.quantHorasSemanais = quant;
 	}
 
 	public void setValorHora(double valor) {

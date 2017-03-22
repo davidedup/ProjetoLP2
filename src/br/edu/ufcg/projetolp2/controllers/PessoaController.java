@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
+import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
+import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 /**
  * Classe responsavel por gerenciar as pessoas do sistema. A classe fica
@@ -39,14 +41,19 @@ public class PessoaController {
 	 * @return - cpf da pessoa adicionada
 	 */
 	public String cadastraPessoa(String cpf, String nome, String email) {
-		if (pessoas.containsKey(cpf)) {
-			throw new CpcException("Erro no cadastro de pessoa: Pessoa com mesmo CPF ja cadastrada");
-		} else {
-			Pessoa pessoa = new Pessoa(nome, email, cpf);
-			pessoas.put(cpf, pessoa);
+		try {
+			if (pessoas.containsKey(cpf)) {
+				throw new ValidacaoException("Pessoa com mesmo CPF ja cadastrada");
+			} else {
+				Pessoa pessoa = new Pessoa(nome, email, cpf);
+				pessoas.put(cpf, pessoa);
 
-			return cpf;
+				return cpf;
+			}
+		} catch (ValidacaoException e) {
+			throw new CpcException("Erro no cadastro de pessoa: " + e.getMessage());
 		}
+
 	}
 
 	/**
@@ -74,7 +81,8 @@ public class PessoaController {
 	 * @param -
 	 *            cpf a ser pesquisado.
 	 * @return - Retorna o objeto pessoa que tem aquele CPF
-	 * @throws - CpcException
+	 * @throws -
+	 *             CpcException
 	 */
 	public Pessoa getPessoa(String cpf) {
 		if (!pessoas.containsKey(cpf)) {
@@ -93,10 +101,10 @@ public class PessoaController {
 	 * @return - o valor do atributo
 	 */
 	public String getInfoPessoa(String cpf, String atributo) {
-		try{
+		try {
 			Pessoa pessoa = getPessoa(cpf);
 			return pessoa.getInfo(atributo);
-		}catch (CpcException e){
+		} catch (CpcException e) {
 			throw new CpcException("Erro na consulta de pessoa: " + e.getMessage());
 		}
 	}
@@ -112,11 +120,12 @@ public class PessoaController {
 	 *            - o novo valor que o atributo tera
 	 */
 	public void editaPessoa(String cpf, String atributo, String valor) {
-		try{
+		try {
+			ValidateUtil.validaCpf(cpf);
 			Pessoa pessoa = getPessoa(cpf);
 			pessoa.setInfo(atributo, valor);
-		}catch (CpcException e){
-			throw new CpcException("Erro na atualizacao de pessoa:  " + e.getMessage());
+		} catch (CpcException | ValidacaoException e) {
+			throw new CpcException("Erro na atualizacao de pessoa: " + e.getMessage());
 		}
 	}
 
@@ -129,14 +138,14 @@ public class PessoaController {
 	 *            - cpf da pessoa ao qual a aparticipacao sera adicionada
 	 */
 	public void adicionaParticipacao(Participacao participacao, String cpf) {
-		try{
+		try {
 			Pessoa pessoa = getPessoa(cpf);
 			pessoa.adicionaParticipacao(participacao);
-		}catch (CpcException e){
+		} catch (CpcException e) {
 			throw new CpcException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Remove da lista de participacao do usuario a participacao
 	 * 
@@ -146,10 +155,10 @@ public class PessoaController {
 	 *            - cpf da pessoa que a participacao sera removida
 	 */
 	public void removeParticipacao(String cpf, int codProjeto) {
-		try{
+		try {
 			Pessoa pessoa = getPessoa(cpf);
 			pessoa.removeParticipacao(codProjeto);
-		}catch (CpcException e){
+		} catch (CpcException e) {
 			throw new CpcException("Erro na remocao de participacao: " + e.getMessage());
 		}
 	}
@@ -163,10 +172,9 @@ public class PessoaController {
 	 */
 	public void removeParticipacao(int codProjeto) {
 		for (Pessoa pessoa : pessoas.values()) {
-			try{
+			try {
 				pessoa.removeParticipacao(codProjeto);
-			}catch (Exception e){
-				
+			} catch (CpcException e) {
 			}
 		}
 	}
@@ -180,10 +188,10 @@ public class PessoaController {
 	 * @return - prontucao totas da pessoa portadora do @cpf
 	 */
 	public double calculaPontuacaoPorParticipacao(String cpf) {
-		try{
+		try {
 			Pessoa pessoa = getPessoa(cpf);
 			return pessoa.getPontuacaoParticipacao();
-		}catch (CpcException e){
+		} catch (CpcException e) {
 			throw new CpcException("Erro no calculo da pontucao: " + e.getMessage());
 		}
 	}

@@ -6,7 +6,7 @@ import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
-import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduanduando;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
@@ -196,7 +196,7 @@ public class MainController {
 			Projeto projeto = projetoController.getProjeto(codigoProjeto);
 			TipoParticipacao participacaoProfessor = new ParticipacaoProfessor(coordenador);
 			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfessor);
-			pessoaController.adicionaParticipacao(participacao);
+			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
 			projeto.adicionaParticipacao(participacao);
 	}
 
@@ -213,7 +213,7 @@ public class MainController {
 			Projeto projeto = projetoController.getProjeto(codigoProjeto);
 			TipoParticipacao participacaoGraduando = new ParticipacaoGraduando();
 			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoGraduando);
-			pessoaController.adicionaParticipacao(participacao);
+			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
 			projeto.adicionaParticipacao(participacao);
 	}
 
@@ -231,7 +231,7 @@ public class MainController {
 			Projeto projeto = projetoController.getProjeto(codigoProjeto);
 			TipoParticipacao participacaoProfissional = new ParticipacaoProfissional();
 			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfissional);
-			pessoaController.adicionaParticipacao(participacao);
+			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
 			projeto.adicionaParticipacao(participacao);
 	}
 
@@ -247,9 +247,9 @@ public class MainController {
 	public void associaPosGraduando(String cpfPessoa, int codigoProjeto, String nivel, double valorHora, int qntHoras) {
 			Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
 			Projeto projeto = projetoController.getProjeto(codigoProjeto);
-			TipoParticipacao participacaoPosGraduando = new ParticipacaoPosGraduanduando();
+			TipoParticipacao participacaoPosGraduando = new ParticipacaoPosGraduando();
 			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoPosGraduando);
-			pessoaController.adicionaParticipacao(participacao);
+			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
 			projeto.adicionaParticipacao(participacao);
 	}
 

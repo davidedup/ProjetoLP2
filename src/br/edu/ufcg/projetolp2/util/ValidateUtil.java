@@ -70,7 +70,9 @@ public class ValidateUtil {
 	 * @throws ValidacaoException - excecao caso o numero seja negativo ou nulo
 	 */
 	public static void validaPositivo(double numero, String msg) throws ValidacaoException {
-		//TODO
+		if (numero <= 0){
+			throw new ValidacaoException(msg);
+		}
 	}
 	
 	/**
@@ -78,12 +80,25 @@ public class ValidateUtil {
 	 * @param numero - parametro a ser validado 
 	 * @throws ValidacaoException - excecao caso o numero seja negativo
 	 */
-	public static void validaNatural(int numero) throws ValidacaoException {
-		//TODO
+	public static void validaNatural(int numero, String msg) throws ValidacaoException {
+		if(numero < 0){
+			throw new ValidacaoException(msg);
+		}
 	}
 	
 	public static void validaData(String data) throws ValidacaoException {
-		//TODO
+		ValidateUtil.validaString(data, "Data nula ou vazia");
+		
+		String regex = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))"
+				+ "\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])"
+				+ "\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|"
+				+ "\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468]"
+				+ "[048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])"
+				+ "00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?"
+				+ "[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{4})$";
+		if (!data.matches(regex)){
+			throw new ValidacaoException("Formato de data invalido");
+		}
 	}
 	
 	/**
@@ -93,6 +108,8 @@ public class ValidateUtil {
 	 * @throws ValidacaoException - excecao caso o rendimento nao esteja entre 0 e 100
 	 */
 	public static void validaRendimento(int rendimento) throws ValidacaoException {
-		//TODO
+		if(rendimento < 0 ||  rendimento > 100){
+			throw new ValidacaoException("Rendimento invalido");
+		}
 	}
 }

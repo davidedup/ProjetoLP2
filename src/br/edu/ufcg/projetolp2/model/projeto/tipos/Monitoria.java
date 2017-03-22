@@ -66,7 +66,8 @@ public class Monitoria extends Projeto {
 			
 		case "rendimento":
 			return ""+getRendimento();
-			
+		case "producao academica":
+			throw new ValidacaoException("Monitoria nao possui Producao academica");
 		default:
 			return super.getInfo(atributo);
 		}
@@ -93,7 +94,7 @@ public class Monitoria extends Projeto {
 			
 			
 		default:
-			super.getInfo(atributo);
+			super.setInfo(atributo, valor);
 		}
 	}
 	

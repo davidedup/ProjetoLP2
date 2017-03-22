@@ -29,7 +29,7 @@ public class Pet extends Projeto {
 	 * @param rendimento - expectativa de aprovacao
 	 * @throws ParseException
 	 */
-	public Pet(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) throws ParseException {
+	public Pet(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) throws ParseException, ValidacaoException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
 		
 		setProducaoTecnica(producaoTecnica);
@@ -82,7 +82,7 @@ public class Pet extends Projeto {
 	}
 
 	public void setPatentes(int patentes) {
-		ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
+		ValidateUtil.validaNatural(patentes, "Numero de patentes invalido");
 		this.patentes = patentes;
 	}
 
@@ -151,7 +151,7 @@ public class Pet extends Projeto {
 			throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
 			
 		default:
-			super.getInfo(atributo);
+			super.setInfo(atributo, valor);
 		}
 	}
 }

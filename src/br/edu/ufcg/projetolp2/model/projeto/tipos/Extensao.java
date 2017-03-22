@@ -73,7 +73,7 @@ public class Extensao extends Projeto {
 			
 		
 		default:
-			super.getInfo(atributo);
+			super.setInfo(atributo, valor);
 		}
 		
 		throw new ProjetoException("Atributo nulo ou invalido");

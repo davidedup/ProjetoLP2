@@ -100,8 +100,8 @@ public class Monitoria extends Projeto {
 	
 	@Override
 	public void adicionaParticipacao(Participacao participacao){
-		if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
-			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao.getTipoParticipacao();
+		if (participacao.getClass() == ParticipacaoProfessor.class){
+			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao;
 			if (!professor.getCoordenador() && participacao.getValorHora() != 0){
 				throw new ProjetoException("Valor da hora de um professor da monitoria deve ser zero");
 			} else if (!professor.getCoordenador() && super.getTotalParticipacoesProfessor() > 0){

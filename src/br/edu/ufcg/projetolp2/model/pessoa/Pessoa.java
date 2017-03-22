@@ -92,7 +92,7 @@ public class Pessoa implements Atributavel {
 		double totalPontos = 0;
 		while (it.hasNext()) {
 			Participacao participacao = (Participacao) it.next();
-			totalPontos += participacao.getTipoParticipacao().calculaPontos();
+			totalPontos += participacao.calculaPontos();
 		}
 		return totalPontos;
 	}
@@ -201,5 +201,18 @@ public class Pessoa implements Atributavel {
 			throw new CpcException(e.getMessage());
 		}
 
+	}
+
+	public double getValorBolsa() {
+		Iterator<Participacao> it = participacoes.iterator();
+		
+		double res = 0; 
+		while (it.hasNext()) {
+			Participacao participacao = (Participacao) it.next();
+			
+			res += participacao.getProjeto().calculaValorBolsa(participacao);
+		}
+		
+		return res;
 	}
 }

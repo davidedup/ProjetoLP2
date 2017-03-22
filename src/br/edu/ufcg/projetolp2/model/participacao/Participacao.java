@@ -1,9 +1,9 @@
 package br.edu.ufcg.projetolp2.model.participacao;
 
-import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public class Participacao {
@@ -12,12 +12,10 @@ public class Participacao {
 	private double valorHora;
 	private Pessoa pessoa;
 	private Projeto projeto;
-	private TipoParticipacao tipoParticipacao;
 
-	public Participacao(Projeto projeto, Pessoa pessoa, int horasSemanais, double valorHora, TipoParticipacao tipoParticipacao) {
+	public Participacao(Projeto projeto, Pessoa pessoa, int horasSemanais, double valorHora) {
 		this.pessoa = pessoa;
 		this.projeto = projeto;
-		this.tipoParticipacao = tipoParticipacao;
 		
 		setQuantHorasSemanais(horasSemanais);
 		setValorHora(valorHora);
@@ -55,13 +53,6 @@ public class Participacao {
 		return this.projeto;
 	}
 	
-	/**
-	 * Método que retorna o tipo de participação da pessoa no projeto
-	 * @return objeto que implementa {@link TipoParticipacao}
-	 */
-	public TipoParticipacao getTipoParticipacao() {
-		return this.tipoParticipacao;
-	}
 
 	public void setQuantHorasSemanais(int quant) {
 		ValidateUtil.validaPositivo(quant, "Quantidade de horas invalida");
@@ -69,13 +60,17 @@ public class Participacao {
 	}
 
 	public void setValorHora(double valor) {
-		if (projeto.getClass() == Monitoria.class){
-			ValidateUtil.validaNatural(valor, "Valor da hora invalido");
-		} else {
+		if (projeto instanceof Ped){
 			ValidateUtil.validaPositivo(valor, "Valor da hora invalido");
+		} else {
+			ValidateUtil.validaNatural(valor, "Valor da hora invalido");
 		}
 		
 		this.valorHora = valor;
+	}
+	
+	public double calculaPontos(){
+		return 0;
 	}
 
 	@Override

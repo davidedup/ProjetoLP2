@@ -1,6 +1,5 @@
 package br.edu.ufcg.projetolp2.controllers;
 
-import br.edu.ufcg.projetolp2.exceptions.AssociacaoException;
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
@@ -159,7 +158,7 @@ public class MainController {
 	 * @return - codigo do projeto
 	 */
 	public int getCodigoProjeto(String nomeProjeto) {
-		return projetoController.getProjeto(nomeProjeto).getCodigo();
+		return projetoController.getCodigoProjeto(nomeProjeto);
 	}
 
 	/**
@@ -192,12 +191,28 @@ public class MainController {
 	 * @param qntHoras - quantidade de horas semanais dedicada ao projeto
 	 */
 	public void associaProfessor(String cpfPessoa, int codigoProjeto, boolean coordenador, double valorHora, int qntHoras){
-			Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
-			Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		Pessoa pessoa;
+		Projeto projeto;
+		Participacao participacao;
+		
+		try{
+			pessoa = pessoaController.getPessoa(cpfPessoa);
+			projeto = projetoController.getProjeto(codigoProjeto);
+			
 			TipoParticipacao participacaoProfessor = new ParticipacaoProfessor(coordenador);
-			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfessor);
+			participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfessor);
+			
+		} catch (ValidacaoException | CpcException e){
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
+		
+		try{
+			projetoController.adicionaParticipacao(participacao);
 			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
-			projeto.adicionaParticipacao(participacao);
+			
+		} catch (CpcException | ProjetoException e){
+			throw new CpcException(e, e.getMessage());
+		}
 	}
 
 	/**
@@ -209,12 +224,29 @@ public class MainController {
 	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaGraduando(String cpfPessoa, int codigoProjeto, double valorHora, int qntHoras) {
-			Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
-			Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		Pessoa pessoa;
+		Projeto projeto;
+		Participacao participacao;
+		
+		try{
+			pessoa = pessoaController.getPessoa(cpfPessoa);
+			projeto = projetoController.getProjeto(codigoProjeto);
+						
 			TipoParticipacao participacaoGraduando = new ParticipacaoGraduando();
-			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoGraduando);
+			participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoGraduando);
+		
+		} catch (ValidacaoException | CpcException e){
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
+		
+		try {
+			projetoController.adicionaParticipacao(participacao);
 			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
-			projeto.adicionaParticipacao(participacao);
+		} catch (CpcException e) {
+			throw new CpcException(e, e.getMessage());
+		} catch (ProjetoException e){
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
 	}
 
 	/**
@@ -227,12 +259,28 @@ public class MainController {
 	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaProfissional(String cpfPessoa, int codigoProjeto, String cargo, double valorHora, int qntHoras) {
-			Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
-			Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		Pessoa pessoa;
+		Projeto projeto;
+		Participacao participacao;
+		
+		try{
+			pessoa = pessoaController.getPessoa(cpfPessoa);
+			projeto = projetoController.getProjeto(codigoProjeto);
+
 			TipoParticipacao participacaoProfissional = new ParticipacaoProfissional();
-			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfissional);
+			participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoProfissional);
+		} catch (ValidacaoException | CpcException e){
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
+		
+		try {
+			projetoController.adicionaParticipacao(participacao);
 			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
-			projeto.adicionaParticipacao(participacao);
+		} catch (CpcException e) {
+			throw new CpcException(e, e.getMessage());
+		} catch (ProjetoException e){
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
 	}
 
 	/**
@@ -245,12 +293,29 @@ public class MainController {
 	 * @param qntHoras - quantidade de horas semanais dedicadas ao projeto
 	 */
 	public void associaPosGraduando(String cpfPessoa, int codigoProjeto, String nivel, double valorHora, int qntHoras) {
-			Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
-			Projeto projeto = projetoController.getProjeto(codigoProjeto);
+		Pessoa pessoa;
+		Projeto projeto;
+		Participacao participacao;
+		
+		try{
+			pessoa = pessoaController.getPessoa(cpfPessoa);
+			projeto = projetoController.getProjeto(codigoProjeto);
+			
 			TipoParticipacao participacaoPosGraduando = new ParticipacaoPosGraduando();
-			Participacao participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoPosGraduando);
+			participacao = new Participacao(projeto, pessoa, qntHoras, valorHora, participacaoPosGraduando);
+			
+		} catch (ValidacaoException | CpcException e){
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
+		
+		try {
+			projetoController.adicionaParticipacao(participacao);
 			pessoaController.adicionaParticipacao(participacao, cpfPessoa);
-			projeto.adicionaParticipacao(participacao);
+		} catch (CpcException e) {
+			throw new CpcException(e, e.getMessage());
+		} catch (ProjetoException e){
+			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		}
 	}
 
 	/**
@@ -260,8 +325,17 @@ public class MainController {
 	 * @param codigoProjeto - codigo do projeto a ser removida a participacao
 	 */
 	public void removeParticipacao(String cpfPessoa, int codigoProjeto) {
-			pessoaController.getPessoa(cpfPessoa).removeParticipacao(codigoProjeto);
-			projetoController.getProjeto(codigoProjeto).removeParticipacao(cpfPessoa);
+		try{
+			Projeto projeto = projetoController.getProjeto(codigoProjeto);
+			Pessoa pessoa = pessoaController.getPessoa(cpfPessoa);
+			
+			pessoa.removeParticipacao(codigoProjeto);
+			projeto.removeParticipacao(cpfPessoa);
+		} catch (CpcException e) {
+			throw new CpcException(e, "Erro na remocao de participacao: "+e.getMessage());
+		}
+		
+		
 	}
 
 	/**

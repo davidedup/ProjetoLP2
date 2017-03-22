@@ -3,6 +3,8 @@ package br.edu.ufcg.projetolp2.model.participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
+import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public class Participacao {
 
@@ -15,9 +17,10 @@ public class Participacao {
 	public Participacao(Projeto projeto, Pessoa pessoa, int horasSemanais, double valorHora, TipoParticipacao tipoParticipacao) {
 		this.pessoa = pessoa;
 		this.projeto = projeto;
-		this.quantHorasSemanais = horasSemanais;
 		this.tipoParticipacao = tipoParticipacao;
-		this.valorHora = valorHora;
+		
+		setQuantHorasSemanais(horasSemanais);
+		setValorHora(valorHora);
 	}
 
 	/**
@@ -61,10 +64,17 @@ public class Participacao {
 	}
 
 	public void setQuantHorasSemanais(int quant) {
+		ValidateUtil.validaPositivo(quant, "Quantidade de horas invalida");
 		this.quantHorasSemanais = quant;
 	}
 
 	public void setValorHora(double valor) {
+		if (projeto.getClass() == Monitoria.class){
+			ValidateUtil.validaNatural(valor, "Valor da hora invalido");
+		} else {
+			ValidateUtil.validaPositivo(valor, "Valor da hora invalido");
+		}
+		
 		this.valorHora = valor;
 	}
 

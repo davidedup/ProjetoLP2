@@ -24,8 +24,8 @@ cod5=getCodigoProjeto nome="Kubernetes"
 #  Criacao de participacoes  #
 ##############################
 
-associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=true valorHora=120.0 qntHoras=20
-associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod1} valorHora=20.0 qntHoras=12
+associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=true valorHora=0.0 qntHoras=20
+associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod1} valorHora=6.25 qntHoras=12
 
 associaProfessor cpfPessoa="734.823.922-79" codigoProjeto=${cod4} coordenador=true valorHora=200.0 qntHoras=20
 associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod4} valorHora=25.0 qntHoras=10

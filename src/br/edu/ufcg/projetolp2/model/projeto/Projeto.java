@@ -2,9 +2,14 @@ package br.edu.ufcg.projetolp2.model.projeto;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
+import com.sun.org.apache.xerces.internal.xs.StringList;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
@@ -108,17 +113,17 @@ public abstract class Projeto implements Atributavel {
 	}
 
 	public String getParticipacoes() {
-		StringBuilder res = new StringBuilder();
+		
+		//StringBuilder res = new StringBuilder();
+		List<String> res = new ArrayList<String>();
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
 			Participacao p = it.next();
-			res.append(p.getPessoa().getNome());
-
-			if (it.hasNext()) {
-				res.append(", ");
-			}
+			res.add(p.getPessoa().getNome());
 		}
-		return res.toString();
+		
+		Collections.sort(res);
+		return String.join(", ", res);
 	}
 
 	/**
@@ -159,26 +164,27 @@ public abstract class Projeto implements Atributavel {
 	 */
 	public void adicionaParticipacao(Participacao participacao) {
 		Iterator<Participacao> it = participacoes.iterator();
+		
+		
 		while (it.hasNext()) {
 			Participacao p = (Participacao) it.next();
 			if (participacao.getPessoa().getCpf().equals(p.getPessoa().getCpf())) {
 				String prefixo = "";
-
-				switch (participacao.getTipoParticipacao().getTipoParticipacao()) {
-				case (TipoParticipacao.GRADUANDO):
-				case (TipoParticipacao.POS_GRADUANDO):
+				
+				if (participacao.getTipoParticipacao().getClass() == ParticipacaoGraduando.class){
 					prefixo = "Aluno";
-					break;
-				case (TipoParticipacao.PROFESSOR):
+				} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoPosGraduando.class){
+					prefixo = "Aluno";
+				} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
 					prefixo = "Professor";
-					break;
-				case (TipoParticipacao.PROFISSIONAL):
+				} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfissional.class){
 					prefixo = "Profissional";
 				}
-
-				throw new ProjetoException(prefixo + " ja esta cadastado nesse projeto");
+				
+				throw new ProjetoException(prefixo + " ja esta cadastrado nesse projeto");
 			}
 		}
+		
 		participacoes.add(participacao);
 	}
 

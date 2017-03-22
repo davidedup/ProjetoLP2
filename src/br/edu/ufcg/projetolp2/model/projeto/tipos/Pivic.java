@@ -18,9 +18,9 @@ public class Pivic extends Ped {
 		if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
 			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao.getTipoParticipacao();
 			if (!professor.getCoordenador() && super.getTotalParticipacoesProfessor() > 0){
-				throw new ProjetoException("Projetos P&D nao pode ter mais de um professor");
+				throw new ProjetoException("Projetos P&D nao podem ter mais de um professor");
 			} else  if (professor.getCoordenador() && super.getTotalParticipacoesCoordenador() > 0){
-				throw new ProjetoException("Projetos P&D nao pode ter mais de um Coordenador");
+				throw new ProjetoException("Projetos P&D nao podem ter mais de um coordenador");
 			}
 		} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoGraduando.class){
 			if (super.getTotalParticipacoesGraduando() > 0){

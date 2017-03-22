@@ -80,7 +80,7 @@ public class ValidateUtil {
 	 * @param numero - parametro a ser validado 
 	 * @throws ValidacaoException - excecao caso o numero seja negativo
 	 */
-	public static void validaNatural(int numero, String msg) throws ValidacaoException {
+	public static void validaNatural(double numero, String msg) throws ValidacaoException {
 		if(numero < 0){
 			throw new ValidacaoException(msg);
 		}

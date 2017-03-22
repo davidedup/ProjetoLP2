@@ -1,8 +1,9 @@
-cod# User Story 3  #
+#################
+# User Story 3  #
 #################
 
 # "024.685.014-52" - Matheus Aldencio
-#"324.543.674-78" - Abdias Melo
+# "324.543.674-78" - Abdias Melo
 # "234.765.067-64" - Arianny Farias
 # "734.823.922-79" - Vitor Bordas
 
@@ -27,8 +28,8 @@ expectError "Erro na associacao de pessoa a projeto: Pessoa nao encontrada" asso
 expectError "Erro na associacao de pessoa a projeto: Quantidade de horas invalida" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=-20
 expectError "Erro na associacao de pessoa a projeto: Quantidade de horas invalida" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=0
 expectError "Erro na associacao de pessoa a projeto: Valor da hora invalido" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=-120.0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Valor da hora invalido" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=false valorHora=0 qntHoras=20
-expectError "Erro na associacao de pessoa a projeto: Monitoria nao pode ter mais de um professor" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=${cod1} coordenador=false valorHora=120.0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Valor da hora invalido" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod5} coordenador=false valorHora=0 qntHoras=20
+expectError "Erro na associacao de pessoa a projeto: Monitoria nao pode ter mais de um professor" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=${cod1} coordenador=false valorHora=0.0 qntHoras=20
 expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um professor" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=${cod4} coordenador=false valorHora=120.0 qntHoras=20
 expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um graduando" associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod4} valorHora=25.0 qntHoras=10
 expectError "Erro na associacao de pessoa a projeto: Projetos P&D nao podem ter mais de um coordenador" associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod5} coordenador=true valorHora=260.0 qntHoras=20
@@ -36,7 +37,7 @@ expectError "Erro na associacao de pessoa a projeto: Valor da hora de um profess
 
 expectError "Erro na associacao de pessoa a projeto: Projeto nao encontrado" associaProfessor cpfPessoa="324.543.674-78" codigoProjeto=99999999 coordenador=false valorHora=80.0 qntHoras=20
 
-expectError "Erro na associacao de pessoa a projeto: Aluno ja esta cadastado nesse projeto" associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
+expectError "Erro na associacao de pessoa a projeto: Aluno ja esta cadastrado nesse projeto" associaGraduando cpfPessoa="234.765.067-64" codigoProjeto=${cod5} valorHora=25.0 qntHoras=10
 
 #########################
 #   Remove associacao   #

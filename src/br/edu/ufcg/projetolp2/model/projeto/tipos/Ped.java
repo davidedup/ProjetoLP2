@@ -77,10 +77,8 @@ public abstract class Ped extends Projeto {
 			return ""+getProducaoTecnica();
 			
 		default:
-			super.getInfo(atributo);
+			return super.getInfo(atributo);
 		}
-		
-		throw new ProjetoException("Atributo nulo ou invalido");
 	}
 
 	@Override

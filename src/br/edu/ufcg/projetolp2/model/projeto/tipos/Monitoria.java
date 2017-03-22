@@ -102,7 +102,9 @@ public class Monitoria extends Projeto {
 	public void adicionaParticipacao(Participacao participacao){
 		if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
 			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao.getTipoParticipacao();
-			if (!professor.getCoordenador() && super.getTotalParticipacoesProfessor() > 0){
+			if (!professor.getCoordenador() && participacao.getValorHora() != 0){
+				throw new ProjetoException("Valor da hora de um professor da monitoria deve ser zero");
+			} else if (!professor.getCoordenador() && super.getTotalParticipacoesProfessor() > 0){
 				throw new ProjetoException("Monitoria nao pode ter mais de um professor");
 			} else  if (professor.getCoordenador() && super.getTotalParticipacoesCoordenador() > 0){
 				throw new ProjetoException("Monitoria nao pode ter mais de um Coordenador");

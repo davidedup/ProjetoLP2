@@ -51,8 +51,7 @@ public class ProjetoController {
 	 *            - duracao em meses da monitoria
 	 * @return o codigo da monitoria adicionada
 	 */
-	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
-			String dataInicio, int duracao) {
+	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) {
 
 		try {
 			Projeto projeto = new Monitoria(ultimoCodigo++, nome, objetivo, dataInicio, duracao, disciplina, periodo,
@@ -92,8 +91,7 @@ public class ProjetoController {
 	 *            - duracoa em meses do projeto
 	 * @return - o codigo do projeto adicionado
 	 */
-	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica,
-			int prodAcademica, int patentes, String dataInicio, int duracao) throws CpcException {
+	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws CpcException {
 		try {
 			Projeto projeto = new Pet(ultimoCodigo++, nome, objetivo, dataInicio, duracao, impacto, prodTecnica,
 					prodAcademica, patentes, rendimento);
@@ -192,11 +190,11 @@ public class ProjetoController {
 	 * @return valor dado ao determinado atributo do determinado projeto
 	 */
 	public String getInfoProjeto(int codigo, String atributo) {
-		Projeto projeto = this.getProjeto(codigo);
-
+		
 		try {
+			Projeto projeto = this.getProjeto(codigo);
 			return projeto.getInfo(atributo);
-		} catch (ProjetoException | ValidacaoException e) {
+		} catch (ProjetoException | ValidacaoException | CpcException e) {
 			throw new CpcException(e, "Erro na consulta de projeto: " + e.getMessage());
 		}
 	}
@@ -232,7 +230,7 @@ public class ProjetoController {
 		Projeto projeto = getProjeto(codProjeto);
 		try {
 			projeto.removeParticipacao(cpfPessoa);
-		} catch (ProjetoException | ValidacaoException e) {
+		} catch (ProjetoException | ValidacaoException | CpcException e) {
 			throw new CpcException(e, "Erro na remocao de participacao: " + e.getMessage());
 		}
 	}
@@ -267,6 +265,8 @@ public class ProjetoController {
 			projeto.adicionaParticipacao(participacao);
 		} catch (ProjetoException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na associacao de pessoa a projeto: " + e.getMessage());
+		} catch (NullPointerException e){
+			throw new CpcException(e, "ooooo");
 		}
 	}
 
@@ -280,7 +280,7 @@ public class ProjetoController {
 	public int getCodigoProjeto(String nome) {
 		try {
 			return getProjeto(nome).getCodigo();
-		} catch (ProjetoException | ValidacaoException e) {
+		} catch (CpcException | ValidacaoException e) {
 			throw new CpcException(e, "Erro na obtencao de codigo de projeto: Projeto nao encontrado");
 		}
 	}
@@ -296,7 +296,7 @@ public class ProjetoController {
 		if (projetos.containsKey(codigo))
 			return projetos.get(codigo);
 		else
-			throw new ProjetoException("Erro na consulta de projeto: Projeto nao encontrado");
+			throw new CpcException("Projeto nao encontrado");
 	}
 
 	/**
@@ -313,7 +313,7 @@ public class ProjetoController {
 			if (projeto.getNome().equalsIgnoreCase(nomeProjeto))
 				return projeto;
 		}
-		throw new ProjetoException("Erro na consulta de projeto: Projeto nao encontrado");
+		throw new CpcException("Projeto nao encontrado");
 	}
 
 }

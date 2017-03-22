@@ -82,7 +82,7 @@ public class Pet extends Projeto {
 	}
 
 	public void setPatentes(int patentes) {
-		ValidateUtil.validaPositivo(patentes, "Numero de patentes invalido");
+		ValidateUtil.validaNatural(patentes, "Numero de patentes invalido");
 		this.patentes = patentes;
 	}
 

@@ -55,29 +55,15 @@ public class ProjetoController {
 			String dataInicio, int duracao) {
 
 		try {
-			ValidateUtil.validaString(nome, "Nome nulo ou vazio");
-			ValidateUtil.validaString(disciplina, "Disciplina nula ou vazia");
-			ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
-			ValidateUtil.validaString(periodo, "Periodo nulo ou vazio");
-			ValidateUtil.validaPositivo(duracao, "Duracao invalida");
-			ValidateUtil.validaRendimento(rendimento);
-			ValidateUtil.validaData(dataInicio);
-		} catch (ValidacaoException e) {
-			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
-		}
-
-		Projeto projeto = null;
-
-		try {
-			projeto = new Monitoria(ultimoCodigo++, nome, objetivo, dataInicio, duracao, disciplina, periodo,
+			Projeto projeto = new Monitoria(ultimoCodigo++, nome, objetivo, dataInicio, duracao, disciplina, periodo,
 					rendimento);
-		} catch (ParseException e) {
+			projetos.put(projeto.getCodigo(), projeto);
+
+			return projeto.getCodigo();
+		} catch (ValidacaoException | ParseException e) {
 			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
 		}
 
-		projetos.put(projeto.getCodigo(), projeto);
-
-		return projeto.getCodigo();
 	}
 
 	/**
@@ -107,7 +93,7 @@ public class ProjetoController {
 	 * @return - o codigo do projeto adicionado
 	 */
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica,
-			int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidationException {
+			int prodAcademica, int patentes, String dataInicio, int duracao) throws CpcException {
 		try {
 			Projeto projeto = new Pet(ultimoCodigo++, nome, objetivo, dataInicio, duracao, impacto, prodTecnica,
 					prodAcademica, patentes, rendimento);
@@ -144,19 +130,15 @@ public class ProjetoController {
 	 */
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
 			String objetivo, String dataInicio, int duracao) {
-
-		Projeto projeto = null;
-
 		try {
-			projeto = pedFactory.create(ultimoCodigo++, nome, categoria, prodTecnica, prodAcademica, patentes, objetivo,
-					dataInicio, duracao);
-		} catch (FactoryException | ParseException e) {
+			Projeto projeto = pedFactory.create(ultimoCodigo++, nome, categoria, prodTecnica, prodAcademica, patentes,
+					objetivo, dataInicio, duracao);
+			projetos.put(projeto.getCodigo(), projeto);
+			return projeto.getCodigo();
+		} catch (FactoryException | ParseException | ValidacaoException e) {
 			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
 		}
 
-		projetos.put(projeto.getCodigo(), projeto);
-
-		return projeto.getCodigo();
 	}
 
 	/**
@@ -178,18 +160,15 @@ public class ProjetoController {
 	 * @return - codigo do projeto adicionado
 	 */
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) {
-
-		Projeto projeto = null;
-
 		try {
-			projeto = new Extensao(ultimoCodigo++, nome, objetivo, dataInicio, duracao, impacto);
+			Projeto projeto = new Extensao(ultimoCodigo++, nome, objetivo, dataInicio, duracao, impacto);
+			projetos.put(projeto.getCodigo(), projeto);
+
+			return projeto.getCodigo();
 		} catch (ParseException | ValidacaoException | ProjetoException e) {
 			throw new CpcException(e, "Erro no cadastro de projeto: " + e.getMessage());
 		}
 
-		projetos.put(projeto.getCodigo(), projeto);
-
-		return projeto.getCodigo();
 	}
 
 	/**

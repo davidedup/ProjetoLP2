@@ -174,8 +174,7 @@ public class PessoaController {
 		for (Pessoa pessoa : pessoas.values()) {
 			try {
 				pessoa.removeParticipacao(codProjeto);
-			} catch (Exception e) {
-
+			} catch (CpcException e) {
 			}
 		}
 	}

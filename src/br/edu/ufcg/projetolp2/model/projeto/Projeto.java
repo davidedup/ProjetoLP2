@@ -340,7 +340,7 @@ public abstract class Projeto implements Atributavel {
 		}
 		 
 		// Vale salientar que nenhuma bolsa pode ser inferior a R$ 350,00.
-		return Math.max(base+acrescimo, 350);
+		return base+acrescimo;
 	}
 
 	@Override

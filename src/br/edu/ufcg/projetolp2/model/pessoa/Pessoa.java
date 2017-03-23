@@ -213,6 +213,6 @@ public class Pessoa implements Atributavel {
 			res += participacao.getProjeto().calculaValorBolsa(participacao);
 		}
 		
-		return res;
+		return Math.max(res, 350);
 	}
 }

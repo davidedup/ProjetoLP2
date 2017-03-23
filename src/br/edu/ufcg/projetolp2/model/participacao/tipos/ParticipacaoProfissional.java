@@ -26,7 +26,7 @@ public class ParticipacaoProfissional extends Participacao {
 	
 	@Override
 	public double calculaPontos(){
-		int tempo = getProjeto().getDuracao() / 12;
+		double tempo = getProjeto().getDuracao() / 12;
 		double res = 0;
 		
 		if (getProjeto() instanceof Ped){

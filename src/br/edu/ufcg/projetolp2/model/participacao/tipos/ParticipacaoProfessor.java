@@ -20,7 +20,7 @@ public class ParticipacaoProfessor extends Participacao {
 
 	@Override
 	public double calculaPontos(){
-		int tempo = getProjeto().getDuracao()/12;
+		double tempo = getProjeto().getDuracao()/12;
 		double res = tempo * 4;
 		
 		if (getProjeto().getClass() != Monitoria.class){

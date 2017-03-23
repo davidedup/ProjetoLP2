@@ -29,6 +29,11 @@ public class ParticipacaoPosGraduando extends Participacao{
 		ValidateUtil.validaString(nivel, "Nivel nulo ou vazio");
 		this.nivel = nivel;
 	}
+
+	@Override
+	public double calculaPontos() {
+		return 0;
+	}
 	
 	
 

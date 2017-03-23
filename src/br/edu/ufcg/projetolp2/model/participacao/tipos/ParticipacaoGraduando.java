@@ -16,15 +16,14 @@ public class ParticipacaoGraduando extends Participacao {
 	
 	@Override
 	public double calculaPontos(){
-		double tempo = getProjeto().getDuracao() / 6;
+		int tempo = getProjeto().getDuracao() / 6;
 		double res = 0;
 		
 		if (getProjeto().getClass() == Monitoria.class){
-			res = Math.min(tempo * 1.5, 6);
-		}
-		
-		if (getProjeto().getClass() == Pet.class || getProjeto().getClass() == Extensao.class || getProjeto() instanceof Ped){
-			res += Math.min(tempo * 2, 8);
+			res = tempo * 1.5;
+			
+		} else if (getProjeto().getClass() == Pet.class || getProjeto().getClass() == Extensao.class || getProjeto() instanceof Ped){
+			res += tempo * 2;
 		}
 		
 		return res;

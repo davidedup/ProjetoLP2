@@ -10,6 +10,10 @@ import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.Atributavel;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Extensao;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Pet;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 /**
@@ -90,10 +94,13 @@ public class Pessoa implements Atributavel {
 		Iterator<Participacao> it = participacoes.iterator();
 
 		double totalPontos = 0;
+		
 		while (it.hasNext()) {
-			Participacao participacao = (Participacao) it.next();
+			Participacao participacao = (Participacao) it.next();			
 			totalPontos += participacao.calculaPontos();
+			
 		}
+		
 		return totalPontos;
 	}
 

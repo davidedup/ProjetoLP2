@@ -2,11 +2,10 @@ package br.edu.ufcg.projetolp2.model.participacao;
 
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
-import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
-public class Participacao {
+public abstract class Participacao {
 
 	private int quantHorasSemanais;
 	private double valorHora;
@@ -69,9 +68,7 @@ public class Participacao {
 		this.valorHora = valor;
 	}
 	
-	public double calculaPontos(){
-		return 0;
-	}
+	public abstract double calculaPontos();
 
 	@Override
 	public int hashCode() {

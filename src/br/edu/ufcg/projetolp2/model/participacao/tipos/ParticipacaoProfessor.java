@@ -24,7 +24,8 @@ public class ParticipacaoProfessor extends Participacao {
 		double res = tempo * 4;
 		
 		if (getProjeto().getClass() != Monitoria.class){
-			res += getProjeto().getTotalParticipacoes();
+			res += getProjeto().getTotalParticipacoesGraduando();
+			res += getProjeto().getTotalParticipacoesPosGraduando();
 		}
 		
 		return res;

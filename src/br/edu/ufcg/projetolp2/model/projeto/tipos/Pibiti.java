@@ -5,6 +5,7 @@ import java.text.ParseException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 
 public class Pibiti extends Ped {
@@ -26,7 +27,9 @@ public class Pibiti extends Ped {
 			if (super.getTotalParticipacoesGraduando() > 0){
 				throw new ProjetoException("Projetos P&D nao podem ter mais de um graduando");
 			}
-		}
+		} else if(participacao.getClass() == ParticipacaoPosGraduando.class){
+			throw new ProjetoException("Tipo de projeto invalido para pos graduando");
+		} 
 		super.adicionaParticipacao(participacao);
 	}
 }

@@ -27,7 +27,7 @@ public abstract class Projeto implements Atributavel {
 	private int duracaoMeses;
 	private int codigo;
 	private List<Custo> custos;
-	private List<Participacao> participacoes;
+	protected List<Participacao> participacoes;
 
 	/**
 	 * construtor de Projeto (abstrato)

@@ -1,0 +1,50 @@
+##########################################
+# US6 - Gerência financeira dos projetos #
+##########################################
+
+#iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
+iniciaSistema
+
+## Recuperação do codigo dos projetos já cadastrados ##
+
+cod1=getCodigoProjeto nome="Monitoria de P2"
+cod2=getCodigoProjeto nome="PET Computacao"
+cod3=getCodigoProjeto nome="Projeto olimpico"
+cod4=getCodigoProjeto nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS"
+cod5=getCodigoProjeto nome="Kubernetes"
+
+#########################################
+# Configuração da verba de cada projeto #
+#########################################
+
+atualizaDespesasProjeto cod=${cod1} montanteBolsas=8000.0 montanteCusteio=0.0 montanteCapital=0.0
+atualizaDespesasProjeto cod=${cod2} montanteBolsas=13500.0 montanteCusteio=9800.0 montanteCapital=0.0
+atualizaDespesasProjeto cod=${cod3} montanteBolsas=15000.0 montanteCusteio=18000.0 montanteCapital=0.0
+atualizaDespesasProjeto cod=${cod4} montanteBolsas=21000.0 montanteCusteio=0.0 montanteCapital=0.0
+atualizaDespesasProjeto cod=${cod5} montanteBolsas=35000.0 montanteCusteio=280000.0 montanteCapital=60000.0
+
+
+###################################
+#     Consulta da colaboração     #
+###################################
+
+expect 0.0 calculaColaboracaoUASC cod=${cod1}
+expect 0.0 calculaColaboracaoUASC cod=${cod2}
+expect 2640.0 calculaColaboracaoUASC cod=${cod3}
+expect 0.0 calculaColaboracaoUASC cod=${cod4}
+expect 49500.0 calculaColaboracaoUASC cod=${cod5}
+
+## Consulta da colaboração total ##
+
+expect 52140.0 calculaColaboracaoTotalUASC
+
+
+###################################
+#    Uso da receita da central    #
+###################################
+
+diminuiReceita valor=1480.0
+expect 52140.0 calculaColaboracaoTotalUASC
+expect 50660.0 calculaTotalEmCaixaUASC
+
+fechaSistema

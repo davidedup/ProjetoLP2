@@ -339,8 +339,8 @@ public class MainController {
 	 * @param cpfPessoa - cpf da pessoa que sera calculado os pontos
 	 * @return - retorna um double com a quantidade de pontos da pessoa portadora do cpf
 	 */
-	public double calculaPontuacaoPorParticipacao(String cpfPessoa) {
-		return pessoaController.calculaPontuacaoPorParticipacao(cpfPessoa);
+	public double calculaPontuacaoPorParticipacao(String cpf) {
+		return pessoaController.calculaPontuacaoPorParticipacao(cpf);
 	}
 	
 	public double getValorBolsa(String cpf){

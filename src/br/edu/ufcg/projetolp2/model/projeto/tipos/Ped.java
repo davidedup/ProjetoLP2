@@ -95,7 +95,7 @@ public abstract class Ped extends Projeto {
 			}
 			
 		
-		case "proucao academica":
+		case "producao academica":
 			try{
 				setProducaoAcademica(Integer.valueOf(valor));
 			} catch (NumberFormatException e){

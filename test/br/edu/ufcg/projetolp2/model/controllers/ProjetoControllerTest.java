@@ -38,10 +38,10 @@ public class ProjetoControllerTest {
 		int duracao = 9;
 		int cod = controller.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao);
 		
-		assertEquals(controller.getNome(cod), nome);
-		assertEquals(controller.getDataInicio(cod), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getDuracao(cod), duracao);
-		assertEquals(controller.getObjetivo(cod), objetivo);
+		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 		
 		
 		try{
@@ -72,10 +72,10 @@ public class ProjetoControllerTest {
 
 		int cod = controller.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
 	
-		assertEquals(controller.getNome(cod), nome);
-		assertEquals(controller.getDataInicio(cod), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getDuracao(cod), duracao);
-		assertEquals(controller.getObjetivo(cod), objetivo);
+		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 	}
 
 	@Test
@@ -91,10 +91,10 @@ public class ProjetoControllerTest {
 
 		int cod = controller.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
 	
-		assertEquals(controller.getNome(cod), nome);
-		assertEquals(controller.getDataInicio(cod), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getDuracao(cod), duracao);
-		assertEquals(controller.getObjetivo(cod), objetivo);
+		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 	}
 
 	@Test
@@ -106,55 +106,54 @@ public class ProjetoControllerTest {
 		int duracao = 16;
 		int cod = controller.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
 
-		assertEquals(controller.getNome(cod), nome);
-		assertEquals(controller.getDataInicio(cod), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getDuracao(cod), duracao);
-		assertEquals(controller.getObjetivo(cod), objetivo);
+		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 	}
 
 	@Test
 	public void testGetNome() {
-		assertEquals(controller.getNome(projeto.getCodigo()), projeto.getNome() );
+		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "nome"), projeto.getNome() );
 	}
 
 	@Test
 	public void testGetObjetivo() {
-		assertEquals(controller.getObjetivo(projeto.getCodigo()), projeto.getObjetivo());
+		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "objetivo"), projeto.getObjetivo());
 	}
 
 	@Test
 	public void testGetDataInicio() {
-		assertEquals(controller.getDataInicio(projeto.getCodigo()), projeto.getDataInicio());
+		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "data de inicio"), projeto.getDataInicio());
 	}
 
 	@Test
 	public void testGetDuracao() {
-		assertEquals(controller.getDuracao(projeto.getCodigo()), projeto.getDuracao());
+		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "duracao"), projeto.getDuracao());
 	}
 
 	@Test
 	public void testEditaObjetivo() {
-		controller.editaObjetivo(projeto.getCodigo(), "NOVOOBJETIVO");
+		controller.editaProjeto(projeto.getCodigo(), "objetivo", "NOVOOBJETIVO");
 		assertEquals(projeto.getObjetivo(), "NOVOOBJETIVO");
 	}
 
 	@Test
 	public void testEditaNome() {
-		controller.editaNome(projeto.getCodigo(), "NOVONOME");
+		controller.editaProjeto(projeto.getCodigo(), "nome", "NOVONOME");
 		assertEquals(projeto.getNome(), "NOVONOME");
 	}
 
 	@Test
 	public void testEditaDuracao() {
-		controller.editaDuracao(projeto.getCodigo(), 1111);
+		controller.editaProjeto(projeto.getCodigo(), "duracao", "1111");
 		assertEquals(projeto.getDuracao(), 1111);
 	}
 
 	@Test
 	public void testEditaDataInicio() throws ParseException {
-		Date data = DateUtil.parseDate("11/12/1993");
-		controller.editaDataInicio(projeto.getCodigo(), data);
-		assertEquals(projeto.getDataInicio(), data);
+		controller.editaProjeto(projeto.getCodigo(), "data de inicio", "11/12/1993");
+		assertEquals(projeto.getDataInicio(), "11/12/1993");
 	}
 
 	@Test

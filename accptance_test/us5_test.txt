@@ -19,14 +19,9 @@ cod5=getCodigoProjeto nome="Kubernetes"
 
 cpf5=cadastraPessoa cpf="863.426.784-49" nome="Joao Joao" email="jaojoao@bol.com.br"
 
-cpf6=cadastraPessoa cpf="876.246.320-55" nome="Antonio Jose" email="jantonio@bol.com.br"
-
 cpf7=cadastraPessoa cpf="420.014.365-88" nome="Maria Juanita" email="mariajuanita@bol.com.br"
 
-
 associaPosGraduando cpfPessoa=${cpf7} codigoProjeto=${cod3} nivel="Doutorado" valorHora=120.0 qntHoras=20
-
-associaPosGraduando cpfPessoa=${cpf6} codigoProjeto=${cod4} nivel="Mestrado" valorHora=90.0 qntHoras=15
 
 associaGraduando cpfPessoa=${cpf5} codigoProjeto=${cod5} valorHora=10.0 qntHoras=10
 
@@ -52,13 +47,13 @@ associaProfissional cpfPessoa=${cpf9} codigoProjeto=${cod5} cargo="Gerente" valo
 
 expect 11280.0 getValorBolsa cpf="024.685.014-52"
 expect 5000.0 getValorBolsa cpf="324.543.674-78"
-expect 740.0 getValorBolsa cpf="234.765.067-64"
+expect 1050.0 getValorBolsa cpf="234.765.067-64"
 expect 5600.0 getValorBolsa cpf="734.823.922-79"
 expect 350.0 getValorBolsa cpf=${cpf5}
-expect 1350.0 getValorBolsa cpf=${cpf6}
 expect 3200.0 getValorBolsa cpf=${cpf7}
 expect 1100.0 getValorBolsa cpf=${cpf8}
 expect 5700.0 getValorBolsa cpf=${cpf9}
 expect 350.0 getValorBolsa cpf=${cpf10}
 
 fechaSistema
+

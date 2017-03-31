@@ -1,12 +1,18 @@
 package br.edu.ufcg.projetolp2.model.participacao;
 
+import java.io.Serializable;
+
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
-public abstract class Participacao {
+public abstract class Participacao implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int quantHorasSemanais;
 	private double valorHora;
 	private Pessoa pessoa;

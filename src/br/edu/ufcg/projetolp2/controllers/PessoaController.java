@@ -1,9 +1,8 @@
 package br.edu.ufcg.projetolp2.controllers;
 
-import java.util.Collection;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
@@ -20,7 +19,11 @@ import br.edu.ufcg.projetolp2.util.ValidateUtil;
  * @author Juan
  *
  */
-public class PessoaController {
+public class PessoaController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<String, Pessoa> pessoas;
 
 	public PessoaController() {

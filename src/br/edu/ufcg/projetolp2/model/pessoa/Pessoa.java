@@ -1,5 +1,6 @@
 package br.edu.ufcg.projetolp2.model.pessoa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,10 +11,17 @@ import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.Atributavel;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
+import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Cooperacao;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Extensao;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pet;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibic;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibiti;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Pivic;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 /**
@@ -23,8 +31,12 @@ import br.edu.ufcg.projetolp2.util.ValidateUtil;
  * @author Juan
  *
  */
-public class Pessoa implements Atributavel {
+public class Pessoa implements Atributavel, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String email;
 	private String cpf;
@@ -94,21 +106,39 @@ public class Pessoa implements Atributavel {
 		Iterator<Participacao> it = participacoes.iterator();
 
 		double totalPontos = 0;
-		
+		int monitoria = 0, ped = 0;
 		while (it.hasNext()) {
-			Participacao participacao = (Participacao) it.next();			
-			totalPontos += participacao.calculaPontos();
-			
+			Participacao participacao = (Participacao) it.next();
+			Projeto projeto = participacao.getProjeto();
+			if (participacao.getClass() == ParticipacaoGraduando.class) {
+				if (projeto.getClass() == Monitoria.class) {
+					if (monitoria >= 6) {
+						continue;
+					}
+					monitoria = (int) Math.min(6, monitoria + participacao.calculaPontos());
+				} else if (projeto.getClass().getSuperclass() == Ped.class) {
+					if (ped >= 8) {
+						continue;
+					}
+					int ponto = (int) participacao.calculaPontos();
+					ped = (int) Math.min(8, ped + ponto);
+			} 
+			} else {
+				totalPontos += participacao.calculaPontos();
+			}
 		}
-		
-		return totalPontos;
+
+		return totalPontos + monitoria + ped;
 	}
 
 	/**
-	 * Recebe um código de projeto, pesquisa e se existir, remove-o da
-	 * lista de participações dessa pessoa. 
-	 * @param codProjeto - código do projeto a ser removido.
-	 * @throws CpcException - Se não for encontrado o código.
+	 * Recebe um código de projeto, pesquisa e se existir, remove-o da lista de
+	 * participações dessa pessoa.
+	 * 
+	 * @param codProjeto
+	 *            - código do projeto a ser removido.
+	 * @throws CpcException
+	 *             - Se não for encontrado o código.
 	 */
 	public void removeParticipacao(int codProjeto) {
 		Iterator<Participacao> it = participacoes.iterator();
@@ -120,14 +150,16 @@ public class Pessoa implements Atributavel {
 				return;
 			}
 		}
-		
+
 		throw new CpcException("Pessoa nao possui participacao no projeto indicado");
 	}
 
 	/**
-	 * Recebe um objeto Participacao e o adiciona na lista de participações
-	 * da pessoa.
-	 * @param participacao - a ser associado.
+	 * Recebe um objeto Participacao e o adiciona na lista de participações da
+	 * pessoa.
+	 * 
+	 * @param participacao
+	 *            - a ser associado.
 	 */
 	public void adicionaParticipacao(Participacao participacao) {
 		participacoes.add(participacao);
@@ -162,16 +194,16 @@ public class Pessoa implements Atributavel {
 			return false;
 		return true;
 	}
-	
+
 	/**
-	 * Recebe um campo atributo a ser pesquisado o valor. Se o campo existir e for possível 
-	 * visualizar, é retornado a String correspondente ao atributo.
+	 * Recebe um campo atributo a ser pesquisado o valor. Se o campo existir e
+	 * for possível visualizar, é retornado a String correspondente ao atributo.
 	 * 
 	 * @return result - string correspondente ao campo específico.
 	 * @throws CpcException
 	 */
 	@Override
-	public String getInfo(String atributo) throws CpcException{
+	public String getInfo(String atributo) throws CpcException {
 		if (atributo.equalsIgnoreCase("nome")) {
 			return getNome();
 		} else if (atributo.equalsIgnoreCase("cpf")) {
@@ -212,14 +244,14 @@ public class Pessoa implements Atributavel {
 
 	public double getValorBolsa() {
 		Iterator<Participacao> it = participacoes.iterator();
-		
-		double res = 0; 
+
+		double res = 0;
 		while (it.hasNext()) {
 			Participacao participacao = (Participacao) it.next();
-			
+
 			res += participacao.getProjeto().calculaValorBolsa(participacao);
 		}
-		
+
 		return Math.max(res, 350);
 	}
 }

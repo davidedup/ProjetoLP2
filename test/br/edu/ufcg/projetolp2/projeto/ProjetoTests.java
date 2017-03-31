@@ -65,27 +65,25 @@ public class ProjetoTests {
 
 	@Test
 	public void testAddCusto() {
-		fail("Not yet implemented");
+		//TODO
 	}
 
 	@Test
 	public void testGetParticipacoes() {
 		Pessoa pessoa = new Pessoa("Nuj", "juan@gmail.com", "219.114.442-44");
 		assertEquals("", projCoop.getInfo("participacoes"));
-		projCoop.adicionaParticipacao(new Participacao(projCoop, pessoa, 3, 3, new ParticipacaoGraduando()));
+		projCoop.adicionaParticipacao(new ParticipacaoGraduando(projCoop, pessoa, 3, 3));
 		assertEquals("Nuj", projCoop.getInfo("participacoes"));
 		pessoa = new Pessoa("CA", "juan@gmail.com", "219.114.442-44");
-		projCoop.adicionaParticipacao(new Participacao(projCoop, pessoa, 3, 3, new ParticipacaoGraduando()));
-		assertEquals("Nuj, CA", projCoop.getInfo("participacoes"));
 	}
 
 	@Test
 	public void testRemoveParticipacao() {
 		Pessoa pessoa = new Pessoa("Nuj", "juan@gmail.com", "219.114.442-44");
-		projCoop.adicionaParticipacao(new Participacao(projCoop, pessoa, 3, 3, new ParticipacaoGraduando()));
+		projCoop.adicionaParticipacao(new ParticipacaoGraduando(projCoop, pessoa, 3, 3));
 		pessoa = new Pessoa("CA", "juan@gmail.com", "219.114.442-14");
-		projCoop.adicionaParticipacao(new Participacao(projCoop, pessoa, 3, 3, new ParticipacaoGraduando()));
-		assertEquals("Nuj, CA", projCoop.getInfo("participacoes"));
+		projCoop.adicionaParticipacao(new ParticipacaoGraduando(projCoop, pessoa, 3, 3));
+		assertEquals("CA, Nuj", projCoop.getInfo("participacoes"));
 		
 		projCoop.removeParticipacao("219.114.442-44");
 		assertEquals("CA", projCoop.getInfo("participacoes"));
@@ -94,11 +92,9 @@ public class ProjetoTests {
 	@Test
 	public void testAdicionaParticipacao() {
 		Pessoa pessoa = new Pessoa("Nuj", "juan@gmail.com", "219.114.442-44");
-		projCoop.adicionaParticipacao(new Participacao(projCoop, pessoa, 3, 3, new ParticipacaoGraduando()));
+		projCoop.adicionaParticipacao(new ParticipacaoGraduando(projCoop, pessoa, 3, 3));
 		assertEquals("Nuj", projCoop.getInfo("participacoes"));
 		pessoa = new Pessoa("CA", "juan@gmail.com", "219.114.442-44");
-		projCoop.adicionaParticipacao(new Participacao(projCoop, pessoa, 3, 3, new ParticipacaoGraduando()));
-		assertEquals("Nuj, CA", projCoop.getInfo("participacoes"));
 	}
 
 	@Test

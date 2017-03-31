@@ -33,7 +33,7 @@ public abstract class Projeto implements Atributavel, Serializable {
 	private int duracaoMeses;
 	private int codigo;
 	private List<Custo> custos;
-	protected List<Participacao> participacoes;
+	private List<Participacao> participacoes;
 
 	/**
 	 * construtor de Projeto (abstrato)

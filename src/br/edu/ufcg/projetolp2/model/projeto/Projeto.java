@@ -1,5 +1,6 @@
 package br.edu.ufcg.projetolp2.model.projeto;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +19,12 @@ import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
 import br.edu.ufcg.projetolp2.util.DateUtil;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
-public abstract class Projeto implements Atributavel {
+public abstract class Projeto implements Atributavel, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String tipoProjeto = "Projeto";
 
 	private String nome;

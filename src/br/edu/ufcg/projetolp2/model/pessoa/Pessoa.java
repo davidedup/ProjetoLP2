@@ -1,5 +1,6 @@
 package br.edu.ufcg.projetolp2.model.pessoa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,8 +31,12 @@ import br.edu.ufcg.projetolp2.util.ValidateUtil;
  * @author Juan
  *
  */
-public class Pessoa implements Atributavel {
+public class Pessoa implements Atributavel, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String email;
 	private String cpf;

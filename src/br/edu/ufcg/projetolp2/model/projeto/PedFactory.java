@@ -1,20 +1,24 @@
 package br.edu.ufcg.projetolp2.model.projeto;
 
+import java.io.Serializable;
 import java.text.ParseException;
 
 import br.edu.ufcg.projetolp2.exceptions.FactoryException;
-import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
-import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Cooperacao;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibic;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pibiti;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pivic;
 
-public class PedFactory {
+public class PedFactory implements Serializable{
 
 	/**
-	 * cria e retorna um objeto de P&D com o tipo correspondente a sua categoria
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Cria e retorna um objeto de P&D com o tipo correspondente a sua categoria
 	 * @param codigo - codigo do projeto
 	 * @param nome - nome do projeto
 	 * @param categoria - categoria do projeto

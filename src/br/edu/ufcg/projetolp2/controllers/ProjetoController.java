@@ -1,5 +1,6 @@
 package br.edu.ufcg.projetolp2.controllers;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +21,12 @@ import br.edu.ufcg.projetolp2.model.projeto.tipos.Pet;
 import br.edu.ufcg.projetolp2.util.DateUtil;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
-public class ProjetoController {
+public class ProjetoController implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<Integer, Projeto> projetos;
 	private PedFactory pedFactory;
 	private int ultimoCodigo;

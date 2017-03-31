@@ -7,11 +7,9 @@ import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 
 public class Cooperacao extends Ped {
-	//Pessoa coordenador;
 	
 	public Cooperacao(int codigo, String nome, String objetivo, String dataInicio, int duracao, int producaoTecnica, int producaoAcademica, int patentes) throws ParseException {
 		super(codigo, nome, objetivo, dataInicio, duracao, producaoTecnica, producaoAcademica, patentes);
-		//coordenador = null;
 	}
 
 	@Override

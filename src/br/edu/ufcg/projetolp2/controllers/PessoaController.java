@@ -195,4 +195,13 @@ public class PessoaController {
 			throw new CpcException("Erro no calculo da pontucao: " + e.getMessage());
 		}
 	}
+
+	public double getValorBolsa(String cpf) {
+		try {
+			Pessoa pessoa = getPessoa(cpf);
+			return pessoa.getValorBolsa();
+		} catch (CpcException e) {
+			throw new CpcException("Erro no calculo da bolsa: " + e.getMessage());
+		}
+	}
 }

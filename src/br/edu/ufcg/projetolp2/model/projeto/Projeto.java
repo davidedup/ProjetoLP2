@@ -4,12 +4,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import com.sun.org.apache.xerces.internal.xs.StringList;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
@@ -19,7 +15,6 @@ import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
-import br.edu.ufcg.projetolp2.model.participacao.tipos.TipoParticipacao;
 import br.edu.ufcg.projetolp2.util.DateUtil;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
@@ -171,13 +166,13 @@ public abstract class Projeto implements Atributavel {
 			if (participacao.getPessoa().getCpf().equals(p.getPessoa().getCpf())) {
 				String prefixo = "";
 				
-				if (participacao.getTipoParticipacao().getClass() == ParticipacaoGraduando.class){
+				if (participacao.getClass() == ParticipacaoGraduando.class){
 					prefixo = "Aluno";
-				} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoPosGraduando.class){
+				} else if (participacao.getClass() == ParticipacaoPosGraduando.class){
 					prefixo = "Aluno";
-				} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
+				} else if (participacao.getClass() == ParticipacaoProfessor.class){
 					prefixo = "Professor";
-				} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfissional.class){
+				} else if (participacao.getClass() == ParticipacaoProfissional.class){
 					prefixo = "Profissional";
 				}
 				
@@ -198,7 +193,7 @@ public abstract class Projeto implements Atributavel {
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
 			Participacao p = (Participacao) it.next();
-			if (p.getTipoParticipacao().getClass() == ParticipacaoProfessor.class) {
+			if (p.getClass() == ParticipacaoProfessor.class) {
 				res++;
 			}
 		}
@@ -215,8 +210,8 @@ public abstract class Projeto implements Atributavel {
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
 			Participacao p = (Participacao) it.next();
-			if (p.getTipoParticipacao().getClass() == ParticipacaoProfessor.class) {
-				ParticipacaoProfessor professor = (ParticipacaoProfessor) p.getTipoParticipacao();
+			if (p.getClass() == ParticipacaoProfessor.class) {
+				ParticipacaoProfessor professor = (ParticipacaoProfessor) p;
 				if (professor.getCoordenador()) {
 					res++;
 				}
@@ -235,7 +230,7 @@ public abstract class Projeto implements Atributavel {
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
 			Participacao p = (Participacao) it.next();
-			if (p.getTipoParticipacao().getClass() == ParticipacaoGraduando.class) {
+			if (p.getClass() == ParticipacaoGraduando.class) {
 				res++;
 			}
 		}
@@ -253,7 +248,7 @@ public abstract class Projeto implements Atributavel {
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
 			Participacao p = (Participacao) it.next();
-			if (p.getTipoParticipacao().getClass() == ParticipacaoPosGraduando.class) {
+			if (p.getClass() == ParticipacaoPosGraduando.class) {
 				res++;
 			}
 		}
@@ -270,7 +265,7 @@ public abstract class Projeto implements Atributavel {
 		Iterator<Participacao> it = participacoes.iterator();
 		while (it.hasNext()) {
 			Participacao p = (Participacao) it.next();
-			if (p.getTipoParticipacao().getClass() == ParticipacaoProfissional.class) {
+			if (p.getClass() == ParticipacaoProfissional.class) {
 				res++;
 			}
 		}
@@ -297,46 +292,51 @@ public abstract class Projeto implements Atributavel {
 	 *            - cpf do bolsista
 	 * @return - valor total da bolsa para o bolsista solicitado
 	 */
-	public double calculaValorBolsa(String cpf) {
-		Participacao p = getParticipacao(cpf);
-
-		double total = p.getValorHora() * p.getQuantHorasSemanais();
+	public double calculaValorBolsa(Participacao p) {
+		
+		double base = p.getValorHora() * p.getQuantHorasSemanais();
+		double acrescimo = 0;
 
 		// para participacao de professor, aumenta 40% no valor da hora se for
 		// coordenador
-		if (p.getTipoParticipacao().getClass() == ParticipacaoProfessor.class) {
-			ParticipacaoProfessor prof = (ParticipacaoProfessor) p.getTipoParticipacao();
+		if (p.getClass() == ParticipacaoProfessor.class) {
+			ParticipacaoProfessor prof = (ParticipacaoProfessor) p;
 			if (prof.getCoordenador()) {
-				total += p.getValorHora() * 0.4 * p.getQuantHorasSemanais();
+				//acrescimo += p.getQuantHorasSemanais() * p.getValorHora() * 0.40;
+				base = base * 1.4;
 			}
 		}
 
 		// para participacao de pos-graduando, tem adicional de taxa de bancada
 		// para alunos de doutorado no valor de 1/3 na bolsa base
-		if (p.getTipoParticipacao().getClass() == ParticipacaoPosGraduando.class) {
-			total += (p.getValorHora() * p.getQuantHorasSemanais()) / 3;
+		if (p.getClass() == ParticipacaoPosGraduando.class) {
+			ParticipacaoPosGraduando posGrad = (ParticipacaoPosGraduando) p;
+			if (posGrad.getNivel().equalsIgnoreCase("doutorado")){
+				acrescimo += base / 3;
+			}
+			
 		}
 
 		// para participacao de profissional, o adicional e por funcao
-		if (p.getTipoParticipacao().getClass() == ParticipacaoProfissional.class) {
-			ParticipacaoProfissional prof = (ParticipacaoProfissional) p.getTipoParticipacao();
+		if (p.getClass() == ParticipacaoProfissional.class) {
+			ParticipacaoProfissional prof = (ParticipacaoProfissional) p;
 
 			switch (prof.getCargo().toLowerCase()) {
 			// pesquisador tem adicional R$100,00
 			case "pesquisador":
-				total += 100;
+				acrescimo += 100;
 				break;
 
 			// e gerente de R$ 20 por participante do projeto -- considerar no
 			// máximo 5 participantes
 			case "gerente":
-				total += Math.min(5, getTotalParticipacoes()) * 20;
+				acrescimo += Math.min(5, getTotalParticipacoes()) * 20;
 				break;
 			}
 		}
-
+		 
 		// Vale salientar que nenhuma bolsa pode ser inferior a R$ 350,00.
-		return Math.max(total, 350);
+		return base+acrescimo;
 	}
 
 	@Override

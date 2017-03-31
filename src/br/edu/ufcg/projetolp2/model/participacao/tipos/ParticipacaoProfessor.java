@@ -1,11 +1,17 @@
 package br.edu.ufcg.projetolp2.model.participacao.tipos;
 
-public class ParticipacaoProfessor implements TipoParticipacao {
+import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
+import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
 
+public class ParticipacaoProfessor extends Participacao {
 	private boolean coordenador;
 
-	public ParticipacaoProfessor(boolean coordenador) {
-		this.coordenador = coordenador;
+	public ParticipacaoProfessor(Projeto projeto, Pessoa pessoa, int horasSemanais, double valorHora, boolean coordenador) {
+		super(projeto, pessoa, horasSemanais, valorHora);
+		
+		this.coordenador = coordenador; 
 	}
 	
 	public boolean getCoordenador() {
@@ -13,14 +19,14 @@ public class ParticipacaoProfessor implements TipoParticipacao {
 	}
 
 	@Override
-	public double calculaPontos() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getTipoParticipacao() {
-		// TODO Auto-generated method stub
-		return null;
+	public double calculaPontos(){
+		int tempo = getProjeto().getDuracao()/12;
+		double res = tempo * 4;
+		
+		if (getProjeto().getClass() != Monitoria.class){
+			res += getProjeto().getTotalParticipacoes();
+		}
+		
+		return res;
 	}
 }

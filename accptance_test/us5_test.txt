@@ -28,12 +28,10 @@ associaPosGraduando cpfPessoa=${cpf7} codigoProjeto=${cod3} nivel="Doutorado" va
 
 associaPosGraduando cpfPessoa=${cpf6} codigoProjeto=${cod4} nivel="Mestrado" valorHora=90.0 qntHoras=15
 
-associaProfissional cpfPessoa="324.543.674-78" codigoProjeto=${cod5} cargo="Desenvolvedor" valorHora=250.0 qntHoras=20
-
 associaGraduando cpfPessoa=${cpf5} codigoProjeto=${cod5} valorHora=10.0 qntHoras=10
 
 cod6=adicionaPED nome="SAD Computacao" categoria="PIBITI" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Apoio a docencia do DSC" dataInicio="01/01/2017" duracao=24
-associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod6} coordenador=false valorHora=200.0 qntHoras=20
+associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod6} coordenador=false valorHora=200.0 qntHoras=20
 
 #############################################
 #   Calculo do valor das bolsas de projeto  #
@@ -52,16 +50,15 @@ associaProfissional cpfPessoa=${cpf9} codigoProjeto=${cod5} cargo="Gerente" valo
 
 #Consultar valor da bolsa
 
-expect 4000.0 getValorBolsa cpf="024.685.014-52"
-expect 4000.0 getValorBolsa cpf="324.543.674-78"
-expect 450.0 getValorBolsa cpf="234.765.067-64"
+expect 11280.0 getValorBolsa cpf="024.685.014-52"
+expect 5000.0 getValorBolsa cpf="324.543.674-78"
+expect 740.0 getValorBolsa cpf="234.765.067-64"
 expect 5600.0 getValorBolsa cpf="734.823.922-79"
 expect 350.0 getValorBolsa cpf=${cpf5}
 expect 1350.0 getValorBolsa cpf=${cpf6}
 expect 3200.0 getValorBolsa cpf=${cpf7}
 expect 1100.0 getValorBolsa cpf=${cpf8}
-expect 5650.0 getValorBolsa cpf=${cpf9}
+expect 5700.0 getValorBolsa cpf=${cpf9}
 expect 350.0 getValorBolsa cpf=${cpf10}
 
 fechaSistema
-

@@ -15,14 +15,16 @@ public class Pibic extends Ped {
 	
 	@Override
 	public void adicionaParticipacao(Participacao participacao){
-		if (participacao.getTipoParticipacao().getClass() == ParticipacaoProfessor.class){
-			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao.getTipoParticipacao();
+		if (participacao.getClass() == ParticipacaoProfessor.class){
+			ParticipacaoProfessor professor = (ParticipacaoProfessor) participacao;
+			
 			if (!professor.getCoordenador() && super.getTotalParticipacoesProfessor() > 0){
 				throw new ProjetoException("Projetos P&D nao podem ter mais de um professor");
 			} else  if (professor.getCoordenador() && super.getTotalParticipacoesCoordenador() > 0){
 				throw new ProjetoException("Projetos P&D nao podem ter mais de um coordenador");
 			}
-		} else if (participacao.getTipoParticipacao().getClass() == ParticipacaoGraduando.class){
+			
+		} else if (participacao.getClass() == ParticipacaoGraduando.class){
 			if (super.getTotalParticipacoesGraduando() > 0){
 				throw new ProjetoException("Projetos P&D nao podem ter mais de um graduando");
 			}

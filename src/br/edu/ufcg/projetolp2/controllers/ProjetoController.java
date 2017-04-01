@@ -321,4 +321,30 @@ public class ProjetoController implements Serializable{
 		throw new CpcException("Projeto nao encontrado");
 	}
 
+	public double calculaColaboracaoUASC(int cod){
+		Projeto projeto;
+		try{
+			 projeto = getProjeto(cod);
+		}catch(CpcException e){
+			throw new CpcException("Erro na consulta de projeto: codigo nulo ou vazio");
+		}
+		return projeto.calculaColaboracao();
+	}
+
+	public void atualizaDespesasProjeto(String cod, double montanteBolsas, double montanteCusteio,
+			double montanteCapital) {
+		if (cod == null || cod.trim().equals("")){
+			throw new CpcException("Erro na atualizacao de projeto: codigo nulo ou vazio");
+		}
+		
+		int codigo = Integer.parseInt(cod);
+		
+		try{
+			Projeto projeto = getProjeto(codigo);
+			projeto.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+		}catch(ProjetoException e){
+			throw new CpcException("Erro na atualizacao de projeto: " + e.getMessage());
+		}
+		
+	}
 }

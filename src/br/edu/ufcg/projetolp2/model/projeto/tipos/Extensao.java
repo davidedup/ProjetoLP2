@@ -4,7 +4,9 @@ import java.text.ParseException;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
+import br.edu.ufcg.projetolp2.model.projeto.Custo;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.TipoCusto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public class Extensao extends Projeto {
@@ -77,6 +79,23 @@ public class Extensao extends Projeto {
 		}
 		
 		throw new ProjetoException("Atributo nulo ou invalido");
+	}
+
+	@Override
+	public double calculaColaboracao() {
+		double total = super.calculaColaboracao();
+		double desconto = 0.1 - (0.005 * impacto);
+		return total * desconto;
+	}
+
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		super.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+		if (montanteCapital != 0){
+			throw new ProjetoException("projeto do tipo Extensao nao permite despesas de capital");
+		}
+		addCusto(new Custo(montanteBolsas, TipoCusto.BOLSA));
+		addCusto(new Custo(montanteCusteio, TipoCusto.CUSTEIO));
 	}
 	
 }

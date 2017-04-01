@@ -7,6 +7,8 @@ import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
+import br.edu.ufcg.projetolp2.model.projeto.Custo;
+import br.edu.ufcg.projetolp2.model.projeto.TipoCusto;
 
 public class Pibic extends Ped {
 	
@@ -34,5 +36,20 @@ public class Pibic extends Ped {
 		}
 		super.adicionaParticipacao(participacao);
 	}
+	
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		super.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+		
+		if (montanteBolsas == 0){
+			throw new ProjetoException("projeto do tipo P&D - PIBIC ou PIBIT deve permitir despesas de bolsas");
+		}
+		if (montanteCapital != 0 || montanteCusteio != 0) {
+			throw new ProjetoException("projeto do tipo P&D - PIBIC ou PIBIT nao permite despesas de custeio ou capital");
+		}
+		
+		addCusto(new Custo(montanteBolsas, TipoCusto.BOLSA));
+	}
+
 
 }

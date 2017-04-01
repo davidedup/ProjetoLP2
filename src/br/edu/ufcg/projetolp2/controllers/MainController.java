@@ -433,7 +433,7 @@ public class MainController {
 	}
 
 	/**
-	 * remove a participação de pessoa e projeto
+	 * Remove a participação de pessoa e projeto
 	 * 
 	 * @param cpfPessoa
 	 *            - CPF da pessoa a ser removida a participacao
@@ -465,7 +465,35 @@ public class MainController {
 		return pessoaController.calculaPontuacaoPorParticipacao(cpf);
 	}
 
+	/**
+	 * Recebe um CPF e calcula o valor da bolsa que aquela
+	 * pessoa recebe.
+	 * @param cpf - identificador da pessoa
+	 * @return
+	 */
 	public double getValorBolsa(String cpf) {
 		return pessoaController.getValorBolsa(cpf);
+	}
+
+	public void atualizaDespesasProjeto(String cod, double montanteBolsas, double montanteCusteio, double montanteCapital){
+		projetoController.atualizaDespesasProjeto(cod, montanteBolsas, montanteCusteio, montanteCapital);
+	}
+	
+	public double calculaColaboracaoUASC(int cod){
+		return projetoController.calculaColaboracaoUASC(cod);
+	}
+	
+	public double calculaColaboracaoTotalUASC(){
+		return 0;
+		
+	}
+	
+	public void diminuiReceita(double valor){
+		
+	}
+	
+	public double calculaTotalEmCaixaUASC(){
+		return 0;
+		
 	}
 }

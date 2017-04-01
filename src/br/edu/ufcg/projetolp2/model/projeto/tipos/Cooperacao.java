@@ -5,6 +5,8 @@ import java.text.ParseException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
+import br.edu.ufcg.projetolp2.model.projeto.Custo;
+import br.edu.ufcg.projetolp2.model.projeto.TipoCusto;
 
 public class Cooperacao extends Ped {
 	
@@ -21,5 +23,23 @@ public class Cooperacao extends Ped {
 			}
 		}
 		super.adicionaParticipacao(participacao);
+	}
+
+	@Override
+	public double calculaColaboracao() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		super.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+		if (montanteCapital == 0 || montanteCusteio == 0 || montanteBolsas == 0) {
+			throw new ProjetoException("projeto do tipo Coop devem possuir todas as despesas");
+		}
+		
+		addCusto(new Custo(montanteBolsas, TipoCusto.BOLSA));
+		addCusto(new Custo(montanteCapital, TipoCusto.CAPITAL));
+		addCusto(new Custo(montanteCusteio, TipoCusto.CUSTEIO));
 	}
 }

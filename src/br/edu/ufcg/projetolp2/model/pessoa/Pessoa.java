@@ -252,6 +252,6 @@ public class Pessoa implements Atributavel, Serializable{
 			res += participacao.getProjeto().calculaValorBolsa(participacao);
 		}
 
-		return Math.max(res, 350);
+		return res;
 	}
 }

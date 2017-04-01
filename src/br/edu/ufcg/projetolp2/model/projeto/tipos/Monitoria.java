@@ -112,4 +112,13 @@ public class Monitoria extends Projeto {
 		}
 		super.adicionaParticipacao(participacao);
 	}
+	
+	@Override
+	public double calculaValorBolsa(Participacao p){
+		if (p.getClass() == ParticipacaoProfessor.class){
+			return 0;
+		} else {
+			return super.calculaValorBolsa(p);
+		}
+	}
 }

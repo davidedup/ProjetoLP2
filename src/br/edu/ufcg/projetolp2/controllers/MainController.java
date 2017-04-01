@@ -481,8 +481,8 @@ public class MainController implements Serializable{
 	}
 
 	public void atualizaDespesasProjeto(String cod, double montanteBolsas, double montanteCusteio, double montanteCapital){
-		projetoController.atualizaDespesasProjeto(cod, montanteBolsas, montanteCusteio, montanteCapital);
-		uasc.addCredito();
+		double montante = projetoController.atualizaDespesasProjeto(cod, montanteBolsas, montanteCusteio, montanteCapital);
+		uasc.addCredito(montante);
 	}
 	
 	public double calculaColaboracaoUASC(String cod){

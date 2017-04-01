@@ -15,6 +15,11 @@ public class UASCGastos {
 		this.credito = credito;
 	}
 	
+	/**
+	 *	Retorna o valor total gerado ao calcular os créditos subtraidos com 
+	 * as despesas. 
+	 * @return - total
+	 */
 	public double getTotal(){
 		return credito - debito;
 	}
@@ -23,6 +28,12 @@ public class UASCGastos {
 		return debito;
 	}
 	
+	/** 
+	 * Recebe um valor e adiciona aos debitos se ele for válido.
+	 * Só são validos valores acima de 0 e que ao subtraídos com
+	 * o montante atual, seja positivo.
+	 * @param debito - valor a ser debitado.
+	 */
 	public void addDebito(double debito) {
 		if (debito < 0){
 			throw new CpcException("Erro na atualizacao da receita da unidade: valor negativo");
@@ -32,12 +43,12 @@ public class UASCGastos {
 			this.debito += debito;
 		}
 	}
-	
-	public double getCredito() {
-		return credito;
-	}
-	
-	public void setCredito(double credito) {
-		this.credito = credito;
+
+	/**
+	 * Recebe uma nova quantia e a salva.
+	 * @param montante - credito a ser adicionado
+	 */
+	public void addCredito(double montante) {
+		credito += montante;
 	}
 }

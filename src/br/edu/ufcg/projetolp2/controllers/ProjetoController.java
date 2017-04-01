@@ -364,6 +364,10 @@ public class ProjetoController implements Serializable{
 		
 	}
 
+	/**
+	 * Calcula o total de todas as colaborações para o UASC.
+	 * @return - montante de todos projetos
+	 */
 	public double calculaColaboracaoTotalUASC() {
 		double montante = 0;
 		for (Projeto projeto : projetos.values()) {

@@ -59,8 +59,16 @@ public class ValidateUtil {
 		}
 	}
 	
+	
+	/**
+	 * Valida se o impacto esta entre 1 e 6
+	 * @param impacto - valor a ser validado
+	 * @throws ValidacaoException -  Excpetion caso o impacto não sej valido
+	 */
 	public static void validaImpacto(int impacto) throws ValidacaoException {
-		//TODO
+		if (impacto < 1 || impacto > 6){
+			throw new ValidacaoException("Impacto invalido");
+		}
 	}
 	
 	/**

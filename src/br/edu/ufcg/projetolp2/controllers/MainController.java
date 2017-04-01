@@ -6,11 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import br.edu.ufcg.projetolp2.ArquivoCpc;
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
+import br.edu.ufcg.projetolp2.model.UASCGastos;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
@@ -19,16 +21,19 @@ import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
-public class MainController {
+public class MainController implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;
-	private final String PATH = "arquivos_sistema";
-	private final String ARQUIVO_DAT = PATH + "/cpc_ufcg.dat";
+	private UASCGastos uasc;
+	private transient final String PATH = "arquivos_sistema";
+	private transient final String ARQUIVO_DAT = PATH + "/cpc_ufcg.dat";
 
 	public MainController(){
 		pessoaController = new PessoaController();
 		projetoController = new ProjetoController();
+		uasc = new UASCGastos(0, 0);
 	}
 	
 	public void iniciaSistema() {
@@ -433,7 +438,7 @@ public class MainController {
 	}
 
 	/**
-	 * remove a participação de pessoa e projeto
+	 * Remove a participação de pessoa e projeto
 	 * 
 	 * @param cpfPessoa
 	 *            - CPF da pessoa a ser removida a participacao
@@ -465,7 +470,34 @@ public class MainController {
 		return pessoaController.calculaPontuacaoPorParticipacao(cpf);
 	}
 
+	/**
+	 * Recebe um CPF e calcula o valor da bolsa que aquela
+	 * pessoa recebe.
+	 * @param cpf - identificador da pessoa
+	 * @return
+	 */
 	public double getValorBolsa(String cpf) {
 		return pessoaController.getValorBolsa(cpf);
+	}
+
+	public void atualizaDespesasProjeto(String cod, double montanteBolsas, double montanteCusteio, double montanteCapital){
+		double montante = projetoController.atualizaDespesasProjeto(cod, montanteBolsas, montanteCusteio, montanteCapital);
+		uasc.addCredito(montante);
+	}
+	
+	public double calculaColaboracaoUASC(String cod){
+		return projetoController.calculaColaboracaoUASC(cod);
+	}
+	
+	public double calculaColaboracaoTotalUASC(){
+		return projetoController.calculaColaboracaoTotalUASC();	
+	}
+	
+	public void diminuiReceita(double valor){
+		uasc.addDebito(valor);
+	}
+	
+	public double calculaTotalEmCaixaUASC(){
+		return uasc.getTotal();
 	}
 }

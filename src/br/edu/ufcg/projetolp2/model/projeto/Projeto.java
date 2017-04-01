@@ -16,6 +16,7 @@ import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
+import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.util.DateUtil;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
@@ -287,10 +288,6 @@ public abstract class Projeto implements Atributavel, Serializable {
 		return participacoes.size();
 	}
 
-	public String toString() {
-		return codigo + ": " + nome;
-	}
-
 	/**
 	 * Calcula o valor da bolsa da participacao relacionada ao cpf fornecido
 	 * 
@@ -352,10 +349,7 @@ public abstract class Projeto implements Atributavel, Serializable {
 			return "" + getCodigo();
 
 		case "data de inicio":
-			try {
-				return DateUtil.formatDate(getDataInicio());
-			} catch (ParseException e) {
-			}
+			return DateUtil.formatDate(getDataInicio());
 
 		case "duracao":
 			return "" + getDuracao();
@@ -421,4 +415,35 @@ public abstract class Projeto implements Atributavel, Serializable {
 		return true;
 	}
 
+	/**
+	 * retorna o professor coordenador no projeto
+	 * 
+	 * @return - professor coordenador
+	 */
+	final public Pessoa getCoordenador() {
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (p.getClass() == ParticipacaoProfessor.class) {
+				ParticipacaoProfessor professor = (ParticipacaoProfessor) p;
+				if (professor.getCoordenador()) {
+					return professor.getPessoa();
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		
+		Pessoa coordenador = getCoordenador();
+		String nomeCoordenador = coordenador == null? "Não possui" : coordenador.getNome();
+		
+		return String.format("Nome: %s"
+				+ "Data de inicio: %s"
+				+ "Coordenador: %s"
+				+ "Situacao: <finalizado/em andamento>", nome, DateUtil.formatDate(dataInicio), nomeCoordenador);
+	}
+	
 }

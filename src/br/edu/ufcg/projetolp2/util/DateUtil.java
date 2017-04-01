@@ -24,8 +24,8 @@ public class DateUtil {
 	 * @return - String com a data correspondente
 	 * @throws ParseException - erro de conversao
 	 */
-	public static String formatDate(Date data) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	public static String formatDate(Date data) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return formatter.format(data);
 	}	
 }

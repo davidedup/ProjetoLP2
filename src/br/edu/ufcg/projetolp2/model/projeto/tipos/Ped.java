@@ -130,9 +130,10 @@ public abstract class Ped extends Projeto {
 		if (patentes > 0){
 			desconto += 0.03;
 		}
-		desconto -= (producaoTecnica * 0.003);
-		desconto += (procucaoAcademica * 0.002);
-		desconto -= (Math.floor(super.calculaBemCapital() / 100) * 0.1);
+		desconto += (producaoTecnica * 0.003);
+		desconto -= (procucaoAcademica * 0.002);
+		double capital = Math.floor(super.calculaBemCapital() / 100000);
+		desconto += (capital * 0.01);
 		return total * desconto;
 	}
 

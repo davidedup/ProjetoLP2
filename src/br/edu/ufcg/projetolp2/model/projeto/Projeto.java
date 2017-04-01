@@ -431,7 +431,7 @@ public abstract class Projeto implements Atributavel, Serializable {
 	public double calculaColaboracao(){
 		double montante = 0;
 		for(Custo custo : getCustos()){
-			if (custo.getTipoCusto() != TipoCusto.BOLSA && custo.getValor() > 10000){
+			if (custo.getValor() > 10000){
 				montante += custo.getValor();
 			}
 		}

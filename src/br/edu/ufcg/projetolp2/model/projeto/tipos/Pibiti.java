@@ -48,4 +48,9 @@ public class Pibiti extends Ped {
 		
 		addCusto(new Custo(montanteBolsas, TipoCusto.BOLSA));
 	}
+	
+	@Override
+	public double calculaColaboracao() {
+		return 0;
+	}
 }

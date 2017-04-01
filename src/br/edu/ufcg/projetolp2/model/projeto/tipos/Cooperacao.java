@@ -25,11 +25,6 @@ public class Cooperacao extends Ped {
 		super.adicionaParticipacao(participacao);
 	}
 
-	@Override
-	public double calculaColaboracao() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	@Override
 	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {

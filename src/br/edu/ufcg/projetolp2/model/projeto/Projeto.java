@@ -342,7 +342,7 @@ public abstract class Projeto implements Atributavel, Serializable {
 		}
 		 
 		// Vale salientar que nenhuma bolsa pode ser inferior a R$ 350,00.
-		return base+acrescimo;
+		return Math.max(base+acrescimo, 350);
 	}
 
 	@Override

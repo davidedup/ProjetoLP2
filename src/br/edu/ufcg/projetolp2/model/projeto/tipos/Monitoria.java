@@ -6,7 +6,9 @@ import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
+import br.edu.ufcg.projetolp2.model.projeto.Custo;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.TipoCusto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public class Monitoria extends Projeto {
@@ -112,6 +114,22 @@ public class Monitoria extends Projeto {
 		}
 		super.adicionaParticipacao(participacao);
 	}
+
+	@Override
+	public double calculaColaboracao() {
+		return 0;
+	}
+	
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		super.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+		if (montanteCapital != 0 || montanteCusteio != 0) {
+			throw new ProjetoException("projeto do tipo monitoria nao permite despesas de custeio ou capital");
+		}
+		addCusto(new Custo(montanteBolsas, TipoCusto.BOLSA));
+	}
+	
+	
 	
 	@Override
 	public double calculaValorBolsa(Participacao p){

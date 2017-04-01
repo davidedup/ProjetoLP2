@@ -82,6 +82,10 @@ public abstract class Projeto implements Atributavel, Serializable {
 		return this.codigo;
 	}
 
+	public List<Custo> getCustos() {
+		return custos;
+	}
+
 	public void setObjetivo(String objetivo) {
 		ValidateUtil.validaString(objetivo, "Objetivo nulo ou vazio");
 		this.objetivo = objetivo;
@@ -391,7 +395,10 @@ public abstract class Projeto implements Atributavel, Serializable {
 		default:
 			throw new ProjetoException("Atributo nulo ou invalido");
 		}
+	}
 
+	public void addCusto(Custo custo) {
+		custos.add(custo);
 	}
 
 	@Override
@@ -446,4 +453,29 @@ public abstract class Projeto implements Atributavel, Serializable {
 				+ "Situacao: <finalizado/em andamento>", nome, DateUtil.formatDate(dataInicio), nomeCoordenador);
 	}
 	
+	public double calculaColaboracao(){
+		double montante = 0;
+		for(Custo custo : getCustos()){
+			if (custo.getValor() > 10000){
+				montante += custo.getValor();
+			}
+		}
+		return montante;
+	}
+
+	public double calculaBemCapital() {
+		double montante = 0;
+		for(Custo custo : getCustos()){
+			if (custo.getTipoCusto() == TipoCusto.CAPITAL){
+				montante += custo.getValor();
+			}
+		}
+		return montante;
+	}
+
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital){
+		if (montanteBolsas < 0 || montanteCapital < 0 || montanteCusteio < 0){
+			throw new ProjetoException("valor negativo");
+		}
+	}
 }

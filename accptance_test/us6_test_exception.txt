@@ -1,11 +1,11 @@
 ##########################################
-# US6 - Gerência financeira dos projetos #
+# US6 - Gerï¿½ncia financeira dos projetos #
 ##########################################
 
 #iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 iniciaSistema
 
-## Recuperação do codigo dos projetos já cadastrados ##
+## Recuperaï¿½ï¿½o do codigo dos projetos jï¿½ cadastrados ##
 
 cod1=getCodigoProjeto nome="Monitoria de P2"
 cod2=getCodigoProjeto nome="PET Computacao"
@@ -14,7 +14,7 @@ cod4=getCodigoProjeto nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINA
 cod5=getCodigoProjeto nome="Kubernetes"
 
 #############################################
-# Configuração das despesas de cada projeto #
+# Configuraï¿½ï¿½o das despesas de cada projeto #
 #############################################
 
 expectError "Erro na atualizacao de projeto: codigo nulo ou vazio" atualizaDespesasProjeto cod="" montanteBolsas=0.0 montanteCusteio=0.0 montanteCapital=0.0
@@ -39,7 +39,7 @@ expectError "Erro na atualizacao de projeto: projeto do tipo Coop devem possuir 
 
 
 ###################################
-#     Consulta da colaboração     #
+#     Consulta da colaboraï¿½ï¿½o     #
 ###################################
 
 expectError "Erro na consulta de projeto: codigo nulo ou vazio" calculaColaboracaoUASC cod=""
@@ -49,7 +49,7 @@ expectError "Erro na consulta de projeto: codigo nulo ou vazio" calculaColaborac
 ###################################
 
 expectError "Erro na atualizacao da receita da unidade: valor negativo" diminuiReceita valor=-1.0
-expectError "Erro na atualizacao da receita da unidade: a unidade nao possui fundos suficientes" dimibuiReceita valor=51000.0
+expectError "Erro na atualizacao da receita da unidade: a unidade nao possui fundos suficientes" diminuiReceita valor=51000.0
 expect 50660.0 calculaTotalEmCaixaUASC
 
 fechaSistema

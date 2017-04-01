@@ -4,7 +4,9 @@ import java.text.ParseException;
 
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
+import br.edu.ufcg.projetolp2.model.projeto.Custo;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.TipoCusto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public class Pet extends Projeto {
@@ -17,21 +19,37 @@ public class Pet extends Projeto {
 
 	/**
 	 * construtor de Pet
-	 * @param codigo - codigo do projeto
-	 * @param nome - nome do projeto
-	 * @param objetivo - objetivo do projeto
-	 * @param dataInicio - data de inicio do projeto
-	 * @param duracao - duracao do projeto (em meses)
-	 * @param impacto - impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
-	 * @param producaoTecnica - numero de producoes tecnicas geradas no projeto
-	 * @param producaoAcademica - numero de producoes academicas geradas no projeto
-	 * @param patentes - numero de patentes geradas no projeo
-	 * @param rendimento - expectativa de aprovacao
+	 * 
+	 * @param codigo
+	 *            - codigo do projeto
+	 * @param nome
+	 *            - nome do projeto
+	 * @param objetivo
+	 *            - objetivo do projeto
+	 * @param dataInicio
+	 *            - data de inicio do projeto
+	 * @param duracao
+	 *            - duracao do projeto (em meses)
+	 * @param impacto
+	 *            - impacto do projeto (varia de 1 a 6 e depende da quantidade
+	 *            de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3
+	 *            - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da
+	 *            federacao/Brasil), 6 - federacao (Brasil))
+	 * @param producaoTecnica
+	 *            - numero de producoes tecnicas geradas no projeto
+	 * @param producaoAcademica
+	 *            - numero de producoes academicas geradas no projeto
+	 * @param patentes
+	 *            - numero de patentes geradas no projeo
+	 * @param rendimento
+	 *            - expectativa de aprovacao
 	 * @throws ParseException
 	 */
-	public Pet(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto, int producaoTecnica, int producaoAcademica, int patentes, int rendimento) throws ParseException, ValidacaoException {
+	public Pet(int codigo, String nome, String objetivo, String dataInicio, int duracao, int impacto,
+			int producaoTecnica, int producaoAcademica, int patentes, int rendimento)
+			throws ParseException, ValidacaoException {
 		super(codigo, nome, objetivo, dataInicio, duracao);
-		
+
 		setProducaoTecnica(producaoTecnica);
 		setProducaoAcademica(producaoAcademica);
 		setPatentes(patentes);
@@ -40,7 +58,11 @@ public class Pet extends Projeto {
 
 	/**
 	 * retorna o impacto do projeto
-	 * @return -  impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
+	 * 
+	 * @return - impacto do projeto (varia de 1 a 6 e depende da quantidade de
+	 *         pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 -
+	 *         regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da
+	 *         federacao/Brasil), 6 - federacao (Brasil))
 	 */
 	public int getImpacto() {
 		return this.impacto;
@@ -61,10 +83,15 @@ public class Pet extends Projeto {
 	public int getRendimento() {
 		return this.rendimento;
 	}
-	
+
 	/**
 	 * atualiza o valor do impacto do projeto
-	 * @param impacto - impacto do projeto (varia de 1 a 6  e depende da quantidade de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3 - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da federacao/Brasil), 6 - federacao (Brasil))
+	 * 
+	 * @param impacto
+	 *            - impacto do projeto (varia de 1 a 6 e depende da quantidade
+	 *            de pessoas atingidas: 1 - comunidade academica, 2 - cidade, 3
+	 *            - regiao (dentro do estado), 4 - estado, 5 - regiao (dentro da
+	 *            federacao/Brasil), 6 - federacao (Brasil))
 	 */
 	public void setImpacto(int impacto) {
 		ValidateUtil.validaImpacto(impacto);
@@ -94,20 +121,20 @@ public class Pet extends Projeto {
 	@Override
 	public String getInfo(String atributo) {
 		ValidateUtil.validaString(atributo, "Atributo nulo ou invalido");
-		
-		switch (atributo.toLowerCase()){
+
+		switch (atributo.toLowerCase()) {
 		case "impacto":
-			return ""+getImpacto();
-		
+			return "" + getImpacto();
+
 		case "patentes":
-			return ""+getPatentes();
-		
+			return "" + getPatentes();
+
 		case "producao academica":
-			return ""+getProducaoAcademica();
-			
+			return "" + getProducaoAcademica();
+
 		case "producao tecnica":
-			return ""+getProducaoTecnica();
-			
+			return "" + getProducaoTecnica();
+
 		default:
 			return super.getInfo(atributo);
 		}
@@ -116,42 +143,58 @@ public class Pet extends Projeto {
 	@Override
 	public void setInfo(String atributo, String valor) {
 		ValidateUtil.validaString(atributo, "Atributo nulo ou invalido");
-		ValidateUtil.validaString(atributo, atributo+" nulo ou vazio");
-		
-		switch (atributo.toLowerCase()){
+		ValidateUtil.validaString(atributo, atributo + " nulo ou vazio");
+
+		switch (atributo.toLowerCase()) {
 		case "patentes":
-			try{
+			try {
 				setPatentes(Integer.valueOf(valor));
-			} catch (NumberFormatException e){
+			} catch (NumberFormatException e) {
 				throw new ValidacaoException("Numero de patentes invalido");
 			}
-		
+
 		case "proucao academica":
-			try{
+			try {
 				setProducaoAcademica(Integer.valueOf(valor));
-			} catch (NumberFormatException e){
+			} catch (NumberFormatException e) {
 				throw new ValidacaoException("Numero de producoes academicas invalido");
-			}			
-			
+			}
+
 		case "producao tecnica":
-			try{
+			try {
 				setProducaoTecnica(Integer.valueOf(valor));
-			} catch (NumberFormatException e){
+			} catch (NumberFormatException e) {
 				throw new ValidacaoException("Numero de producoes tecnicas invalido");
-			}			
-			
+			}
+
 		case "rendimento":
-			try{
+			try {
 				setRendimento(Integer.valueOf(valor));
-			} catch (NumberFormatException e){
+			} catch (NumberFormatException e) {
 				throw new ValidacaoException("Rendimento invalido");
 			}
-			
+
 		case "producao academica":
 			throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
-			
+
 		default:
 			super.setInfo(atributo, valor);
 		}
 	}
+
+	@Override
+	public double calculaColaboracao() {
+		return 0;
+	}
+
+	@Override
+	public void atualizaDespesas(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		super.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+		if (montanteCapital != 0) {
+			throw new ProjetoException("projeto do tipo PET nao permite despesas de capital");
+		}
+		addCusto(new Custo(montanteBolsas, TipoCusto.BOLSA));
+		addCusto(new Custo(montanteCusteio, TipoCusto.CUSTEIO));
+	}
+
 }

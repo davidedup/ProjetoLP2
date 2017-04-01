@@ -13,7 +13,9 @@ public class EasyAcceptMain {
 				"accptance_test/us3.txt",
 				"accptance_test/us3_exception.txt",
 				"accptance_test/us4_test.txt",
-				"accptance_test/us5_test.txt"
+				"accptance_test/us5_test.txt",
+				"accptance_test/us6_test.txt",
+				"accptance_test/us6_test_exception.txt"
 				};
 		EasyAccept.main(args);
 	}

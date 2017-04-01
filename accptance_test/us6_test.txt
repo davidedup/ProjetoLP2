@@ -1,11 +1,11 @@
 ##########################################
-# US6 - Gerência financeira dos projetos #
+# US6 - Gerï¿½ncia financeira dos projetos #
 ##########################################
 
 #iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
 iniciaSistema
 
-## Recuperação do codigo dos projetos já cadastrados ##
+## Recuperaï¿½ï¿½o do codigo dos projetos jï¿½ cadastrados ##
 
 cod1=getCodigoProjeto nome="Monitoria de P2"
 cod2=getCodigoProjeto nome="PET Computacao"
@@ -14,7 +14,7 @@ cod4=getCodigoProjeto nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINA
 cod5=getCodigoProjeto nome="Kubernetes"
 
 #########################################
-# Configuração da verba de cada projeto #
+# Configuraï¿½ï¿½o da verba de cada projeto #
 #########################################
 
 atualizaDespesasProjeto cod=${cod1} montanteBolsas=8000.0 montanteCusteio=0.0 montanteCapital=0.0
@@ -25,7 +25,7 @@ atualizaDespesasProjeto cod=${cod5} montanteBolsas=35000.0 montanteCusteio=28000
 
 
 ###################################
-#     Consulta da colaboração     #
+#     Consulta da colaboraï¿½ï¿½o     #
 ###################################
 
 expect 0.0 calculaColaboracaoUASC cod=${cod1}
@@ -34,7 +34,7 @@ expect 2640.0 calculaColaboracaoUASC cod=${cod3}
 expect 0.0 calculaColaboracaoUASC cod=${cod4}
 expect 49500.0 calculaColaboracaoUASC cod=${cod5}
 
-## Consulta da colaboração total ##
+## Consulta da colaboraï¿½ï¿½o total ##
 
 expect 52140.0 calculaColaboracaoTotalUASC
 

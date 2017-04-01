@@ -5,7 +5,9 @@ import java.text.ParseException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
+import br.edu.ufcg.projetolp2.model.projeto.Custo;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.model.projeto.TipoCusto;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
 public abstract class Ped extends Projeto {
@@ -119,6 +121,20 @@ public abstract class Ped extends Projeto {
 	@Override
 	public void adicionaParticipacao(Participacao participacao){
 		super.adicionaParticipacao(participacao);
+	}
+
+	@Override
+	public double calculaColaboracao() {
+		double total = super.calculaColaboracao();
+		double desconto = 0.1;
+		if (patentes > 0){
+			desconto += 0.03;
+		}
+		desconto += (producaoTecnica * 0.003);
+		desconto -= (procucaoAcademica * 0.002);
+		double capital = Math.floor(super.calculaBemCapital() / 100000);
+		desconto += (capital * 0.01);
+		return total * desconto;
 	}
 
 }

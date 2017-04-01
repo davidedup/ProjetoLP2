@@ -321,4 +321,58 @@ public class ProjetoController implements Serializable{
 		throw new CpcException("Projeto nao encontrado");
 	}
 
+	/**
+	 * Recebe o código de um projeto, pesquisa e retorna o valor de 
+	 * sua contribuição para o UASCG.
+	 * @param cod - identificador do projeto
+	 * @return
+	 */
+	public double calculaColaboracaoUASC(String cod){
+		ValidateUtil.validaString(cod, "Erro na consulta de projeto: codigo nulo ou vazio");
+		Projeto projeto;
+		try{
+			 projeto = getProjeto(Integer.parseInt(cod));
+		}catch(CpcException | NumberFormatException e){
+			throw new CpcException("Erro na consulta de projeto: codigo nulo ou vazio");
+		}
+		return projeto.calculaColaboracao();
+	}
+
+	/**
+	 * Adiciona gastos a um projeto. Recebendo o código e os valores,
+	 * o método cria e adiciona os valores respectivos e caso seja efetuada
+	 * a adição de custos é retornado a contribuição dada ao UASCG.
+	 * @param cod - codigo do projeto 
+	 * @param montanteBolsas - valor de bolsa adicionada
+	 * @param montanteCusteio - valor de custeio adicionado
+	 * @param montanteCapital - valor de capital adicionado
+	 * @return contribuicao ao uascg.
+	 */
+	public double atualizaDespesasProjeto(String cod, double montanteBolsas, double montanteCusteio,
+			double montanteCapital) {
+		ValidateUtil.validaString(cod, "Erro na atualizacao de projeto: codigo nulo ou vazio");
+		
+		int codigo = Integer.parseInt(cod);
+		
+		try{
+			Projeto projeto = getProjeto(codigo);
+			projeto.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+			return projeto.calculaColaboracao();
+		}catch(ProjetoException | NumberFormatException e){
+			throw new CpcException("Erro na atualizacao de projeto: " + e.getMessage());
+		}
+		
+	}
+
+	/**
+	 * Calcula o total de todas as colaborações para o UASC.
+	 * @return - montante de todos projetos
+	 */
+	public double calculaColaboracaoTotalUASC() {
+		double montante = 0;
+		for (Projeto projeto : projetos.values()) {
+			montante += projeto.calculaColaboracao();
+		}
+		return montante;
+	}
 }

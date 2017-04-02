@@ -249,7 +249,7 @@ public class Pessoa implements Atributavel, Serializable{
 		while (it.hasNext()) {
 			Participacao participacao = (Participacao) it.next();
 
-			res += participacao.getProjeto().calculaValorBolsa(participacao);
+			res += participacao.calculaValorBolsa();
 		}
 
 		return res;

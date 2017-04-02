@@ -34,6 +34,20 @@ public class ParticipacaoPosGraduando extends Participacao{
 	public double calculaPontos() {
 		return 0;
 	}
+
+	@Override
+	public double calculaValorBolsa() {
+		double base = getValorHora() * getQuantHorasSemanais();
+		double acrescimo = 0;
+		
+		// para participacao de pos-graduando, tem adicional de taxa de bancada
+		// para alunos de doutorado no valor de 1/3 na bolsa base
+		if (getNivel().equalsIgnoreCase("doutorado")){
+			acrescimo += base / 3;
+		}
+		
+		return Math.max(base+acrescimo, 350);
+	}
 	
 	
 

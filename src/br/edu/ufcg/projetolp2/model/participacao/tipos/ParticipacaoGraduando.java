@@ -29,5 +29,12 @@ public class ParticipacaoGraduando extends Participacao {
 		return res;
 	}
 
+	@Override
+	public double calculaValorBolsa() {
+		double base = getValorHora() * getQuantHorasSemanais();		
+		
+		return Math.max(base, 350);
+	}
+
 
 }

@@ -52,6 +52,7 @@ public class MonitoriaTests {
 		
 		try {
 			projMon.getInfo("producao academica");
+			fail();
 		} catch (Exception e) {
 			assertEquals("Monitoria nao possui Producao academica", e.getMessage());
 		}
@@ -61,6 +62,7 @@ public class MonitoriaTests {
 	public void testSetInfo() {
 		try{
 			projMon.setInfo("disciplina", "P3");
+			fail();
 		}catch(ProjetoException e){
 			assertEquals("Nao e possivel alterar a disciplina da monitoria", e.getMessage());
 		}

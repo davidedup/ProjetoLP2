@@ -49,21 +49,25 @@ public class ParticipacaoPosGraduadoTest {
 	public void testParticipacaoPosGraduando() {
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj2, daniel, 10,10 , "mestre");
+			fail();
 		}catch(CpcException e){
 			assertEquals(e.getMessage(), "Tipo de projeto invalido para pos graduando");
 		}
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj1, daniel, 10,10 , "mestre");
+			fail();
 		}catch(CpcException e){
 			assertEquals(e.getMessage(), "Tipo de projeto invalido para pos graduando");
 		}
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj1, daniel, 10,10 , "");
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage(),"Nivel nulo ou vazio");
 		}
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj1, daniel, 10, 10 , null);
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage(),"Nivel nulo ou vazio");
 		}

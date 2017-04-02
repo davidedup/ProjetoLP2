@@ -69,11 +69,13 @@ public class ParticipacaoProfissionalTest {
 	public void testParticipacaoProfissional(){
 		try{
 			ParticipacaoProfissional  p = new ParticipacaoProfissional(proj1, daniel, 10, 10, null);
+			fail();
 		}catch (ValidacaoException e) {
 			assertEquals(e.getMessage(), "Cargo nulo ou vazio");
 		}
 		try{
 			ParticipacaoProfissional  p = new ParticipacaoProfissional(proj1, daniel, 10, 10, "");
+			fail();
 		}catch (ValidacaoException e) {
 			assertEquals(e.getMessage(), "Cargo nulo ou vazio");
 		}

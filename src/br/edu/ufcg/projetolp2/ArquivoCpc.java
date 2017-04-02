@@ -17,6 +17,7 @@ public class ArquivoCpc implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;
+	
 	public PessoaController getPessoaController() {
 		return pessoaController;
 	}

@@ -30,24 +30,27 @@ public class MainController implements Serializable{
 	}
 	
 	public void iniciaSistema() {
-//		projetoController = new ProjetoController();
-//		pessoaController = new PessoaController();
-//		try {
-//			ArquivoCpc sistemaArquivo = logger.recuperaEstadoSistema();
-//			projetoController = sistemaArquivo.getProjetoController();
-//			pessoaController = sistemaArquivo.getPessoaController();
-//		} catch (LoggingException e) {
-//			throw new CpcException(e, "Erro ao iniciar sistema: " + e.getMessage());
-//		}
+		projetoController = new ProjetoController();
+		pessoaController = new PessoaController();
+		try {
+			ArquivoCpc sistemaArquivo = logger.recuperaEstadoSistema();
+			if(sistemaArquivo == null){
+				return;
+			}
+			projetoController = sistemaArquivo.getProjetoController();
+			pessoaController = sistemaArquivo.getPessoaController();
+		} catch (LoggingException e) {
+			throw new CpcException(e, "Erro ao iniciar sistema: " + e.getMessage());
+		}
 	}
 
 	public void fechaSistema() {
-//		ArquivoCpc sistemaArquivo = new ArquivoCpc(pessoaController, projetoController);
-//		try {
-//			logger.salvaEstadoSistema(sistemaArquivo);
-//		} catch (LoggingException e) {
-//			throw new CpcException(e, "Erro ao fechar sistema: " + e.getMessage());
-//		}
+		ArquivoCpc sistemaArquivo = new ArquivoCpc(pessoaController, projetoController);
+		try {
+			logger.salvaEstadoSistema(sistemaArquivo);
+		} catch (LoggingException e) {
+			throw new CpcException(e, "Erro ao fechar sistema: " + e.getMessage());
+		}
 	}
 
 	/**

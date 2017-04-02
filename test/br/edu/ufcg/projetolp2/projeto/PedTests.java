@@ -7,15 +7,22 @@ import java.text.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
+import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
+import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
+import br.edu.ufcg.projetolp2.model.projeto.tipos.Cooperacao;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Ped;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Pivic;
 
 public class PedTests {
 	Ped projPivic;
+	Pessoa daniel,juan;
 
 	@Before
 	public void setUp() throws Exception {
 		projPivic = new Pivic(0, "as", "sao", "22/12/2012", 2, 3, 4, 5);
+		daniel = new Pessoa("Daniel", "daniel@gmail.com", "111.111.111-11");
+		juan = new Pessoa("juan", "juazinho@lol.com", "123.123.123-12");
 	}
 
 	@Test
@@ -40,6 +47,17 @@ public class PedTests {
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Numero de patentes invalido");
 		}
+		
+		//Testar adiciona participacao de Cooperacao:
+		try{
+			Cooperacao c = new Cooperacao(10, "nossa", "help", "22/12/2014", 12, 8, 5, 3);
+			ParticipacaoProfessor p = new ParticipacaoProfessor(c, daniel, 10, 10, true);
+			c.adicionaParticipacao(p);
+		}catch(ProjetoException e){
+			assertEquals(e.getMessage(),"Projetos P&D nao podem ter mais de um coordenador");
+		}
+		
+		
 	}
 	
 	@Test

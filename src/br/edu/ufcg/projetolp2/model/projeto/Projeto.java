@@ -3,6 +3,7 @@ package br.edu.ufcg.projetolp2.model.projeto;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -18,9 +19,10 @@ import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
 import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.util.DateUtil;
+import br.edu.ufcg.projetolp2.util.IO;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
-public abstract class Projeto implements Atributavel, Serializable {
+public abstract class Projeto implements Atributavel, Serializable, Comparable<Projeto> {
 	/**
 	 * 
 	 */
@@ -443,14 +445,19 @@ public abstract class Projeto implements Atributavel, Serializable {
 
 	@Override
 	public String toString() {
-		
 		Pessoa coordenador = getCoordenador();
 		String nomeCoordenador = coordenador == null? "Não possui" : coordenador.getNome();
-		
-		return String.format("Nome: %s"
-				+ "Data de inicio: %s"
-				+ "Coordenador: %s"
-				+ "Situacao: <finalizado/em andamento>", nome, DateUtil.formatDate(dataInicio), nomeCoordenador);
+		return String.format("Nome: %s" + IO.NL
+				+ "Data de inicio: %s" + IO.NL
+				+ "Coordenador: %s" + IO.NL
+				+ "Situacao: %s", nome, 
+				DateUtil.formatDate(dataInicio), nomeCoordenador, isEmAndamento()? "em andamento" : "finalizado");
+	}
+	
+	public boolean isEmAndamento () {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dataInicio);
+		return (Calendar.getInstance().before(calendar));
 	}
 	
 	public double calculaColaboracao(){
@@ -477,5 +484,10 @@ public abstract class Projeto implements Atributavel, Serializable {
 		if (montanteBolsas < 0 || montanteCapital < 0 || montanteCusteio < 0){
 			throw new ProjetoException("valor negativo");
 		}
+	}
+	
+	@Override
+	public int compareTo(Projeto o) {
+		return codigo - o.codigo;
 	}
 }

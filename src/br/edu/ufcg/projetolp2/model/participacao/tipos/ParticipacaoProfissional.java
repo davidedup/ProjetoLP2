@@ -49,4 +49,26 @@ public class ParticipacaoProfissional extends Participacao {
 		return res;
 		
 	}
+
+	@Override
+	public double calculaValorBolsa() {
+		double base = getValorHora() * getQuantHorasSemanais();
+		double acrescimo = 0;
+		
+		// para participacao de profissional, o adicional e por funcao
+		switch (getCargo().toLowerCase()) {
+		// pesquisador tem adicional R$100,00
+		case "pesquisador":
+			acrescimo += 100;
+			break;
+
+		// e gerente de R$ 20 por participante do projeto -- considerar no
+		// máximo 5 participantes
+		case "gerente":
+			acrescimo += Math.min(5, getProjeto().getTotalParticipacoes()) * 20;
+			break;
+		}
+		
+		return Math.max(base+acrescimo, 350);
+	}
 }

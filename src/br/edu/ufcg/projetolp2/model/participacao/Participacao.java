@@ -76,6 +76,8 @@ public abstract class Participacao implements Serializable{
 	
 	public abstract double calculaPontos();
 
+	public abstract double calculaValorBolsa();
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

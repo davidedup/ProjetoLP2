@@ -39,8 +39,8 @@ public class ProjetoControllerTest {
 		int cod = controller.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao);
 		
 		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
-		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), dataInicio);
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), Integer.toString(duracao));
 		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 		
 		
@@ -53,7 +53,7 @@ public class ProjetoControllerTest {
 		try{
 			controller.adicionaMonitoria(nome, "", rendimento, objetivo, periodo, dataInicio, duracao);
 		}catch(CpcException e){
-			assertEquals(e.getMessage(), "Erro no cadastro de projeto: Nome nulo ou vazio");
+			assertEquals(e.getMessage(), "Erro no cadastro de projeto: Disciplina nulo ou vazio");
 		}
 		
 	}
@@ -73,8 +73,8 @@ public class ProjetoControllerTest {
 		int cod = controller.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
 	
 		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
-		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"),dataInicio);
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), Integer.toString(duracao));
 		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 	}
 
@@ -92,8 +92,8 @@ public class ProjetoControllerTest {
 		int cod = controller.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao);
 	
 		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
-		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), dataInicio);
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), Integer.toString(duracao));
 		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 	}
 
@@ -107,8 +107,8 @@ public class ProjetoControllerTest {
 		int cod = controller.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
 
 		assertEquals(controller.getInfoProjeto(cod, "nome"), nome);
-		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), DateUtil.parseDate(dataInicio));
-		assertEquals(controller.getInfoProjeto(cod, "duracao"), duracao);
+		assertEquals(controller.getInfoProjeto(cod, "data de inicio"), dataInicio);
+		assertEquals(controller.getInfoProjeto(cod, "duracao"), Integer.toString(duracao));
 		assertEquals(controller.getInfoProjeto(cod, "objetivo"), objetivo);
 	}
 
@@ -124,12 +124,12 @@ public class ProjetoControllerTest {
 
 	@Test
 	public void testGetDataInicio() {
-		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "data de inicio"), projeto.getDataInicio());
+		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "data de inicio"), DateUtil.formatDate(projeto.getDataInicio(),"dd/MM/yyyy"));
 	}
 
 	@Test
 	public void testGetDuracao() {
-		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "duracao"), projeto.getDuracao());
+		assertEquals(controller.getInfoProjeto(projeto.getCodigo(), "duracao"), Integer.toString(projeto.getDuracao()));
 	}
 
 	@Test
@@ -153,7 +153,7 @@ public class ProjetoControllerTest {
 	@Test
 	public void testEditaDataInicio() throws ParseException {
 		controller.editaProjeto(projeto.getCodigo(), "data de inicio", "11/12/1993");
-		assertEquals(projeto.getDataInicio(), "11/12/1993");
+		assertEquals(DateUtil.formatDate(projeto.getDataInicio(), "dd/MM/yyyy"), "11/12/1993");
 	}
 
 	@Test
@@ -163,7 +163,7 @@ public class ProjetoControllerTest {
 			controller.getProjeto(projeto.getCodigo());
 			fail("Encontrou projeto removido");
 		} catch(CpcException e){
-			assertEquals("Erro na consulta de projeto: Projeto nao encontrado", e.getMessage());
+			assertEquals("Projeto nao encontrado", e.getMessage());
 		}
 	}
 

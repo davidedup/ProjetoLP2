@@ -29,21 +29,21 @@ public class PetTests {
 		}
 		
 		try {	
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, -8, 8, 2, 8);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Numero de producoes tecnicas invalido");
 		}
 
 		try {
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, -8, 2, 8);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Numero de producoes academicas invalido");
 		}
 
 		try {
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, -2, 8);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Numero de patentes invalido");

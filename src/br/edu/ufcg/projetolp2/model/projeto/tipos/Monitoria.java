@@ -41,7 +41,6 @@ public class Monitoria extends Projeto {
 	}
 
 	public void setDisciplina(String disciplina) {
-		//this.disciplina = disciplina;
 		throw new ProjetoException("Nao e possivel alterar a disciplina da monitoria");
 	}
 
@@ -83,18 +82,17 @@ public class Monitoria extends Projeto {
 		switch (atributo.toLowerCase()){
 		case "disciplina":
 			setDisciplina(valor);
-		
+			return;
 		case "periodo":
 			setPeriodo(valor);
-			
+			return;
 		case "rendimento":
 			try{
 				setRendimento(Integer.valueOf(valor));
 			} catch (NumberFormatException e){
 				throw new ValidacaoException("Rendimento invalido");
 			}
-			
-			
+			return;
 		default:
 			super.setInfo(atributo, valor);
 		}

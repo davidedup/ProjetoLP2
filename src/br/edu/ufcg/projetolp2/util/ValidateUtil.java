@@ -60,7 +60,7 @@ public class ValidateUtil {
 	}
 	
 	public static void validaImpacto(int impacto) throws ValidacaoException {
-		//TODO
+		validaPositivo(impacto, "Impacto invalido");
 	}
 	
 	/**

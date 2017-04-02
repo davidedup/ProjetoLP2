@@ -48,7 +48,7 @@ public class GeradorRelatorio {
 			totalColaborado += projeto.calculaColaboracao();
 			totalEmCaixa += projeto.calculaBemCapital();
 			output += String.format("==> Nome: %s Data de inicio: %s Valor colaborado: R$ %.2f%s", 
-					projeto.getNome(), DateUtil.formatDate(projeto.getDataInicio()), projeto.calculaColaboracao(), IO.NL);
+					projeto.getNome(), DateUtil.formatDate(projeto.getDataInicio(), "yyyy-MM-dd"), projeto.calculaColaboracao(), IO.NL);
 		}
 		
 		output += String.format("Total acumulado com colaboracoes: R$ %.2f" + IO.NL

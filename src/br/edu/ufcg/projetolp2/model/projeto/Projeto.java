@@ -355,7 +355,7 @@ public abstract class Projeto implements Atributavel, Serializable, Comparable<P
 			return "" + getCodigo();
 
 		case "data de inicio":
-			return DateUtil.formatDate(getDataInicio());
+			return DateUtil.formatDate(getDataInicio(), "dd/MM/yyyy");
 
 		case "duracao":
 			return "" + getDuracao();
@@ -451,7 +451,7 @@ public abstract class Projeto implements Atributavel, Serializable, Comparable<P
 				+ "Data de inicio: %s" + IO.NL
 				+ "Coordenador: %s" + IO.NL
 				+ "Situacao: %s", nome, 
-				DateUtil.formatDate(dataInicio), nomeCoordenador, isEmAndamento()? "em andamento" : "finalizado");
+				DateUtil.formatDate(dataInicio, "dd/MM/yyyy"), nomeCoordenador, isEmAndamento()? "em andamento" : "finalizado");
 	}
 	
 	public boolean isEmAndamento () {

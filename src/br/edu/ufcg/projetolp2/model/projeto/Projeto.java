@@ -302,50 +302,7 @@ public abstract class Projeto implements Atributavel, Serializable, Comparable<P
 	 * @return - valor total da bolsa para o bolsista solicitado
 	 */
 	public double calculaValorBolsa(Participacao p) {
-		
-		double base = p.getValorHora() * p.getQuantHorasSemanais();
-		double acrescimo = 0;
-
-		// para participacao de professor, aumenta 40% no valor da hora se for
-		// coordenador
-		if (p.getClass() == ParticipacaoProfessor.class) {
-			ParticipacaoProfessor prof = (ParticipacaoProfessor) p;
-			if (prof.getCoordenador()) {
-				//acrescimo += p.getQuantHorasSemanais() * p.getValorHora() * 0.40;
-				base = base * 1.4;
-			}
-		}
-
-		// para participacao de pos-graduando, tem adicional de taxa de bancada
-		// para alunos de doutorado no valor de 1/3 na bolsa base
-		if (p.getClass() == ParticipacaoPosGraduando.class) {
-			ParticipacaoPosGraduando posGrad = (ParticipacaoPosGraduando) p;
-			if (posGrad.getNivel().equalsIgnoreCase("doutorado")){
-				acrescimo += base / 3;
-			}
-			
-		}
-
-		// para participacao de profissional, o adicional e por funcao
-		if (p.getClass() == ParticipacaoProfissional.class) {
-			ParticipacaoProfissional prof = (ParticipacaoProfissional) p;
-
-			switch (prof.getCargo().toLowerCase()) {
-			// pesquisador tem adicional R$100,00
-			case "pesquisador":
-				acrescimo += 100;
-				break;
-
-			// e gerente de R$ 20 por participante do projeto -- considerar no
-			// máximo 5 participantes
-			case "gerente":
-				acrescimo += Math.min(5, getTotalParticipacoes()) * 20;
-				break;
-			}
-		}
-		 
-		// Vale salientar que nenhuma bolsa pode ser inferior a R$ 350,00.
-		return Math.max(base+acrescimo, 350);
+		return p.calculaValorBolsa();
 	}
 
 	@Override

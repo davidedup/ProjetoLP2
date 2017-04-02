@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.model.projeto.PedFactory;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.model.projeto.tipos.Monitoria;
@@ -12,7 +13,7 @@ import br.edu.ufcg.projetolp2.model.projeto.tipos.Pet;
 
 public class MonitoriaTests {
 
-	Projeto projMon;
+	Monitoria projMon;
 
 	@Before
 	public void setUp() throws Exception {
@@ -25,7 +26,7 @@ public class MonitoriaTests {
 			new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "", "1232.2", 1);
 			fail();
 		} catch(Exception e){
-			assertEquals("Disciplina nula ou vazia", e.getMessage());
+			assertEquals("Disciplina nulo ou vazio", e.getMessage());
 		}
 		
 		try{
@@ -51,15 +52,20 @@ public class MonitoriaTests {
 		
 		try {
 			projMon.getInfo("producao academica");
+			fail();
 		} catch (Exception e) {
 			assertEquals("Monitoria nao possui Producao academica", e.getMessage());
 		}
 	}
-
+	
 	@Test
 	public void testSetInfo() {
-		projMon.setInfo("disciplina", "P3");
-		assertEquals(projMon.getInfo("disciplina"), "P3");
+		try{
+			projMon.setInfo("disciplina", "P3");
+			fail();
+		}catch(ProjetoException e){
+			assertEquals("Nao e possivel alterar a disciplina da monitoria", e.getMessage());
+		}
 		projMon.setInfo("periodo", "2012.2");
 		assertEquals(projMon.getInfo("periodo"), "2012.2");
 		projMon.setInfo("rendimento", "2");

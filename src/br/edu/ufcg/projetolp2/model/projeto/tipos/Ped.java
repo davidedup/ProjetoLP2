@@ -95,22 +95,21 @@ public abstract class Ped extends Projeto {
 			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de patentes invalido");
 			}
-			
-		
+			return;
 		case "producao academica":
 			try{
 				setProducaoAcademica(Integer.valueOf(valor));
 			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes academicas invalido");
 			}
-			
+			return;
 		case "producao tecnica":
 			try{
 				setProducaoTecnica(Integer.valueOf(valor));		
 			} catch (NumberFormatException e){
 				throw new ValidacaoException("Numero de producoes tecnicas invalido");
 			}
-			
+			return;
 		default:
 			super.setInfo(atributo, valor);
 		}

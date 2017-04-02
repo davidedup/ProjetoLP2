@@ -15,42 +15,42 @@ public class PetTests {
 
 	@Before
 	public void setUp() throws Exception {
-		proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 7, 8, 2, 9);
+		proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 6, 7, 8, 2, 9);
 	}
 	
 	@Test
 	public void testPet() throws ParseException {
 		
 		try {	
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, -8, 8, 8, 2, 8);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, -8, 6, 8, 2, 8);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Impacto invalido");
 		}
 		
 		try {	
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 6, -8, 8, 2, 8);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Numero de producoes tecnicas invalido");
 		}
 
 		try {
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 6, 6, -8, 2, 8);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Numero de producoes academicas invalido");
 		}
 
 		try {
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 6, 6, 8, -2, 8);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Numero de patentes invalido");
 		}
 		
 		try {
-			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, -9);
+			proj = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 6, 6, 8, 2, -9);
 			fail();
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Rendimento invalido");
@@ -63,7 +63,7 @@ public class PetTests {
 		assertEquals("7", proj.getInfo("producao Tecnica"));
 		assertEquals("8", proj.getInfo("producao Academica"));
 		assertEquals("2", proj.getInfo("patentes"));
-		assertEquals("8", proj.getInfo("impacto"));
+		assertEquals("6", proj.getInfo("impacto"));
 		assertEquals("9", proj.getInfo("rendimento"));
 		
 		try {

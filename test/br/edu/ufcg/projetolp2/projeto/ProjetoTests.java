@@ -31,7 +31,7 @@ public class ProjetoTests {
 	@Before
 	public void setUp() throws Exception {
 		PedFactory factory  = new PedFactory();
-		projPet = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+		projPet = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 5, 6, 8, 8, 2, 8);
 		projCoop = factory.create(112, "coop", "coop", 3, 3, 3, "sSHSAO", "12/12/2011", 1);
 		projPibiti = factory.create(111, "pibiti", "pibiti", 1, 2, 3, "12OSHSAO", "14/12/2012", 2);
 		projMon = new Monitoria(1, "Monitoria", "monitorar", "10/02/2019", 1, "P2", "1232.2", 1);			
@@ -41,21 +41,21 @@ public class ProjetoTests {
 	@Test
 	public void testProjeto() {
 		try{
-			projPet = new Pet(0, "", "Levar os jovens a olimpiada", "10/02/2019", 5, 8, 8, 8, 2, 8);
+			projPet = new Pet(0, "", "Levar os jovens a olimpiada", "10/02/2019", 5, 6, 8, 8, 2, 8);
 			fail();
 		} catch(Exception e){
 			assertEquals(e.getMessage(), "Nome nulo ou vazio");
 		}
 		
 		try{
-			projPet = new Pet(0, "Adasd", "", "10/02/2019", 1, 8, 8, 8, 2, 8);
+			projPet = new Pet(0, "Adasd", "", "10/02/2019", 1, 6, 8, 8, 2, 8);
 			fail();
 		} catch(Exception e){
 			assertEquals(e.getMessage(), "Objetivo nulo ou vazio");
 		}
 		
 		try{
-			projPet = new Pet(0, "asas", "lim", "10/02/2019", -1, 8, 8, 8, 2, 8);
+			projPet = new Pet(0, "asas", "lim", "10/02/2019", -1, 6, 8, 8, 2, 8);
 			fail();
 		} catch(Exception e){
 			assertEquals(e.getMessage(), "Duracao invalida");
@@ -99,10 +99,10 @@ public class ProjetoTests {
 
 	@Test
 	public void testEqualsObject() throws ParseException {
-		Projeto projPetAux = new Pet(0, "OPI", "Levar os jovens a olimpiada", "28/02/1997", 5, 8, 8, 8, 2, 8);
+		Projeto projPetAux = new Pet(0, "OPI", "Levar os jovens a olimpiada", "28/02/1997", 5, 6, 8, 8, 2, 8);
 		assertNotEquals(projCoop, projExt);
 		assertEquals(projPetAux, projPet);
-		projPetAux = new Pet(2, "OPI", "Levar os jovens a olimpiada", "28/02/1997", 5, 8, 8, 8, 2, 8);
+		projPetAux = new Pet(2, "OPI", "Levar os jovens a olimpiada", "28/02/1997", 5, 6, 8, 8, 2, 8);
 		assertNotEquals(projCoop, projPetAux);
 	}
 

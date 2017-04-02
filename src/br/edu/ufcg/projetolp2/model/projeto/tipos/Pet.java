@@ -54,6 +54,7 @@ public class Pet extends Projeto {
 		setProducaoAcademica(producaoAcademica);
 		setPatentes(patentes);
 		setImpacto(impacto);
+		setRendimento(rendimento);
 	}
 
 	/**
@@ -134,7 +135,10 @@ public class Pet extends Projeto {
 
 		case "producao tecnica":
 			return "" + getProducaoTecnica();
-
+			
+		case "rendimento":
+			return "" + getRendimento();
+			
 		default:
 			return super.getInfo(atributo);
 		}
@@ -152,20 +156,14 @@ public class Pet extends Projeto {
 			} catch (NumberFormatException e) {
 				throw new ValidacaoException("Numero de patentes invalido");
 			}
-
-		case "proucao academica":
-			try {
-				setProducaoAcademica(Integer.valueOf(valor));
-			} catch (NumberFormatException e) {
-				throw new ValidacaoException("Numero de producoes academicas invalido");
-			}
-
+			return;
 		case "producao tecnica":
 			try {
 				setProducaoTecnica(Integer.valueOf(valor));
 			} catch (NumberFormatException e) {
 				throw new ValidacaoException("Numero de producoes tecnicas invalido");
 			}
+			return;
 
 		case "rendimento":
 			try {
@@ -173,13 +171,26 @@ public class Pet extends Projeto {
 			} catch (NumberFormatException e) {
 				throw new ValidacaoException("Rendimento invalido");
 			}
-
+			return;
 		case "producao academica":
-			throw new ProjetoException(tipoProjeto + " nao posssui " + atributo);
-
+			try {
+				setProducaoAcademica(Integer.valueOf(valor));
+			} catch (NumberFormatException e) {
+				throw new ValidacaoException("Producao academica invalido");
+			}
+			return;
+		case "impacto":
+			try {
+				setImpacto(Integer.valueOf(valor));
+			} catch (NumberFormatException e) {
+				throw new ValidacaoException("Impacto invalido");
+			}
+			return;
 		default:
 			super.setInfo(atributo, valor);
+			
 		}
+
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class ParticipacaoPosGraduadoTest {
 	@Before
 	public void setUp() throws ValidacaoException, ParseException, FactoryException {
 		PedFactory factory = new PedFactory();
-		proj1 = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 12, 8, 8, 8, 2, 8);
+		proj1 = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 12, 6, 8, 8, 2, 8);
 		proj2 = new Monitoria(0, "p2", "ensinar", "10/4/2015", 12, "p2", "16.1", 20);
 		proj3 = factory.create(111, "pibiti", "pibiti", 12, 12, 3, "12OSHSAO", "14/12/2012", 12);
 		
@@ -49,21 +49,25 @@ public class ParticipacaoPosGraduadoTest {
 	public void testParticipacaoPosGraduando() {
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj2, daniel, 10,10 , "mestre");
+			fail();
 		}catch(CpcException e){
 			assertEquals(e.getMessage(), "Tipo de projeto invalido para pos graduando");
 		}
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj1, daniel, 10,10 , "mestre");
+			fail();
 		}catch(CpcException e){
 			assertEquals(e.getMessage(), "Tipo de projeto invalido para pos graduando");
 		}
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj1, daniel, 10,10 , "");
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage(),"Nivel nulo ou vazio");
 		}
 		try{
 			ParticipacaoPosGraduando p = new ParticipacaoPosGraduando(proj1, daniel, 10, 10 , null);
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage(),"Nivel nulo ou vazio");
 		}

@@ -3,6 +3,7 @@ package br.edu.ufcg.projetolp2.model.projeto;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -16,10 +17,12 @@ import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfessor;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoProfissional;
+import br.edu.ufcg.projetolp2.model.pessoa.Pessoa;
 import br.edu.ufcg.projetolp2.util.DateUtil;
+import br.edu.ufcg.projetolp2.util.IO;
 import br.edu.ufcg.projetolp2.util.ValidateUtil;
 
-public abstract class Projeto implements Atributavel, Serializable {
+public abstract class Projeto implements Atributavel, Serializable, Comparable<Projeto> {
 	/**
 	 * 
 	 */
@@ -291,10 +294,6 @@ public abstract class Projeto implements Atributavel, Serializable {
 		return participacoes.size();
 	}
 
-	public String toString() {
-		return codigo + ": " + nome;
-	}
-
 	/**
 	 * Calcula o valor da bolsa da participacao relacionada ao cpf fornecido
 	 * 
@@ -313,10 +312,7 @@ public abstract class Projeto implements Atributavel, Serializable {
 			return "" + getCodigo();
 
 		case "data de inicio":
-			try {
-				return DateUtil.formatDate(getDataInicio());
-			} catch (ParseException e) {
-			}
+			return DateUtil.formatDate(getDataInicio(), "dd/MM/yyyy");
 
 		case "duracao":
 			return "" + getDuracao();
@@ -385,6 +381,42 @@ public abstract class Projeto implements Atributavel, Serializable {
 		return true;
 	}
 
+	/**
+	 * retorna o professor coordenador no projeto
+	 * 
+	 * @return - professor coordenador
+	 */
+	final public Pessoa getCoordenador() {
+		Iterator<Participacao> it = participacoes.iterator();
+		while (it.hasNext()) {
+			Participacao p = (Participacao) it.next();
+			if (p.getClass() == ParticipacaoProfessor.class) {
+				ParticipacaoProfessor professor = (ParticipacaoProfessor) p;
+				if (professor.getCoordenador()) {
+					return professor.getPessoa();
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		Pessoa coordenador = getCoordenador();
+		String nomeCoordenador = coordenador == null? "Não possui" : coordenador.getNome();
+		return String.format("Nome: %s" + IO.NL
+				+ "Data de inicio: %s" + IO.NL
+				+ "Coordenador: %s" + IO.NL
+				+ "Situacao: %s", nome, 
+				DateUtil.formatDate(dataInicio, "dd/MM/yyyy"), nomeCoordenador, isEmAndamento()? "em andamento" : "finalizado");
+	}
+	
+	public boolean isEmAndamento () {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dataInicio);
+		return (Calendar.getInstance().before(calendar));
+	}
+	
 	public double calculaColaboracao(){
 		double montante = 0;
 		for(Custo custo : getCustos()){
@@ -410,5 +442,9 @@ public abstract class Projeto implements Atributavel, Serializable {
 			throw new ProjetoException("valor negativo");
 		}
 	}
-
+	
+	@Override
+	public int compareTo(Projeto o) {
+		return codigo - o.codigo;
+	}
 }

@@ -26,7 +26,7 @@ public class ParticipacaoGraduandoTest {
 	@Before
 	public void setUp() throws ValidacaoException, ParseException, FactoryException {
 		PedFactory factory = new PedFactory();
-		proj1 = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 12, 8, 8, 8, 2, 8);
+		proj1 = new Pet(0, "OPI", "Levar os jovens a olimpiada", "10/02/2019", 12, 6, 8, 8, 2, 8);
 		proj2 = new Monitoria(0, "p2", "ensinar", "10/4/2015", 12, "p2", "16.1", 20);
 		proj3 = factory.create(111, "pibiti", "pibiti", 12, 12, 3, "12OSHSAO", "14/12/2012", 12);
 		daniel = new Pessoa("Daniel", "daniel@gmail.com", "111.111.111-11");
@@ -52,7 +52,7 @@ public class ParticipacaoGraduandoTest {
 		proj3.setDuracao(20);
 		assertEquals(6, participacaoGraduando3.calculaPontos(), 0.05);
 		
-		//duração menor que 6 meses
+		//duraï¿½ï¿½o menor que 6 meses
 		proj1.setDuracao(2);
 		assertEquals(0, participacaoGraduando1.calculaPontos(), 0.05);
 		proj2.setDuracao(3);

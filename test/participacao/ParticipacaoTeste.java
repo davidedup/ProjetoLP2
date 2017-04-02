@@ -43,12 +43,14 @@ public class ParticipacaoTeste {
 	public void testParticipacao() {
 		try{
 			Participacao participacao = new ParticipacaoGraduando(projCoop, daniel, -1, 1);
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage(), "Quantidade de horas invalida");
 		}
 		
 		try{
 			Participacao participacao = new ParticipacaoGraduando(projPibiti, daniel, 10, -1);
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage(), "Valor da hora invalido");
 		}
@@ -59,11 +61,13 @@ public class ParticipacaoTeste {
 	public void testSetQuantHorasSemanais() {
 		try{
 			participacao1.setQuantHorasSemanais(0);
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage() , "Quantidade de horas invalida");
 		}
 		try{
 			participacao1.setQuantHorasSemanais(-3);
+			fail();
 		}catch(ValidacaoException e){
 			assertEquals(e.getMessage() , "Quantidade de horas invalida");
 		}

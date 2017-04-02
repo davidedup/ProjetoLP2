@@ -1,12 +1,18 @@
 package br.edu.ufcg.projetolp2.model;
 
+import java.io.Serializable;
+
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
 
 /**
  * Representa a entidade que calcula os gastos e créditos da UASC.
  *
  */
-public class UASCGastos {
+public class UASCGastos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double debito;
 	private double credito;
 	

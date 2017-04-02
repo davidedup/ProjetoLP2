@@ -19,13 +19,13 @@ public class DateUtil {
 	}
 	
 	/**
-	 * recebe uma data e retorna uma string no formato dd/MM/yyyy correspondente
+	 * recebe uma data e retorna uma string no formato correspondente
 	 * @param data - Date com a data
 	 * @return - String com a data correspondente
 	 * @throws ParseException - erro de conversao
 	 */
-	public static String formatDate(Date data) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	public static String formatDate(Date data, String formato) {
+		SimpleDateFormat formatter = new SimpleDateFormat(formato);
 		return formatter.format(data);
-	}	
+	}
 }

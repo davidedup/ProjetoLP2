@@ -1,16 +1,14 @@
 package br.edu.ufcg.projetolp2.logging;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
-import br.edu.ufcg.projetolp2.exceptions.LoggingException;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
+import br.edu.ufcg.projetolp2.util.DateUtil;
 import br.edu.ufcg.projetolp2.util.IO;
 
 public class GeradorRelatorio {
 	
-	public void geraRelatorioProjetos(List<Projeto> projetos) throws LoggingException {
+	public String geraRelatorioProjetos(List<Projeto> projetos) {
 		
 		projetos.sort(null);
 		int posGraduandos = 0;
@@ -34,19 +32,28 @@ public class GeradorRelatorio {
 				+ "%% Participacao da pos-graduacao: %d" + IO.NL
 				+ "%% Participacao de profissionais: %d",
 				concluidos, graduandos, posGraduandos, profissionais);
+
+		return output;
+	}
+	
+	public String geraRelatorioColaboracoes(List<Projeto> projetos) {
 		
-		try {
-			FileWriter fw = new FileWriter("cad_projetos.txt");
-			fw.write(output);
-			fw.close();
-		} catch (IOException e) {
-			throw new LoggingException(e, "Ocorreu um erro ao gerar relatorio de projetos");
+		String output = "Historico das colaboracoes:" + IO.NL;
+		double totalColaborado = 0;
+		double totalGasto = 0;
+		double totalEmCaixa = 0;
+		
+		for (Projeto projeto : projetos) {
+			totalColaborado += projeto.calculaColaboracao();
+			totalEmCaixa += projeto.calculaBemCapital();
+			output += String.format("==> Nome: %s Data de inicio: %s Valor colaborado: R$ %.2f%s", 
+					projeto.getNome(), DateUtil.formatDate(projeto.getDataInicio()), projeto.calculaColaboracao(), IO.NL);
 		}
 		
-	}
-	
-	public void geraRelatorioColaboracoes () throws LoggingException {
+		output += String.format("Total acumulado com colaboracoes: R$ %.2f" + IO.NL
+				+ "Total gasto: R$ %.2f" + IO.NL
+				+ "Total em caixa: R$ %.2f", totalColaborado);
 		
+		return output;
 	}
-	
 }

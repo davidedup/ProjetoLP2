@@ -1,18 +1,13 @@
 package br.edu.ufcg.projetolp2.controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import br.edu.ufcg.projetolp2.ArquivoCpc;
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
+import br.edu.ufcg.projetolp2.exceptions.LoggingException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
-import br.edu.ufcg.projetolp2.model.UASCGastos;
+import br.edu.ufcg.projetolp2.logging.Logger;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoGraduando;
 import br.edu.ufcg.projetolp2.model.participacao.tipos.ParticipacaoPosGraduando;
@@ -26,48 +21,33 @@ public class MainController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;
-	private UASCGastos uasc;
-	private transient final String PATH = "arquivos_sistema";
-	private transient final String ARQUIVO_DAT = PATH + "/cpc_ufcg.dat";
+	private Logger logger;
 
 	public MainController(){
 		pessoaController = new PessoaController();
 		projetoController = new ProjetoController();
-		uasc = new UASCGastos(0, 0);
+		logger = new Logger();
 	}
 	
 	public void iniciaSistema() {
-		//projetoController = new ProjetoController();
-		//pessoaController = new PessoaController();
-		//
-		//File file = new File(ARQUIVO_DAT);
-		//if (file.exists() && file.canRead()) {
-		//	try {
-		//		ObjectInputStream input = new ObjectInputStream(new FileInputStream(file));
-		//
-		//		ArquivoCpc sistemaArquivo = (ArquivoCpc) input.readObject();
-		//		projetoController = sistemaArquivo.getProjetoController();
-		//		pessoaController = sistemaArquivo.getPessoaController();
-		//	} catch (IOException | ClassNotFoundException e) {
-		//	}
-		//}
+//		projetoController = new ProjetoController();
+//		pessoaController = new PessoaController();
+//		try {
+//			ArquivoCpc sistemaArquivo = logger.recuperaEstadoSistema();
+//			projetoController = sistemaArquivo.getProjetoController();
+//			pessoaController = sistemaArquivo.getPessoaController();
+//		} catch (LoggingException e) {
+//			throw new CpcException(e, "Erro ao iniciar sistema: " + e.getMessage());
+//		}
 	}
 
 	public void fechaSistema() {
-		//ArquivoCpc sistemaArquivo = new ArquivoCpc(pessoaController, projetoController);
-		//File file = new File(PATH);
-		//
-		//if (!file.exists()) {
-		//	file.mkdir();
-		//}
-		//
-		//file = new File(ARQUIVO_DAT);
-		//try {
-		//	ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file, false));
-		//	output.writeObject(sistemaArquivo);
-		//	output.close();
-		//} catch (IOException e) {}
-
+//		ArquivoCpc sistemaArquivo = new ArquivoCpc(pessoaController, projetoController);
+//		try {
+//			logger.salvaEstadoSistema(sistemaArquivo);
+//		} catch (LoggingException e) {
+//			throw new CpcException(e, "Erro ao fechar sistema: " + e.getMessage());
+//		}
 	}
 
 	/**
@@ -481,8 +461,7 @@ public class MainController implements Serializable{
 	}
 
 	public void atualizaDespesasProjeto(String cod, double montanteBolsas, double montanteCusteio, double montanteCapital){
-		double montante = projetoController.atualizaDespesasProjeto(cod, montanteBolsas, montanteCusteio, montanteCapital);
-		uasc.addCredito(montante);
+		projetoController.atualizaDespesasProjeto(cod, montanteBolsas, montanteCusteio, montanteCapital);
 	}
 	
 	public double calculaColaboracaoUASC(String cod){
@@ -494,10 +473,14 @@ public class MainController implements Serializable{
 	}
 	
 	public void diminuiReceita(double valor){
-		uasc.addDebito(valor);
+		projetoController.diminuiReceita(valor);
 	}
 	
 	public double calculaTotalEmCaixaUASC(){
-		return uasc.getTotal();
+		return projetoController.calculaTotalEmCaixaUASC();
+	}
+	
+	public void gerarRelatorios() {
+		projetoController.gerarRelatorio();
 	}
 }

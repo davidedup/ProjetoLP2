@@ -2,6 +2,7 @@ package br.edu.ufcg.projetolp2.logging;
 
 import java.util.List;
 
+import br.edu.ufcg.projetolp2.model.UASCGastos;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 import br.edu.ufcg.projetolp2.util.DateUtil;
 import br.edu.ufcg.projetolp2.util.IO;
@@ -36,7 +37,7 @@ public class GeradorRelatorio {
 		return output;
 	}
 	
-	public String geraRelatorioColaboracoes(List<Projeto> projetos) {
+	public String geraRelatorioColaboracoes(List<Projeto> projetos, UASCGastos uasc) {
 		
 		String output = "Historico das colaboracoes:" + IO.NL;
 		double totalColaborado = 0;
@@ -52,7 +53,7 @@ public class GeradorRelatorio {
 		
 		output += String.format("Total acumulado com colaboracoes: R$ %.2f" + IO.NL
 				+ "Total gasto: R$ %.2f" + IO.NL
-				+ "Total em caixa: R$ %.2f", totalColaborado);
+				+ "Total em caixa: R$ %.2f", totalColaborado, uasc.getDebito(), uasc.getTotal());
 		
 		return output;
 	}

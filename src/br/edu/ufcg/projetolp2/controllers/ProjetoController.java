@@ -2,6 +2,7 @@ package br.edu.ufcg.projetolp2.controllers;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -10,8 +11,11 @@ import javax.xml.bind.ValidationException;
 
 import br.edu.ufcg.projetolp2.exceptions.CpcException;
 import br.edu.ufcg.projetolp2.exceptions.FactoryException;
+import br.edu.ufcg.projetolp2.exceptions.LoggingException;
 import br.edu.ufcg.projetolp2.exceptions.ProjetoException;
 import br.edu.ufcg.projetolp2.exceptions.ValidacaoException;
+import br.edu.ufcg.projetolp2.logging.Logger;
+import br.edu.ufcg.projetolp2.model.UASCGastos;
 import br.edu.ufcg.projetolp2.model.participacao.Participacao;
 import br.edu.ufcg.projetolp2.model.projeto.PedFactory;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
@@ -30,11 +34,13 @@ public class ProjetoController implements Serializable{
 	private Map<Integer, Projeto> projetos;
 	private PedFactory pedFactory;
 	private int ultimoCodigo;
+	private UASCGastos uasc;
 
 	public ProjetoController() {
 		ultimoCodigo = 0;
 		projetos = new HashMap<Integer, Projeto>();
 		pedFactory = new PedFactory();
+		uasc = new UASCGastos(0, 0);
 	}
 
 	/**
@@ -357,6 +363,7 @@ public class ProjetoController implements Serializable{
 		try{
 			Projeto projeto = getProjeto(codigo);
 			projeto.atualizaDespesas(montanteBolsas, montanteCusteio, montanteCapital);
+			uasc.addCredito(projeto.calculaColaboracao());
 			return projeto.calculaColaboracao();
 		}catch(ProjetoException | NumberFormatException e){
 			throw new CpcException("Erro na atualizacao de projeto: " + e.getMessage());
@@ -374,5 +381,22 @@ public class ProjetoController implements Serializable{
 			montante += projeto.calculaColaboracao();
 		}
 		return montante;
+	}
+	
+	public void diminuiReceita(double valor){
+		uasc.addDebito(valor);
+	}
+	
+	public double calculaTotalEmCaixaUASC(){
+		return uasc.getTotal();
+	}
+	
+	public void gerarRelatorio() {
+		Logger logger = new Logger();
+		try {
+			logger.salvaRelatorios(new ArrayList<>(projetos.values()), uasc);
+		} catch (LoggingException e) {
+			throw new CpcException("Erro na geracao de relatorios: " + e.getMessage());
+		}
 	}
 }

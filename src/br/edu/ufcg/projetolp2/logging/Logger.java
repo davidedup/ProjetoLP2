@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.edu.ufcg.projetolp2.ArquivoCpc;
 import br.edu.ufcg.projetolp2.exceptions.LoggingException;
+import br.edu.ufcg.projetolp2.model.UASCGastos;
 import br.edu.ufcg.projetolp2.model.projeto.Projeto;
 
 public class Logger {
@@ -30,9 +31,9 @@ public class Logger {
 		}
 	}
 	
-	public void salvaRelatorios(List<Projeto> projetos) throws LoggingException {
+	public void salvaRelatorios(List<Projeto> projetos, UASCGastos uasc) throws LoggingException {
 		GeradorRelatorio rel = new GeradorRelatorio();
-		String relColab = rel.geraRelatorioColaboracoes(projetos);
+		String relColab = rel.geraRelatorioColaboracoes(projetos, uasc);
 		String relProj = rel.geraRelatorioProjetos(projetos);
 		try {
 			writeStringFile(PATH + "relatorios/", "cad_projetos.txt", relProj);
